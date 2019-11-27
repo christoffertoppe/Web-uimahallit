@@ -1,16 +1,19 @@
 <template>
     <div id="mainContainer">
-        <h1>Uimahallit</h1>
         <form>
-            <fieldset>
-                <label>Haku: <input type="text" name="poolSearch"></label>
-                <input type="submit" name="searchButton" value="Hae">
+            <fieldset id="searchSet">
+                <label><input type="text" name="poolSearch" id="nameSearchField"></label>
+                <input type="submit" name="searchByName" value="Hae">
             </fieldset>
+        </form>
+        <form>
             <fieldset id="citySet">
-                <label>Vantaa <input type="checkbox" name="city" value="Vantaa"></label>
-                <label>Helsinki <input type="checkbox" name="city" value="Helsinki"></label>
-                <label>Espoo <input type="checkbox" name="city" value="Espoo"></label>
-                <label>Kauniainen <input type="checkbox" name="city" value="Kauniainen"></label>
+                <label>Kaikki <input type="radio" name="city" value="all"></label>
+                <label>Vantaa <input type="radio" name="city" value="vantaa"></label>
+                <label>Helsinki <input type="radio" name="city" value="helsinki"></label>
+                <label>Espoo <input type="radio" name="city" value="espoo"></label>
+                <label>Kauniainen <input type="radio" name="city" value="kauniainen"></label>
+                <label>Kerava <input type="radio" name="city" value="kerava"></label>
             </fieldset>
         </form>
     </div>
@@ -24,7 +27,14 @@
 
 <style scoped>
 label{
+    display: inline;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+#nameSearchField{
+    max-width: 50%;
+    margin:5px auto 5px auto;
+
 }
 </style>

@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Uimahallit</h1>
     <SearchView/>
     <div id="midContainer">
       <SearchResultView id="searchResultView"/>
