@@ -1,17 +1,24 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <SearchView/>
+    <div id="midContainer">
+      <SearchResultView id="searchResultView"/>
+      <AsideView id="asideView"/>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import SearchView from "./components/SearchView.vue"
+import SearchResultView from "./components/SearchResultView.vue"
+import AsideView from "./components/AsideView.vue";
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    SearchView,
+    SearchResultView,
+    AsideView
   }
 }
 </script>
@@ -24,5 +31,17 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+#midContainer{
+  display: flex;
+  flex-direction: row;
+}
+
+#searchResultView{
+  width: 70%;
+}
+#asideView{
+  width: 30%;
 }
 </style>
