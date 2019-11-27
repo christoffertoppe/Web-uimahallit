@@ -1,10 +1,11 @@
-import {search, searchAll, searchEspoo, searchVantaa, searchHelsinki, searchKerava, searchKauniainen} from './search';
+/*import {search, searchAll, searchEspoo, searchVantaa, searchHelsinki, searchKerava, searchKauniainen} from './search';
 import {removeComment, removeNotification} from './delete';
-import {} from './add';
+import {} from './add';*/
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
+require('dotenv').config();
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -59,8 +60,6 @@ app.delete('/api/comment', function(req, res) {
     let result = removeComment(removeId);
     res.send(result);
 });
-
-
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
