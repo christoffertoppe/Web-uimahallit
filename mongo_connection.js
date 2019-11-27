@@ -2,6 +2,7 @@ var mysql = require('mysql');
 var express = require('express');
 var app = express();
 var mongo = require('mongodb');
+require('dotenv').config();
 
 const MongoClient = mongo.MongoClient;
 
@@ -53,13 +54,13 @@ async function deleteListingByName(client, numberOfListing){
 }
 
 async function main() {
-  const uri = 'mongodb+srv://<USER>:<PASSWORD>@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
+  const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
   const client = new MongoClient(uri,
       {useNewUrlParser: true, useUnifiedTopology: true});
   try {
     await client.connect();
-    await listDatabases(client);
-    //await findOAllListings(client);
+    //await listDatabases(client);
+    await findOAllListings(client);
     //await findOneListingByName(client, "Haagan uimahalli");
     //await deleteListingByName(client, 3);
     /*await updateListingByName(client, "Haagan uimahalli", {
