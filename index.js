@@ -1,6 +1,6 @@
 import {search, searchAll, searchEspoo, searchVantaa, searchHelsinki, searchKerava, searchKauniainen} from './search';
 import {removeComment, removeNotification} from './delete';
-import {} from './add';
+import {addComment, addNotification} from './add';
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -8,13 +8,6 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 
-/*
-app.get('/', (req, res) => {
-    res.send(
-        'Behold The MEVN Stack!'
-    );
-});
-*/
 app.get('/api/location/all', function(req, res) {
     let result = searchAll(req);
     res.send(result);
@@ -45,7 +38,6 @@ app.get('/api/location/kerava', function(req, res) {
     res.send(result);
 });
 
-
 app.get('/api/location', function(req, res) {
     let string = req.url.split('=');
     let searchWord = string[1];
@@ -60,7 +52,26 @@ app.delete('/api/comment', function(req, res) {
     res.send(result);
 });
 
+app.delete('/api/notification', function(req, res) {
+    let string = req.url.split('=');
+    let removeId = string[1];
+    let result = removeNotification(removeId);
+    res.send(result);
+});
 
+app.post('/api/notification', function(req, res) {
+    let string = req.url.split('=');
+    let addMsg = string[1];
+    let result = addNotification(addMsg);
+    res.send(result);
+});
+
+app.post('/api/comment', function(req, res) {
+    let string = req.url.split('=');
+    let addMsg = string[1];
+    let result = addComment(addMsg);
+    res.send(result);
+});
 
 const port = process.env.PORT || 4000;
 app.listen(port, () => {
