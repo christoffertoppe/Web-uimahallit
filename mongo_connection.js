@@ -20,9 +20,45 @@ async function createListing(client, newListing) {
       `New swimhall created with the following id: ${result.insertedId}`);
 }
 
+
 //READALL
 async function findOAllListings(client) {
   const cursor = await client.db('swim_halls').collection('halls_capital_area').find();
+  const result = await cursor.toArray();
+  console.log(result);
+}
+
+//READCITY
+async function findByCity(client) {
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({kaupunki: "Helsinki"});
+  const result = await cursor.toArray();
+  console.log(result);
+}
+
+//READOPTIONS (AND)
+async function findByAnd(client) {
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({kaupunki: "Helsinki", hinta:5});
+  const result = await cursor.toArray();
+  console.log(result);
+}
+
+//READOPTIONS (OR)
+async function findByOr(client) {
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({ $or: [ {kaupunki: "Helsinki"}, {hinta:5.5}]});
+  const result = await cursor.toArray();
+  console.log(result);
+}
+
+//READWITHLIST
+async function findByList(client) {
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({hinta: { $in: [6.7, 5.5]}});
+  const result = await cursor.toArray();
+  console.log(result);
+}
+
+//READLIMITS (for example, find with alehinta <= 2.9)
+async function findByLimits(client){
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({alehinta: {$lte: 2.9}});
   const result = await cursor.toArray();
   console.log(result);
 }
@@ -59,38 +95,35 @@ async function main() {
       {useNewUrlParser: true, useUnifiedTopology: true});
   try {
     await client.connect();
+    await findByList(client);
+    //await findByLimits(client);
+    //await findByCity(client);
     //await listDatabases(client);
-    await findOAllListings(client);
+    //await findOAllListings(client);
     //await findOneListingByName(client, "Haagan uimahalli");
-    //await deleteListingByName(client, 3);
-    /*await updateListingByName(client, "Haagan uimahalli", {
-      aika: [
-            'kiinni',
-            'kiinni',
-            '16.00-20.00',
-            '16.00-20.00',
-            '16.00-20.00',
-            '9.00–15.00',
-            '9.00–15.00'],
+    //await deleteListingByName(client, 2);
+    /*await updateListingByName(client, "Mäkelänrinteen uimahalli", {
+      kaupunki: "Helsinki"
     });
     await createListing(client,
         {
           _id: 3,
-          nimi: 'BLAABLAA uimahalli',
+          nimi: 'Leppävaaran uimahalli',
           ratapituus: 25,
-          //ratamäärä: ,
-          puhelin: "0947741827",
+          ratamäärä: 8,
+          puhelin: "0981657570",
           aika: [
-            'kiinni',
-            'kiinni',
-            '16.00-20.00',
-            '16.00-20.00',
-            '16.00-20.00',
-            '9.00–15.00',
-            '9.00–15.00'],
-          hinta: 5.0,
-          alehinta: 2.5,
-          osoite: 'Isonnevantie 8, 00320 Helsinki',
+            '7.00-20.00',
+            '6.00-20.00',
+            '10.00-20.00',
+            '6.00-20.00',
+            '7.00-20.00',
+            '9.00–19.00',
+            '9.00–19.00'],
+          hinta: 5.5,
+          alehinta: 3.0,
+          osoite: 'Veräjäpellonkatu 15, 02650 Espoo',
+          kaupunki: "Espoo"
         },
     );*/
   } catch (e) {
