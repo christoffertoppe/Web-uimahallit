@@ -62,6 +62,11 @@
 
 <style scoped>
 label{
+    margin: 0;
+    padding: 0;
+}
+
+#citySet > label{
     display: inline;
     margin-left: 10px;
     margin-right: 10px;
