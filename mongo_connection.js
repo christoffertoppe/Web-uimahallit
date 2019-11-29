@@ -124,17 +124,17 @@ async function main() {
       {useNewUrlParser: true, useUnifiedTopology: true});
   try {
     await client.connect();
-    await findByList(client);
+    //await findByList(client);
     //await findByLimits(client);
     //await findByCity(client);
     //await listDatabases(client);
-    //await findAllListings(client);
+    await findAllListings(client);
     //await findValue(client);
     //await findOneListingByName(client, "Haagan uimahalli");
     //await deleteListingByName(client, 2);
     //await updateManyListings(client);
     //await deleteField(client, 4);
-    //await updateField(client, 4,"Kauheeeta paskannussintaa");
+    //await updateField(client, 4,"");
     /*await updateListingByName(client, "Mäkelänrinteen uimahalli", {
           ratamäärä:8
     });
