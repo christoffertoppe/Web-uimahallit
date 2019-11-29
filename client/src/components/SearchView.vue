@@ -8,12 +8,12 @@
         </form>
         <form>
             <fieldset id="citySet">
-                <label>Kaikki <input type="radio" name="city" value="all"></label>
-                <label>Vantaa <input type="radio" name="city" value="vantaa"></label>
-                <label>Helsinki <input type="radio" name="city" value="helsinki"></label>
-                <label>Espoo <input type="radio" name="city" value="espoo"></label>
-                <label>Kauniainen <input type="radio" name="city" value="kauniainen"></label>
-                <label>Kerava <input type="radio" name="city" value="kerava"></label>
+                <label>Kaikki <input v-on:click="search" type="radio" name="city" value="all"></label>
+                <label>Vantaa <input v-on:click="search" type="radio" name="city" value="vantaa"></label>
+                <label>Helsinki <input v-on:click="search" type="radio" name="city" value="helsinki"></label>
+                <label>Espoo <input v-on:click="search" type="radio" name="city" value="espoo"></label>
+                <label>Kauniainen <input v-on:click="search" type="radio" name="city" value="kauniainen"></label>
+                <label>Kerava <input v-on:click="search" type="radio" name="city" value="kerava"></label>
             </fieldset>
         </form>
     </div>
@@ -21,7 +21,23 @@
 
 <script>
     export default {
-        name: "SearchView"
+        name: "SearchView",
+      methods:{
+        search: function(event) {
+            let city = event.target.getAttribute("value");
+            console.log(city);
+
+            /*
+            let url = "http://localhost:4000/location/" + city;
+                fetch(url).then(function(res) {
+                return res.json();
+            }).then(function(data){
+
+            }).catch(function(error) {
+                console.error(error);
+            });*/
+        }
+      }
     }
 </script>
 
