@@ -8,12 +8,12 @@
         </form>
         <form>
             <fieldset id="citySet">
-                <label>Kaikki <input v-on:click="search" type="radio" name="city" value="all"></label>
-                <label>Vantaa <input v-on:click="search" type="radio" name="city" value="vantaa"></label>
-                <label>Helsinki <input v-on:click="search" type="radio" name="city" value="helsinki"></label>
-                <label>Espoo <input v-on:click="search" type="radio" name="city" value="espoo"></label>
-                <label>Kauniainen <input v-on:click="search" type="radio" name="city" value="kauniainen"></label>
-                <label>Kerava <input v-on:click="search" type="radio" name="city" value="kerava"></label>
+                <label>Kaikki <input v-on:click="searchByCity" type="radio" name="city" value="all"></label>
+                <label>Vantaa <input v-on:click="searchByCity" type="radio" name="city" value="vantaa"></label>
+                <label>Helsinki <input v-on:click="searchByCity" type="radio" name="city" value="helsinki"></label>
+                <label>Espoo <input v-on:click="searchByCity" type="radio" name="city" value="espoo"></label>
+                <label>Kauniainen <input v-on:click="searchByCity" type="radio" name="city" value="kauniainen"></label>
+                <label>Kerava <input v-on:click="searchByCity" type="radio" name="city" value="kerava"></label>
             </fieldset>
         </form>
     </div>
@@ -28,12 +28,12 @@
             }
         },
         methods:{
-            search: function(event) {
+            searchByCity: function(event) {
                 let city = event.target.getAttribute("value");
                 console.log(city);
 
                 /*
-                let url = "http://localhost:4000/location/" + city;
+                let url = "http://localhost:4000/api/location/" + city;
                     fetch(url).then(function(res) {
                     return res.json();
                 }).then(function(data){
@@ -46,7 +46,7 @@
                 console.log(this.locationName);
 
                 /*
-                let url = "http://localhost:4000/location?name=" + this.locationName;
+                let url = "http://localhost:4000/api/location?name=" + this.locationName;
                     fetch(url).then(function(res) {
                     return res.json();
                 }).then(function(data){
