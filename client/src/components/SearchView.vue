@@ -1,8 +1,8 @@
 <template>
     <div id="mainContainer">
-        <form>
+        <form v-on:submit.prevent="searchByName">
             <fieldset id="searchSet">
-                <label><input type="text" name="poolSearch" id="nameSearchField"></label>
+                <label><input v-model="locationName" type="text" name="poolSearch" id="nameSearchField"></label>
                 <input type="submit" name="searchByName" value="Hae">
             </fieldset>
         </form>
@@ -22,22 +22,41 @@
 <script>
     export default {
         name: "SearchView",
-      methods:{
-        search: function(event) {
-            let city = event.target.getAttribute("value");
-            console.log(city);
+        data: function (){
+            return{
+                locationName:""
+            }
+        },
+        methods:{
+            search: function(event) {
+                let city = event.target.getAttribute("value");
+                console.log(city);
 
-            /*
-            let url = "http://localhost:4000/location/" + city;
-                fetch(url).then(function(res) {
-                return res.json();
-            }).then(function(data){
+                /*
+                let url = "http://localhost:4000/location/" + city;
+                    fetch(url).then(function(res) {
+                    return res.json();
+                }).then(function(data){
 
-            }).catch(function(error) {
-                console.error(error);
-            });*/
+                }).catch(function(error) {
+                    console.error(error);
+                });*/
+            },
+            searchByName: function(){
+                console.log(this.locationName);
+
+                /*
+                let url = "http://localhost:4000/location?name=" + this.locationName;
+                    fetch(url).then(function(res) {
+                    return res.json();
+                }).then(function(data){
+
+                }).catch(function(error) {
+                    console.error(error);
+                });*/
+
+            }
         }
-      }
     }
 </script>
 
