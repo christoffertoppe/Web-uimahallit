@@ -1,6 +1,11 @@
+/*
 import {search, searchAll, searchEspoo, searchVantaa, searchHelsinki, searchKerava, searchKauniainen} from './search';
 import {removeComment, removeNotification} from './delete';
 import {addComment, addNotification} from './add';
+*/
+const Search = require('./search');
+const search = new Search();
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -10,7 +15,7 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.get('/api/location/all', function(req, res) {
-    let result = searchAll(req);
+    let result = search.searchAll();
     res.send(result);
 });
 
@@ -75,7 +80,9 @@ app.post('/api/comment', function(req, res) {
   res.send(result);
 });
 
-const port = process.env.PORT || 4000;
-app.listen(port, () => {
-    console.log(`listening on ${port}`);
+
+var server = app.listen(8080, function() {
+  var host = server.address().address;
+  var port = server.address().port;
+  console.log('Example app listening at http://%s:%s', host, port);
 });
