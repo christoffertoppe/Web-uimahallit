@@ -1,19 +1,19 @@
 <template>
     <div id="mainContainer">
-        <form>
+        <form v-on:submit.prevent="searchByName">
             <fieldset id="searchSet">
-                <label><input type="text" name="poolSearch" id="nameSearchField"></label>
+                <label><input v-model="locationName" type="text" name="poolSearch" id="nameSearchField"></label>
                 <input type="submit" name="searchByName" value="Hae">
             </fieldset>
         </form>
         <form>
             <fieldset id="citySet">
-                <label>Kaikki <input type="radio" name="city" value="all"></label>
-                <label>Vantaa <input type="radio" name="city" value="vantaa"></label>
-                <label>Helsinki <input type="radio" name="city" value="helsinki"></label>
-                <label>Espoo <input type="radio" name="city" value="espoo"></label>
-                <label>Kauniainen <input type="radio" name="city" value="kauniainen"></label>
-                <label>Kerava <input type="radio" name="city" value="kerava"></label>
+                <label>Kaikki <input v-on:click="search" type="radio" name="city" value="all"></label>
+                <label>Vantaa <input v-on:click="search" type="radio" name="city" value="vantaa"></label>
+                <label>Helsinki <input v-on:click="search" type="radio" name="city" value="helsinki"></label>
+                <label>Espoo <input v-on:click="search" type="radio" name="city" value="espoo"></label>
+                <label>Kauniainen <input v-on:click="search" type="radio" name="city" value="kauniainen"></label>
+                <label>Kerava <input v-on:click="search" type="radio" name="city" value="kerava"></label>
             </fieldset>
         </form>
     </div>
@@ -21,7 +21,42 @@
 
 <script>
     export default {
-        name: "SearchView"
+        name: "SearchView",
+        data: function (){
+            return{
+                locationName:""
+            }
+        },
+        methods:{
+            search: function(event) {
+                let city = event.target.getAttribute("value");
+                console.log(city);
+
+                /*
+                let url = "http://localhost:4000/location/" + city;
+                    fetch(url).then(function(res) {
+                    return res.json();
+                }).then(function(data){
+
+                }).catch(function(error) {
+                    console.error(error);
+                });*/
+            },
+            searchByName: function(){
+                console.log(this.locationName);
+
+                /*
+                let url = "http://localhost:4000/location?name=" + this.locationName;
+                    fetch(url).then(function(res) {
+                    return res.json();
+                }).then(function(data){
+
+                }).catch(function(error) {
+                    console.error(error);
+                });*/
+
+            }
+        }
     }
 </script>
 
