@@ -20,7 +20,6 @@ class Search {
     try {
       await client.connect();
       let result = await findAllListings(client);
-      console.log(result);
       return(result);
     } catch (e) {
       console.error(e);
@@ -31,6 +30,7 @@ class Search {
     async function findAllListings(client) {
       const cursor = await client.db('swim_halls').collection('halls_capital_area').find();
       const result = await cursor.toArray();
+      console.log(result);
       return(result);
     }
   }

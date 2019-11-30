@@ -14,14 +14,17 @@ require('dotenv').config();
 app.use(cors());
 app.use(bodyParser.json());
 
-app.get('/api/location/all', function(req, res) {
-    let result = search.searchAll();
-    res.send(result);
+app.get('/api/location/all', async function(req, res) {
+    let result = await search.searchAll();
+    let json = JSON.stringify(result);
+    res.send(json);
+
 });
 
 app.get('/api/location/vantaa', function(req, res) {
     let result = searchVantaa(req);
-    res.send(result);
+
+    res.send(json);
 });
 
 app.get('/api/location/espoo', function(req, res) {
