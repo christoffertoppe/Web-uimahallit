@@ -7,7 +7,7 @@ const client = new MongoClient(uri,
     {useNewUrlParser: true, useUnifiedTopology: true});
 
 class Search {
-
+// search will search for the given city in the address.
   async search(req) {
     try {
       await client.connect();
@@ -25,9 +25,8 @@ class Search {
       return result;
     }
   }
-
+// searchAll will return all the data stored on the database.
   async searchAll() {
-
     try {
       await client.connect();
       let result = await findAllListings(client);
