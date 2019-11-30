@@ -2,13 +2,12 @@ var mongo = require('mongodb');
 require('dotenv').config();
 const MongoClient = mongo.MongoClient;
 
-const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
-const client = new MongoClient(uri,
-    {useNewUrlParser: true, useUnifiedTopology: true});
-
 class Search {
 // search will search for the given city in the address.
   async search(req) {
+    const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
+    const client = new MongoClient(uri,
+        {useNewUrlParser: true, useUnifiedTopology: true});
     try {
       await client.connect();
       let result = await findByCity(client, req);
@@ -27,6 +26,9 @@ class Search {
   }
 // searchAll will return all the data stored on the database.
   async searchAll() {
+    const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
+    const client = new MongoClient(uri,
+        {useNewUrlParser: true, useUnifiedTopology: true});
     try {
       await client.connect();
       let result = await findAllListings(client);
