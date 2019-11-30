@@ -20,7 +20,7 @@ app.get('/api/location/all', async function(req, res) {
     res.send(json);
 
 });
-
+/*
 app.get('/api/location/vantaa', function(req, res) {
     let result = searchVantaa(req);
 
@@ -46,13 +46,14 @@ app.get('/api/location/kerava', function(req, res) {
     let result = searchKerava(req);
     res.send(result);
 });
+*/
 
-
-app.get('/api/location', function(req, res) {
+app.get('/api/location/city',async function(req, res) {
     let string = req.url.split('=');
     let searchWord = string[1];
-    let result = search(searchWord);
-    res.send(result);
+    let result = await search.search(searchWord);
+    let json = JSON.stringify(result);
+    res.send(json);
 });
 
 app.delete('/api/comment', function(req, res) {

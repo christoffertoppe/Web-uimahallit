@@ -9,10 +9,21 @@ const client = new MongoClient(uri,
 class Search {
 
   async search(req) {
-    let string = req.url.split('=');
-    let location = string[1];
+    try {
+      await client.connect();
+      let result = await findByCity(client, req);
+      return(result);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await client.close();
+    }
 
-    return result;
+    async function findByCity(client) {
+      const cursor = await client.db('swim_halls').collection('halls_capital_area').find({kaupunki: req});
+      const result = await cursor.toArray();
+      return result;
+    }
   }
 
   async searchAll() {
@@ -46,6 +57,20 @@ class Search {
 
 async searchHelsinki(search) {
 
+  try {
+    await client.connect();
+    let result = findByCity();
+    return(result);
+  } catch (e) {
+    console.error(e);
+  } finally {
+    await client.close();
+  }
+  async function findByCity(client) {
+    const cursor = await client.db('swim_halls').collection('halls_capital_area').find({kaupunki: "Helsinki"});
+    const result = await cursor.toArray();
+    console.log(result);
+  }
     return result;
   }
 
