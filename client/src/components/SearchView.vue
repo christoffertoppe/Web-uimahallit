@@ -8,12 +8,12 @@
         </form>
         <form>
             <fieldset id="citySet">
-                <label>Kaikki <input v-on:click="searchByCity" type="radio" name="city" value="all"></label>
-                <label>Vantaa <input v-on:click="searchByCity" type="radio" name="city" value="vantaa"></label>
-                <label>Helsinki <input v-on:click="searchByCity" type="radio" name="city" value="helsinki"></label>
-                <label>Espoo <input v-on:click="searchByCity" type="radio" name="city" value="espoo"></label>
-                <label>Kauniainen <input v-on:click="searchByCity" type="radio" name="city" value="kauniainen"></label>
-                <label>Kerava <input v-on:click="searchByCity" type="radio" name="city" value="kerava"></label>
+                <label>Kaikki <input v-on:click="searchAll" type="radio" name="city" value="All"></label>
+                <label>Vantaa <input v-on:click="searchByCity" type="radio" name="city" value="Vantaa"></label>
+                <label>Helsinki <input v-on:click="searchByCity" type="radio" name="city" value="Helsinki"></label>
+                <label>Espoo <input v-on:click="searchByCity" type="radio" name="city" value="Espoo"></label>
+                <label>Kauniainen <input v-on:click="searchByCity" type="radio" name="city" value="Kauniainen"></label>
+                <label>Kerava <input v-on:click="searchByCity" type="radio" name="city" value="Kerava"></label>
             </fieldset>
         </form>
     </div>
@@ -22,31 +22,44 @@
 <script>
     export default {
         name: "SearchView",
+        props:{
+        },
         data: function (){
             return{
-                locationName:""
+                locationName:"",
+                searchResult:[]
             }
         },
         methods:{
+            searchAll: function(){
+                let url = "http://localhost:8080/api/location/all";
+
+                fetch(url).then(res => res.json())
+                    .then(data => (this.searchResult = data))
+                    .catch(function(error) {
+                    console.error(error);
+                });
+            },
             searchByCity: function(event) {
                 let city = event.target.getAttribute("value");
                 console.log(city);
 
-                /*
-                let url = "http://localhost:4000/api/location/" + city;
+
+                let url = "http://localhost:8080/api/location?name=" + city;
                     fetch(url).then(function(res) {
                     return res.json();
                 }).then(function(data){
+                    console.log(JSON.stringify(data));
 
                 }).catch(function(error) {
                     console.error(error);
-                });*/
+                });
             },
             searchByName: function(){
                 console.log(this.locationName);
 
                 /*
-                let url = "http://localhost:4000/api/location?name=" + this.locationName;
+                let url = "http://localhost:8080/api/location?name=" + this.locationName;
                     fetch(url).then(function(res) {
                     return res.json();
                 }).then(function(data){
@@ -55,6 +68,11 @@
                     console.error(error);
                 });*/
 
+            }
+        },
+        watch:{
+            searchResult: function () {
+                this.$emit("searchResultFromFetch", this.searchResult);
             }
         }
     }

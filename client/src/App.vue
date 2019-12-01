@@ -1,9 +1,9 @@
 <template>
   <div id="app">
     <h1>Uimahallit</h1>
-    <SearchView/>
+    <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
-      <SearchResultView id="searchResultView"/>
+      <SearchResultView id="searchResultView" :searchResult="searchResult"/>
       <AsideView id="asideView"/>
     </div>
   </div>
@@ -20,6 +20,16 @@ export default {
     SearchView,
     SearchResultView,
     AsideView
+  },
+  data: function(){
+    return{
+      searchResult: []
+    };
+  },
+  methods:{
+    updateSearchResult(data){
+      this.searchResult = data;
+    }
   }
 }
 </script>
