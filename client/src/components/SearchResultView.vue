@@ -2,10 +2,10 @@
     <div id="mainContainer">
         <h2>Haun tulokset:</h2>
         <ul id="searchResultList">
-            <li v-for="(pool, index) in searchResult" :key="pool.id" class="pool" v-on:click="updatePoolIndex(index)">
-                <h4 class="poolName">{{pool.nimi}}</h4>
-                <ul id="poolInfoList" v-if="poolIndex === index">
-                    <li>
+            <li v-for="(pool, index) in searchResult" :key="pool.id" class="pool">
+                <h4 class="poolName" @click="helper(index)">{{pool.nimi}}</h4>
+                <ul class="poolInfoList" v-if="poolIndex === index">
+                    <li class="openingHoursItem">
                         <h5>Aukioloajat:</h5>
                         <ul id="openingHours">
                             <li v-for="(hours, index) in pool.aika" :key="hours.id">{{weekdays[index]}}: {{hours}}</li>
@@ -43,12 +43,24 @@
                 }else {
                     this.poolIndex = index;
                 }
+            },
+            sendComments: function(index){
+                this.$emit("commentsFromResult", this.searchResult[index].kommentit, this.poolIndex);
+            },
+            helper:function(index){
+                this.updatePoolIndex(index);
+                this.sendComments(index);
             }
         }
     }
 </script>
 
 <style scoped>
+
+h4, h5{
+    margin: 0;
+    padding: 0;
+}
 ul{
     list-style-type: none;
     padding: 0;
@@ -61,5 +73,9 @@ li{
 .pool{
     display: flex;
     flex-direction: column;
+}
+.poolName:hover{
+    background: black;
+    color: white;
 }
 </style>

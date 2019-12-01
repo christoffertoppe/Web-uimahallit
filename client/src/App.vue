@@ -3,8 +3,8 @@
     <h1>Uimahallit</h1>
     <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
-      <SearchResultView id="searchResultView" :searchResult="searchResult"/>
-      <AsideView id="asideView"/>
+      <SearchResultView id="searchResultView" :searchResult="searchResult" @commentsFromResult="updateComments"/>
+      <AsideView id="asideView" :comments="comments" :poolVisible="poolVisible" />
     </div>
   </div>
 </template>
@@ -23,12 +23,19 @@ export default {
   },
   data: function(){
     return{
-      searchResult: []
+      searchResult: [],
+      comments: [],
+      poolVisible: false
     };
   },
   methods:{
     updateSearchResult(data){
       this.searchResult = data;
+    },
+    updateComments(comments, poolIndex){
+      this.comments = comments;
+      this.poolVisible = poolIndex !== -1;
+      //console.log(this.poolVisible);
     }
   }
 }
@@ -50,9 +57,9 @@ export default {
 }
 
 #searchResultView{
-  width: 70%;
+  width: 75%;
 }
 #asideView{
-  width: 30%;
+  width: 25%;
 }
 </style>

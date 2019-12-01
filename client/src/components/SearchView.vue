@@ -3,7 +3,7 @@
         <form v-on:submit.prevent="searchByName">
             <fieldset id="searchSet">
                 <label><input v-model="locationName" type="text" name="poolSearch" id="nameSearchField"></label>
-                <input type="submit" name="searchByName" value="Hae">
+                <input id="searchByNameButton" type="submit" name="searchByName" value="Hae">
             </fieldset>
         </form>
         <form>
@@ -83,7 +83,9 @@ label{
     margin: 0;
     padding: 0;
 }
-
+fieldset {
+    margin: 0;
+}
 #citySet > label{
     display: inline;
     margin-left: 10px;
@@ -91,8 +93,11 @@ label{
 }
 
 #nameSearchField{
-    max-width: 50%;
+    width: auto;
     margin:5px auto 5px auto;
+}
 
+#searchByNameButton{
+margin: 0;
 }
 </style>
