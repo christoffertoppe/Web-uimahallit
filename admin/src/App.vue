@@ -6,15 +6,9 @@
         Poista ilmoitus numero:
         <input><br><br>
 
-        <div>
             <comment-view id="commentView"/>
-        </div>
-        <div>
-            <add-view :swimhalls="swimhalls" />
-        </div>
-      <div>
+            <add-view :swimhalls="swimhalls"  @add:swimhall="addSwimhall"></add-view>
         <notification-view id="notificationView"/>
-      </div>
     </div>
 
 </template>
@@ -50,9 +44,24 @@
         } catch (error) {
           console.error(error);
         }
+      },
+
+      async addSwimhall(swimhall) {
+        try {
+          const response = await fetch('http://localhost:8080/api/add', {
+            method: 'POST',
+            body: JSON.stringify(swimhall),
+            headers: {'Content-type': 'application/json; charset=UTF-8'},
+          })
+          const data = await response.json()
+          this.swimhalls = [...this.swimhalls, data];
+          console.log("Uimahalli lisätty!");
+        } catch (error) {
+          console.error(error);
+        }
       }
-    },
-  };
+    }
+  }
 </script>
 
 <style>
