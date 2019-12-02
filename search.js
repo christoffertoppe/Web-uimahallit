@@ -2,15 +2,16 @@ var mongo = require('mongodb');
 require('dotenv').config();
 const MongoClient = mongo.MongoClient;
 
+
 class Search {
 
-  async search(req) {
+  async search(keyword) {
     const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
     const client = new MongoClient(uri,
         {useNewUrlParser: true, useUnifiedTopology: true});
     try {
       await client.connect();
-      let result = await findByWord(client, req);
+      let result = await findByWord(client, keyword);
       return(result);
     } catch (e) {
       console.error(e);
@@ -18,8 +19,8 @@ class Search {
       await client.close();
     }
 
-    async function findByWord(client, req) {
-      const cursor = await client.db('swim_halls').collection('halls_capital_area').find({nimi: /req/i});
+    async function findByWord(client, keyword) {
+      const cursor = await client.db('swim_halls').collection('halls_capital_area').find({nimi: new RegExp(".*"+keyword+".*", "i")});
       const result = await cursor.toArray();
       return result;
     }
