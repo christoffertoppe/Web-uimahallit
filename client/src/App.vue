@@ -1,10 +1,10 @@
 <template>
   <div id="app">
     <h1>Uimahallit</h1>
-    <SearchView/>
+    <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
-      <SearchResultView id="searchResultView"/>
-      <AsideView id="asideView"/>
+      <SearchResultView id="searchResultView" :searchResult="searchResult" :cities="cities" @commentsFromResult="updateComments"/>
+      <AsideView id="asideView" :comments="comments" :poolVisible="poolVisible" />
     </div>
   </div>
 </template>
@@ -20,6 +20,24 @@ export default {
     SearchView,
     SearchResultView,
     AsideView
+  },
+  data: function(){
+    return{
+      searchResult: [],
+      cities: [],
+      comments: [],
+      poolVisible: false
+    };
+  },
+  methods:{
+    updateSearchResult(data, cities){
+      this.searchResult = data;
+      this.cities = cities;
+    },
+    updateComments(comments, poolIndex){
+      this.comments = comments;
+      this.poolVisible = poolIndex !== -1;
+    }
   }
 }
 </script>
@@ -40,9 +58,21 @@ export default {
 }
 
 #searchResultView{
-  width: 70%;
+  width: 75%;
 }
 #asideView{
-  width: 30%;
+  width: 25%;
+}
+
+@media screen and (max-width: 820px){
+  #midContainer{
+    flex-direction: column;
+  }
+  #searchResultView{
+    width: 100%;
+  }
+  #asideView{
+    width: 100%;
+  }
 }
 </style>
