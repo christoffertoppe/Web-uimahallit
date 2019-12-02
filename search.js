@@ -5,6 +5,10 @@ const MongoClient = mongo.MongoClient;
 class Search {
 // search will search for the given city in the address.
   async search(req) {
+
+  }
+
+  async searchCity(req) {
     const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
     const client = new MongoClient(uri,
         {useNewUrlParser: true, useUnifiedTopology: true});

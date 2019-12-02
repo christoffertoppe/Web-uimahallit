@@ -20,38 +20,19 @@ app.get('/api/location/all', async function(req, res) {
     res.send(json);
 
 });
-/*
-app.get('/api/location/vantaa', function(req, res) {
-    let result = searchVantaa(req);
 
-    res.send(json);
+app.get('/api/location', async function(req, res) {
+  let result = await search.search();
+  let json = JSON.stringify(result);
+  res.send(json);
+
 });
 
-app.get('/api/location/espoo', function(req, res) {
-    let result = searchEspoo(req);
-    res.send(result);
-});
-
-app.get('/api/location/helsinki', function(req, res) {
-    let result = searchHelsinki(req);
-    res.send(result);
-});
-
-app.get('/api/location/kauniainen', function(req, res) {
-    let result = searchKauniainen(req);
-    res.send(result);
-});
-
-app.get('/api/location/kerava', function(req, res) {
-    let result = searchKerava(req);
-    res.send(result);
-});
-*/
 
 app.get('/api/location/city',async function(req, res) {
     let string = req.url.split('=');
     let searchWord = string[1];
-    let result = await search.search(searchWord);
+    let result = await search.searchCity(searchWord);
     let json = JSON.stringify(result);
     res.send(json);
 });
