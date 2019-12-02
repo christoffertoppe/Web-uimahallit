@@ -1,32 +1,6 @@
 <template>
     <div id="mainContainer">
         <h2>Haun tulokset:</h2>
-        <!--
-        <ul>
-            <li v-for="city in cities" :key="city" :currentCity="city">
-                <h3>{{city}}</h3>
-                <ul id="searchResultList">
-                    <li v-for="(pool, index) in searchResult" :key="pool._id" class="pool">
-                        <h4 class="poolName" @click="helper(index)">{{pool.nimi}}</h4>
-                        <ul class="poolInfoList" v-if="poolIndex === index">
-                            <li class="openingHoursItem">
-                                <h5>Aukioloajat:</h5>
-                                <ul id="openingHours">
-                                    <li v-for="(hours, index) in pool.aika" :key="hours.id">{{weekdays[index]}}: {{hours}}</li>
-                                </ul>
-                            </li>
-                            <li>Ratapituus: {{pool.ratapituus}} m</li>
-                            <li v-if="pool.ratamäärä > 0">Ratojen määrä: {{pool.ratamäärä}}</li>
-                            <li>Hinta: {{pool.hinta}} €</li>
-                            <li>Alehinta: {{pool.alehinta}} €</li>
-                            <li>Kaupunki: {{pool.kaupunki}}</li>
-                            <li>Osoite: {{pool.osoite}}</li>
-                            <li>Puhelin: {{pool.puhelin}}</li>
-                        </ul>
-                    </li>
-                </ul>
-            </li>
-        </ul> -->
         <ul>
             <li v-for="(city, name) in searchResult" :key="name"><h3>{{name}}</h3>
                 <ul>

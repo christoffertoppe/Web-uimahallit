@@ -75,14 +75,8 @@
         },
         watch:{
             searchResult: function () {
-                /*this.cities = [];
-
-                for(let i = 0; i < this.searchResult.length; i++) {
-                    if (!this.cities.includes(this.searchResult[i].kaupunki)) this.cities.push(this.searchResult[i].kaupunki);
-                }*/
                 this.searchResultGrouped = _.groupBy(this.searchResult, "kaupunki");
                 console.log(this.searchResultGrouped);
-                //this.$emit("searchResultFromFetch", this.searchResult, this.cities);
                 this.$emit("searchResultFromFetch", this.searchResultGrouped);
             }
         }

@@ -32,6 +32,25 @@
             sendComment: function () {
                 console.log(this.userComment);
 
+                let url = "http://localhost:8080/api/comment";
+                const data = {
+                    id: 2,
+                    comment: this.userComment
+                };
+                const options = {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                };
+
+                fetch(url, options)
+                    .then(res => res.json())
+                    .then(data => (console.log(data)))
+                    .catch(function(error) {
+                        console.error(error);
+                    });
                 /*let url = "http://localhost:8080/api/comment";
 
                 fetch(url, {
