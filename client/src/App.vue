@@ -62,4 +62,16 @@ export default {
 #asideView{
   width: 25%;
 }
+
+@media screen and (max-width: 820px){
+  #midContainer{
+    flex-direction: column;
+  }
+  #searchResultView{
+    width: 100%;
+  }
+  #asideView{
+    width: 100%;
+  }
+}
 </style>

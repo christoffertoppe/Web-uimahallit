@@ -70,12 +70,17 @@ li{
     padding: 0;
     width: auto;
 }
+
 .pool{
     display: flex;
     flex-direction: column;
 }
+.poolName{
+    border-radius: 10px;
+}
 .poolName:hover{
-    background: black;
+    background: #0366EE;
     color: white;
+    cursor: pointer;
 }
 </style>

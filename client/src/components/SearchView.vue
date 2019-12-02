@@ -87,9 +87,12 @@ fieldset {
     margin: 0;
 }
 #citySet > label{
-    display: inline;
-    margin-left: 10px;
-    margin-right: 10px;
+    float: left;
+    width: 16.66666666%;
+}
+#citySet{
+    display: table;
+    align-content: center;
 }
 
 #nameSearchField{
@@ -99,5 +102,12 @@ fieldset {
 
 #searchByNameButton{
 margin: 0;
+}
+
+@media screen and (max-width: 660px){
+    #citySet > label{
+        float: none;
+        width: 100%;
+    }
 }
 </style>
