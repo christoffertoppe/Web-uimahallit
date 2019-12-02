@@ -1,8 +1,8 @@
 <template>
     <div id="mainContainer">
-        <h3 v-if="poolVisible">Kommenttiosio</h3>
+        <h3 v-if="showComments">Kommenttiosio</h3>
         <h3 v-else>Sivuelementti</h3>
-        <div id="commentContainer">
+        <div id="commentContainer" v-if="showComments">
             <ul id="commentList">
                 <li v-for="(comment, index) in pool.kommentit" :key=index class="comment">{{comment}}</li>
             </ul>
@@ -19,8 +19,7 @@
     export default {
         name: "AsideView",
         props: {
-            comments: Array,
-            poolVisible: Boolean,
+            showComments: Boolean,
             pool: Object
         },
         data: function(){
@@ -33,7 +32,7 @@
             sendComment: function () {
                 console.log(this.userComment);
 
-                let url = "http://localhost:8080/api/comment";
+                /*let url = "http://localhost:8080/api/comment";
 
                 fetch(url, {
                     method: "POST",
@@ -51,7 +50,7 @@
                 }).catch(function(error) {
                     console.error(error);
                 });
-
+*/
             }
         }
     }

@@ -28,7 +28,7 @@
             </li>
         </ul> -->
         <ul>
-            <li v-for="(city, name, index) in searchResult" :key="name" :cityIndex="index"><h3>{{name}}</h3>
+            <li v-for="(city, name) in searchResult" :key="name"><h3>{{name}}</h3>
                 <ul>
                     <li v-for="(pool, index) in city" :key="index">
                         <h4 class="poolName" @click="helper(pool, index, name)">{{pool.nimi}}</h4>
@@ -65,8 +65,8 @@
                 weekdays: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
                 poolIndex: -1,
                 clickedCity: "",
-                cityIndex: -1,
-                commentVisible: false
+                prevPool: {},
+                showComments: false
             }
         },
         methods:{
@@ -81,7 +81,13 @@
               this.clickedCity = name;
             },
             sendComments: function(pool){
-                this.$emit("selectedPool", pool);
+                if(this.prevPool === pool && this.showComments){
+                    this.showComments = false;
+                }else{
+                    this.showComments = true;
+                }
+                this.$emit("selectedPool", pool, this.showComments);
+                this.prevPool = pool;
             },
             helper:function(pool, index, name){
                 this.updatePoolIndex(index);

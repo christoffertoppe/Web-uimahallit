@@ -4,7 +4,7 @@
     <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
       <SearchResultView id="searchResultView" :searchResult="searchResult" @selectedPool="updatePool"/>
-      <AsideView id="asideView" :comments="comments" :pool="pool" />
+      <AsideView id="asideView" :showComments="showComments" :pool="pool" />
     </div>
   </div>
 </template>
@@ -24,8 +24,7 @@ export default {
   data: function(){
     return{
       searchResult: [],
-      comments: [],
-      poolVisible: false,
+      showComments: false,
       pool: {}
     };
   },
@@ -33,8 +32,9 @@ export default {
     updateSearchResult(data){
       this.searchResult = data;
     },
-    updatePool(pool){
+    updatePool(pool, showComments){
       this.pool = pool;
+      this.showComments = showComments;
     }
   }
 }
