@@ -30,7 +30,14 @@ async function findAllListings(client) {
 
 //READCITY EXAMPLE
 async function findByCity(client) {
-  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({kaupunki: "Helsinki"});
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({nimi: "Mäkelänrinteen uimahalli"});
+  const result = await cursor.toArray();
+  console.log(result);
+}
+
+//READSEARCHWORD EXAMPLE
+async function findByWord(client) {
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({nimi: /AAGA/i});
   const result = await cursor.toArray();
   console.log(result);
 }
@@ -44,7 +51,7 @@ async function findByAnd(client) {
 
 //READOPTIONS (OR)
 async function findByOr(client) {
-  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({ $or: [ {kaupunki: "Helsinki"}, {hinta:5.5}]});
+  const cursor = await client.db('swim_halls').collection('halls_capital_area').find({ $or: [ {kaupunki: "Kerava"}, {alehinta:{$lte: 2.9}}]});
   const result = await cursor.toArray();
   console.log(result);
 }
@@ -126,15 +133,16 @@ async function main() {
     await client.connect();
     //await findByList(client);
     //await findByLimits(client);
-    //await findByCity(client);
+    await findByWord(client);
     //await listDatabases(client);
-    await findAllListings(client);
+    //await findAllListings(client);
     //await findValue(client);
+    //await findByOr(client);
     //await findOneListingByName(client, "Haagan uimahalli");
     //await deleteListingByName(client, 2);
     //await updateManyListings(client);
     //await deleteField(client, 4);
-    //await updateField(client, 4,"");
+    //await updateField(client, 3,"Hieno uimahalli");
     /*await updateListingByName(client, "Mäkelänrinteen uimahalli", {
           ratamäärä:8
     });
