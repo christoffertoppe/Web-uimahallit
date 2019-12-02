@@ -27,7 +27,8 @@
         data: function (){
             return{
                 locationName:"",
-                searchResult:[]
+                searchResult:[],
+                cities:[]
             }
         },
         methods:{
@@ -44,7 +45,7 @@
                 let city = event.target.getAttribute("value");
                 console.log(city);
 
-
+                /*
                 let url = "http://localhost:8080/api/location?name=" + city;
                     fetch(url).then(function(res) {
                     return res.json();
@@ -53,7 +54,7 @@
 
                 }).catch(function(error) {
                     console.error(error);
-                });
+                });*/
             },
             searchByName: function(){
                 console.log(this.locationName);
@@ -72,7 +73,12 @@
         },
         watch:{
             searchResult: function () {
-                this.$emit("searchResultFromFetch", this.searchResult);
+                this.cities = [];
+                for(let i = 0; i < this.searchResult.length; i++) {
+                    if (!this.cities.includes(this.searchResult[i].kaupunki)) this.cities.push(this.searchResult[i].kaupunki);
+                }
+
+                this.$emit("searchResultFromFetch", this.searchResult, this.cities);
             }
         }
     }
