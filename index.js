@@ -41,6 +41,20 @@ app.delete('/api/comment', function(req, res) {
     res.send(result);
 });
 
+app.post('/api/comment', function(req, res) {
+  id = req.body['id'];
+  comment = req.body['comment'];
+  add.addComment(id, comment);
+  res.send("kiitos kommentistasi");
+});
+
+app.post('/api/add', function(req, res) {
+  console.log(req.body);
+//  add.addNewHall(req.body);
+  res.send("halli lisätty");
+});
+
+/*
 app.delete('/api/notification', function(req, res) {
   let string = req.url.split('=');
   let removeId = string[1];
@@ -53,14 +67,7 @@ app.post('/api/notification', function(req, res) {
   //let result = addNotification(addMsg);
   res.send(result);
 });
-
-app.post('/api/comment', function(req, res) {
-  id = req.body['id'];
-  comment = req.body['comment'];
-  add.addComment(id, comment);
-  res.send("kiitos kommentistasi");
-});
-
+*/
 
 var server = app.listen(8080, function() {
   var host = server.address().address;
