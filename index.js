@@ -4,6 +4,9 @@ const search = new Search();
 const Add = require('./add');
 const add = new Add();
 
+const Delete = require('./delete');
+const del = new Delete();
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -39,8 +42,9 @@ app.get('/api/location/city',async function(req, res) {
 app.delete('/api/comment', function(req, res) {
     let string = req.url.split('=');
     let removeId = string[1];
-    let result = removeComment(removeId);
-    res.send(result);
+   // let result = del.deleteComment(removeId);
+   console.log(removeId);
+    res.send('result');
 });
 
 app.post('/api/comment', function(req, res) {
