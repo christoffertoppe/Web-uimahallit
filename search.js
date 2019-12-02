@@ -5,8 +5,26 @@ const MongoClient = mongo.MongoClient;
 class Search {
 
   async search(req) {
+    const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
+    const client = new MongoClient(uri,
+        {useNewUrlParser: true, useUnifiedTopology: true});
+    try {
+      await client.connect();
+      let result = await findByWord(client, req);
+      return(result);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await client.close();
+    }
 
+    async function findByWord(client, req) {
+      const cursor = await client.db('swim_halls').collection('halls_capital_area').find({nimi: /req/i});
+      const result = await cursor.toArray();
+      return result;
+    }
   }
+
 // search will search for swimminghalls with specific city name.
   async searchCity(req) {
     const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';

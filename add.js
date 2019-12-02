@@ -63,6 +63,23 @@ class Add {
           `New swimhall created with the following id: ${result.insertedId}`);
     }
   }
+
+  async getCount() {
+    const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
+        process.env.DB_PASSWORD +
+        '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
+    const client = new MongoClient(uri,
+        {useNewUrlParser: true, useUnifiedTopology: true});
+    try {
+      await client.connect();
+      let result = await client.db('swim_halls').collection('halls_capital_area').countDocuments();
+      return (result);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await client.close();
+    }
+  }
 }
 
 module.exports = Add;

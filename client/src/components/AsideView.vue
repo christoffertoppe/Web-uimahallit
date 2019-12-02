@@ -32,12 +32,13 @@
         methods:{
             sendComment: function () {
                 console.log(this.userComment);
-                /*
-                let url = "http://localhost:4000/api/comment";
+
+                let url = "http://localhost:8080/api/comment";
 
                 fetch(url, {
                     method: "POST",
                     body: {
+                        id: 2,
                         comment: this.userComment
                     },
                     headers: {
@@ -50,7 +51,7 @@
                 }).catch(function(error) {
                     console.error(error);
                 });
-                */
+
             }
         }
     }

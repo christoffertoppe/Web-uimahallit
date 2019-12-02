@@ -20,7 +20,9 @@ app.get('/api/location/all', async function(req, res) {
 });
 
 app.get('/api/location', async function(req, res) {
-  let result = await search.search();
+  let string = req.url.split('=');
+  let searchWord = string[1];
+  let result = await search.search(searchWord);
   let json = JSON.stringify(result);
   res.send(json);
 
@@ -48,9 +50,15 @@ app.post('/api/comment', function(req, res) {
   res.send("kiitos kommentistasi");
 });
 
-app.post('/api/add', function(req, res) {
-  console.log(req.body);
-//  add.addNewHall(req.body);
+app.post('/api/add', async function(req, res) {
+ // console.log(req.body);
+  let newhall = req.body;
+  let  count = await add.getCount();
+ // console.log(count);
+  newhall['_id'] = count+1;
+ // console.log(newhall['_id']);
+  console.log(newhall);
+  //add.addNewHall(newhall);
   res.send("halli lisätty");
 });
 
