@@ -1,10 +1,8 @@
-/*
-import {search, searchAll, searchEspoo, searchVantaa, searchHelsinki, searchKerava, searchKauniainen} from './search';
-import {removeComment, removeNotification} from './delete';
-import {addComment, addNotification} from './add';
-*/
 const Search = require('./search');
 const search = new Search();
+
+const Add = require('./add');
+const add = new Add();
 
 const express = require('express');
 const cors = require('cors');
@@ -27,7 +25,6 @@ app.get('/api/location', async function(req, res) {
   res.send(json);
 
 });
-
 
 app.get('/api/location/city',async function(req, res) {
     let string = req.url.split('=');
@@ -52,17 +49,16 @@ app.delete('/api/notification', function(req, res) {
 });
 
 app.post('/api/notification', function(req, res) {
-  let string = req.url.split('=');
-  let addMsg = string[1];
-  let result = addNotification(addMsg);
+
+  //let result = addNotification(addMsg);
   res.send(result);
 });
 
 app.post('/api/comment', function(req, res) {
-  let string = req.url.split('=');
-  let addMsg = string[1];
-  let result = addComment(addMsg);
-  res.send(result);
+  id = req.body['id'];
+  comment = req.body['comment'];
+  add.addComment(id, comment);
+  res.send("kiitos kommentistasi");
 });
 
 
