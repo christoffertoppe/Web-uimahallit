@@ -13,6 +13,11 @@ async function listDatabases(client) {
   databasesList.databases.forEach(db => console.log(` - ${db.name}`));
 };
 
+async function count(client){
+  const result = await client.db('swim_halls').collection('halls_capital_area').countDocuments();
+  console.log(result);
+}
+
 //CREATE
 async function createListing(client, newListing) {
   const result = await client.db('swim_halls').collection('halls_capital_area').insertOne(newListing);
@@ -133,7 +138,8 @@ async function main() {
     await client.connect();
     //await findByList(client);
     //await findByLimits(client);
-    await findByWord(client);
+    //await findByWord(client);
+    await count(client);
     //await listDatabases(client);
     //await findAllListings(client);
     //await findValue(client);
