@@ -3,11 +3,11 @@ require('dotenv').config();
 const MongoClient = mongo.MongoClient;
 
 class Search {
-// search will search for the given city in the address.
+
   async search(req) {
 
   }
-
+// search will search for swimminghalls with specific city name.
   async searchCity(req) {
     const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
     const client = new MongoClient(uri,
@@ -49,44 +49,6 @@ class Search {
       console.log(result);
       return(result);
     }
-  }
-  async searchEspoo(search) {
-
-    return result;
-  }
-
- async searchVantaa(search) {
-
-    return result;
-  }
-
-async searchHelsinki(search) {
-
-  try {
-    await client.connect();
-    let result = findByCity();
-    return(result);
-  } catch (e) {
-    console.error(e);
-  } finally {
-    await client.close();
-  }
-  async function findByCity(client) {
-    const cursor = await client.db('swim_halls').collection('halls_capital_area').find({kaupunki: "Helsinki"});
-    const result = await cursor.toArray();
-    console.log(result);
-  }
-    return result;
-  }
-
-  async searchKauniainen(search) {
-
-    return result;
-  }
-
-  async searchKerava(search) {
-
-    return result;
   }
 }
 
