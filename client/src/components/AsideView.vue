@@ -2,9 +2,9 @@
     <div id="mainContainer">
         <h3 v-if="poolVisible">Kommenttiosio</h3>
         <h3 v-else>Sivuelementti</h3>
-        <div id="commentContainer" v-if="poolVisible">
+        <div id="commentContainer">
             <ul id="commentList">
-                <li v-for="comment in comments" :key=comment.id class="comment">{{comment}}</li>
+                <li v-for="(comment, index) in pool.kommentit" :key=index class="comment">{{comment}}</li>
             </ul>
 
             <form v-on:submit.prevent="sendComment" id="commentForm">
@@ -20,7 +20,8 @@
         name: "AsideView",
         props: {
             comments: Array,
-            poolVisible: Boolean
+            poolVisible: Boolean,
+            pool: Object
         },
         data: function(){
             return{

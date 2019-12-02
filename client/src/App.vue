@@ -3,8 +3,8 @@
     <h1>Uimahallit</h1>
     <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
-      <SearchResultView id="searchResultView" :searchResult="searchResult" :cities="cities" @commentsFromResult="updateComments"/>
-      <AsideView id="asideView" :comments="comments" :poolVisible="poolVisible" />
+      <SearchResultView id="searchResultView" :searchResult="searchResult" @selectedPool="updatePool"/>
+      <AsideView id="asideView" :comments="comments" :pool="pool" />
     </div>
   </div>
 </template>
@@ -24,19 +24,17 @@ export default {
   data: function(){
     return{
       searchResult: [],
-      cities: [],
       comments: [],
-      poolVisible: false
+      poolVisible: false,
+      pool: {}
     };
   },
   methods:{
-    updateSearchResult(data, cities){
+    updateSearchResult(data){
       this.searchResult = data;
-      this.cities = cities;
     },
-    updateComments(comments, poolIndex){
-      this.comments = comments;
-      this.poolVisible = poolIndex !== -1;
+    updatePool(pool){
+      this.pool = pool;
     }
   }
 }
