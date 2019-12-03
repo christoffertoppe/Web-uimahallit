@@ -55,14 +55,14 @@ app.post('/api/comment', function(req, res) {
 });
 
 app.post('/api/add', async function(req, res) {
- // console.log(req.body);
+  //console.log(req.body);
   let newhall = req.body;
-  let  count = await add.getCount();
- // console.log(count);
+  let count = await add.getCount();
+  await console.log(count);
   newhall['_id'] = count+1;
- // console.log(newhall['_id']);
-  console.log(newhall);
-  //add.addNewHall(newhall);
+  //console.log(newhall['_id']);
+  //console.log(newhall);
+  await add.addNewHall(newhall);
   res.send("halli lisätty");
 });
 
