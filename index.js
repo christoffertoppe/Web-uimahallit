@@ -69,9 +69,20 @@ app.post('/api/add', async function(req, res) {
 
 app.put('/api/update', function(req, res) {
   let id = req.body["_id"];
-  let hinta = parseInt(req.body["kaupunki"]);
-  update.update(id,hinta);
+  if(req.body.length === 2) {
+    let hinta = parseInt(req.body["hinta"]);
+    update.update(id, hinta);
+  } else {
+    update.updateAll(id, req.body)
+  }
   res.send();
+});
+
+app.delete('/api/removeswimhall', function (req, res) {
+  let id = req.body["_id"];
+  if( id != null) {
+    del.deleteSwimHall(id);
+  }
 });
 /*
 app.delete('/api/notification', function(req, res) {

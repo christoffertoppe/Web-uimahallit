@@ -11,7 +11,7 @@ class Delete {
         {useNewUrlParser: true, useUnifiedTopology: true});
     try {
       await client.connect();
-      let result = await deleteField(client, id, comment);
+      await deleteComment(client, id, comment);
       return ('Comment removed');
     } catch (e) {
       console.error(e);
@@ -19,7 +19,7 @@ class Delete {
       await client.close();
     }
 
-    async function deleteField(client, idOfListing, value){
+    async function deleteComment(client, idOfListing, value){
       let valueID = "kommentit." + value;
       await client.db('swim_halls').collection('halls_capital_area').updateOne({_id: idOfListing}, {$unset: {[valueID]: 1}});
       let result = await client.db('swim_halls').collection('halls_capital_area').updateOne({_id: idOfListing}, {$pull: {"kommentit": null}});
@@ -28,8 +28,30 @@ class Delete {
     }
   }
 
+  async deleteSwimHall(id){
+    const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
+        process.env.DB_PASSWORD +
+        '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
+    const client = new MongoClient(uri,
+        {useNewUrlParser: true, useUnifiedTopology: true});
+    try {
+      await client.connect();
+      await deleteHall(client, id);
+      return ('Comment removed');
+    } catch (e) {
+      console.error(e);
+    } finally {
+      await client.close();
+    }
+    async function deleteHall(client, id) {
+      await client.db('swim_halls').collection('halls_capital_area').deleteOne({_id: id});
+    }
+
+  }
+
+
   /*
-  export function removeNotification(itemToDelete) {
+  removeNotification(itemToDelete) {
 
     return("Notification removed");
   }
