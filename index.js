@@ -40,16 +40,15 @@ app.get('/api/location/city',async function(req, res) {
 });
 
 app.delete('/api/comment', function(req, res) {
-    let string = req.url.split('=');
-    let removeId = string[1];
-   // let result = del.deleteComment(removeId);
-   console.log(removeId);
-    res.send('result');
+  let id = req.body['id'];
+  let comment = req.body['comment'];
+  del.deleteComment(id, comment);
+    res.send();
 });
 
 app.post('/api/comment', function(req, res) {
-  id = req.body['id'];
-  comment = req.body['comment'];
+  let id = req.body['id'];
+  let comment = req.body['comment'];
   add.addComment(id, comment);
   res.send("kiitos kommentistasi");
 });
@@ -58,7 +57,6 @@ app.post('/api/add', async function(req, res) {
   //console.log(req.body);
   let newhall = req.body;
   let count = await add.getCount();
-  await console.log(count);
   newhall['_id'] = count+1;
   //console.log(newhall['_id']);
   //console.log(newhall);
