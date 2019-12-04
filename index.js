@@ -7,6 +7,9 @@ const add = new Add();
 const Delete = require('./delete');
 const del = new Delete();
 
+const Update = require('./update');
+const update = new Update();
+
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -64,6 +67,12 @@ app.post('/api/add', async function(req, res) {
   res.send("halli lisätty");
 });
 
+app.put('/api/update', function(req, res) {
+  let id = req.body["_id"];
+  let hinta = parseInt(req.body["kaupunki"]);
+  update.update(id,hinta);
+  res.send();
+});
 /*
 app.delete('/api/notification', function(req, res) {
   let string = req.url.split('=');

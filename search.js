@@ -6,6 +6,9 @@ const MongoClient = mongo.MongoClient;
 class Search {
 
   async search(keyword) {
+    keyword = keyword.replace(/%C3%A4/g, "ä");
+    keyword = keyword.replace(/%C3%A5/g, "å");
+    keyword = keyword.replace(/%C3%B6/g, "ö");
     const uri = 'mongodb+srv://'+ process.env.DB_USER +':' + process.env.DB_PASSWORD + '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
     const client = new MongoClient(uri,
         {useNewUrlParser: true, useUnifiedTopology: true});
