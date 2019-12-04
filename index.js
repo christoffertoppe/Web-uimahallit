@@ -75,8 +75,14 @@ app.put('/api/update', function(req, res) {
   } else {
     update.updateAll(id, req.body)
   }
-
   res.send();
+});
+
+app.delete('/api/removeswimhall', function (req, res) {
+  let id = req.body["_id"];
+  if( id != null) {
+    del.deleteSwimHall(id);
+  }
 });
 /*
 app.delete('/api/notification', function(req, res) {
