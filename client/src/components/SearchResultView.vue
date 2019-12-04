@@ -47,6 +47,8 @@
             updatePoolIndex: function(index){
                 if(this.poolIndex === index){
                     this.poolIndex = -1;
+                }else if(index === -1){
+                    this.poolIndex = -1;
                 }else {
                     this.poolIndex = index;
                 }
@@ -67,6 +69,13 @@
                 this.updatePoolIndex(index);
                 this.sendComments(pool);
                 this.updateClickedCity(name);
+            }
+        },
+        watch: {
+            searchResult: function () {
+                this.updatePoolIndex(-1);
+                this.showComments = false;
+                this.$emit("hideComments", this.showComments);
             }
         }
     }

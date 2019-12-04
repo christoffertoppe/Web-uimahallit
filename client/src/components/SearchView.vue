@@ -2,7 +2,7 @@
     <div id="mainContainer">
         <form v-on:submit.prevent="searchByName">
             <fieldset id="searchSet">
-                <label><input v-model="locationName" type="text" name="poolSearch" id="nameSearchField"></label>
+                <label><input v-model="locationName" type="text" name="poolSearch" id="nameSearchField" required></label>
                 <input id="searchByNameButton" type="submit" name="searchByName" value="Hae">
             </fieldset>
         </form>
@@ -47,29 +47,26 @@
                 let city = event.target.getAttribute("value");
                 console.log(city);
 
-                /*
-                let url = "http://localhost:8080/api/location?name=" + city;
-                    fetch(url).then(function(res) {
-                    return res.json();
-                }).then(function(data){
-                    console.log(JSON.stringify(data));
+                let url = "http://localhost:8080/api/location/city?name=" + city;
+                fetch(url).then(res => res.json())
+                    .then(data => (this.searchResult = data))
+                    .catch(function(error) {
+                        console.error(error);
+                    });
 
-                }).catch(function(error) {
-                    console.error(error);
-                });*/
             },
             searchByName: function(){
                 console.log(this.locationName);
 
-                /*
-                let url = "http://localhost:8080/api/location?name=" + this.locationName;
-                    fetch(url).then(function(res) {
-                    return res.json();
-                }).then(function(data){
+                let url = "http://localhost:8080/api/location?searchWord=" + this.locationName;
+                fetch(url).then(res => res.json())
+                    .then(data => (this.searchResult = data))
+                    .catch(function(error) {
+                        console.error(error);
+                    });
 
-                }).catch(function(error) {
-                    console.error(error);
-                });*/
+                this.locationName = "";
+
 
             }
         },

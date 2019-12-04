@@ -1,14 +1,13 @@
 <template>
     <div id="mainContainer">
-        <h3 v-if="showComments">Kommenttiosio</h3>
-        <h3 v-else>Sivuelementti</h3>
+        <h3>Kommenttiosio</h3>
         <div id="commentContainer" v-if="showComments">
             <ul id="commentList">
                 <li v-for="(comment, index) in pool.kommentit" :key=index class="comment">{{comment}}</li>
             </ul>
 
             <form v-on:submit.prevent="sendComment" id="commentForm">
-                <label>Jätä kommentti: <textarea v-model="userComment" name="userComment" placeholder="Jätä kommentti" form="commentForm"></textarea></label>
+                <label>Jätä kommentti: <textarea v-model="userComment" name="userComment" placeholder="Jätä kommentti" form="commentForm" required></textarea></label>
                 <input type="submit" name="comment" value="Lähetä">
             </form>
         </div>
@@ -34,7 +33,7 @@
 
                 let url = "http://localhost:8080/api/comment";
                 const data = {
-                    id: 2,
+                    id: this.poolId,
                     comment: this.userComment
                 };
                 const options = {
@@ -46,30 +45,18 @@
                 };
 
                 fetch(url, options)
-                    .then(res => res.json())
-                    .then(data => (console.log(data)))
+                    /*.then(res => res.json())
+                    .then(data => (console.log(data)))*/
                     .catch(function(error) {
                         console.error(error);
                     });
-                /*let url = "http://localhost:8080/api/comment";
 
-                fetch(url, {
-                    method: "POST",
-                    body: {
-                        id: 2,
-                        comment: this.userComment
-                    },
-                    headers: {
-                        "Content-Type": "application/json"
-                    }
-                }).then(function(res) {
-                    return res.json();
-                }).then(function(data){
-                    console.log(data);
-                }).catch(function(error) {
-                    console.error(error);
-                });
-*/
+                this.userComment = "";
+            }
+        },
+        watch:{
+            pool: function(){
+                this.poolId = this.pool._id;
             }
         }
     }

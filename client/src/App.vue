@@ -3,7 +3,7 @@
     <h1>Uimahallit</h1>
     <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
-      <SearchResultView id="searchResultView" :searchResult="searchResult" @selectedPool="updatePool"/>
+      <SearchResultView id="searchResultView" :searchResult="searchResult" @selectedPool="updatePool" @hideComments="hideComments"/>
       <AsideView id="asideView" :showComments="showComments" :pool="pool" />
     </div>
   </div>
@@ -34,6 +34,9 @@ export default {
     },
     updatePool(pool, showComments){
       this.pool = pool;
+      this.showComments = showComments;
+    },
+    hideComments(showComments){
       this.showComments = showComments;
     }
   }
