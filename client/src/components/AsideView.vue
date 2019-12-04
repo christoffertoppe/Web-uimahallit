@@ -3,7 +3,7 @@
         <h3>Kommenttiosio</h3>
         <div id="commentContainer" v-if="showComments">
             <ul id="commentList">
-                <li v-for="(comment, index) in pool.kommentit" :key=index class="comment">{{comment}}</li>
+                <li v-for="(comment, index) in poolComments" :key=index class="comment">{{comment}}</li>
             </ul>
 
             <form v-on:submit.prevent="sendComment" id="commentForm">
@@ -24,7 +24,9 @@
         data: function(){
             return{
                 userComment: "",
-                poolId: ""
+                poolId: "",
+                pools: [],
+                poolComments: []
             }
         },
         methods:{
@@ -47,17 +49,37 @@
                 fetch(url, options)
                     /*.then(res => res.json())
                     .then(data => (console.log(data)))*/
-                    .catch(function(error) {
-                        console.error(error);
+                    /*.then(this.updateComments())*/
+                    .catch(function(error){
+                        console.log(error);
                     });
 
                 this.userComment = "";
-            }
+            },
+            /*updateComments: function () {
+                let url = "http://localhost:8080/api/location/all";
+
+                fetch(url).then(res => res.json())
+                    .then(data => this.pools = data)
+                    .catch(function(error){
+                        console.log(error);
+                    });
+            }*/
         },
         watch:{
             pool: function(){
                 this.poolId = this.pool._id;
-            }
+                this.poolComments = this.pool.kommentit;
+            },
+            /*pools: function () {
+                for(let i = 0; i < this.pools.length; i++){
+                    if(this.pools[i]._id === this.poolId){
+                        this.poolComments = this.pools[i].kommentit;
+                        console.log(this.poolComments);
+                        break;
+                    }
+                }
+            }*/
         }
     }
 </script>

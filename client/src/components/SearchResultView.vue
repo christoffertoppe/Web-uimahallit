@@ -13,7 +13,8 @@
                                     <li v-for="(hours, index) in pool.aika" :key="hours.id">{{weekdays[index]}}: {{hours}}</li>
                                 </ul>
                             </li>
-                            <li>Ratapituus: {{pool.ratapituus}} m</li>
+                            <li v-if="pool.ratapituus == null">Ratapituus: ei tiedossa</li>
+                            <li v-else>Ratapituus: {{pool.ratapituus}} m</li>
                             <li v-if="pool.ratamäärä > 0">Ratojen määrä: {{pool.ratamäärä}}</li>
                             <li>Hinta: {{pool.hinta}} €</li>
                             <li>Alehinta: {{pool.alehinta}} €</li>
