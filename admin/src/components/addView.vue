@@ -1,31 +1,7 @@
 <template>
     <div id="add-view">
-        <h1>Uimahallit tietokannassa:</h1>
-        <p v-if="swimhalls.length < 1">
-            Ei uimahalleja!
-        </p>
-        <table v-else>
-            <thead>
-            <tr>
-                <th>Uimahallin id</th>
-                <th>Uimahallin nimi</th>
-                <th>Kaupunki</th>
-                <th>Kommentit</th>
 
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="swimhall in swimhalls" :key="swimhall._id">
-                <td>{{ swimhall._id }}</td>
-                <td>{{ swimhall.nimi }}</td>
-                <td>{{ swimhall.kaupunki }}</td>
-                <td>{{ swimhall.kommentit }}</td>
-
-            </tr>
-            </tbody>
-        </table>
         <h2>Luo uusi uimahalli:</h2>
-        <p v-if="error && submitting" class="error-message">TÄYTÄ KAIKKI KENTÄT!</p>
         <form @submit.prevent="createSwimhall">
             Nimi:
             <input type="text" v-model="nimi" pattern=".{10,}" placeholder="Uimahallin nimi" required/>
@@ -66,21 +42,21 @@
             <input type="number" min="0" max="50" step="0.1" v-model="hinta" required>
             Hinta muut:
             <input type="number" value="5" min="0" max="50" step="0.1" v-model="alehinta" required>
+            Nettisivu:
+            <input type="text" v-model="url" required>
             <div>
-            <input type="submit" value="Lisää uimahalli">
+            <input type="submit" value="Lisää uimahalli" id="submitButton">
             </div>
-            <p v-if="success" class="success-message">Uimahalli lisätty...</p>
+            <p v-if="success" class="success-message">Uimahalli lisätty</p>
         </form>
     </div>
 </template>
 
 <script>
   export default {
-    name: 'add-view',
+    name: 'addView',
     data() {
       return {
-        submitting: false,
-        error: false,
         success: false,
         nimi: '',
         ratapituus: '',
@@ -97,21 +73,12 @@
         alehinta: '',
         osoite: '',
         kaupunki: '',
+        url: '',
       };
     },
-    props: {
-      swimhalls: Array,
-    },
+
     methods: {
       createSwimhall() {
-        this.submitting = true
-        this.clearStatus()
-
-        console.log(this.nimi + ", " + this.ratapituus);
-        if (this.invalidName || this.invalidRatapituus) {
-          this.error = true
-          return
-        }
 
         let url = "http://localhost:8080/api/add";
         const data = {
@@ -123,7 +90,8 @@
           hinta: parseFloat(this.hinta),
           alehinta: parseFloat(this.alehinta),
           osoite: this.osoite,
-          kaupunki: this.kaupunki
+          kaupunki: this.kaupunki,
+          url: this.url
         };
         const options = {
           method: "POST",
@@ -140,31 +108,30 @@
           console.error(error);
         });
 
-        this.error = false
-        this.success = true
-        this.submitting = false
+        this.nimi = '',
+        this.ratapituus = '',
+        this.ratamäärä = '',
+        this.puhelin = '',
+        this.ma = '',
+        this.ti = '',
+        this.ke = '',
+        this.to = '',
+        this.pe = '',
+        this.la = '',
+        this.su = '',
+        this.hinta = '',
+        this.alehinta = '',
+        this.osoite = '',
+        this.kaupunki = '',
+        this.url = '',
 
-      },
-      clearStatus() {
-        this.success = false
-        this.error = false
-      }
-    },
-    computed: {
-      invalidName() {
-        return this.nimi === '';
-      },
-      invalidRatapituus() {
-        return this.ratapituus === '';
+        this.success = true
       },
     },
   };
 </script>
 
 <style scoped>
-    #add-view {
-        position: relative;
-    }
     input[type="submit"]{
         font-size: large;
         background-color: blue;
@@ -174,9 +141,7 @@
     }
     input[type="text"] {
     }
-
     form {
-        width: 100%;
         color: #0366EE;
     }
 </style>

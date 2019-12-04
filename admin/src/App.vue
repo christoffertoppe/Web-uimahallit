@@ -1,33 +1,31 @@
 <template>
     <div id="app">
         <h1>Admin</h1>
-        Poista kommentti numero:
-        <input><br><br>
-        Poista ilmoitus numero:
-        <input><br><br>
-
-            <comment-view id="commentView"/>
-            <add-view :swimhalls="swimhalls"  @add:swimhall="addSwimhall"></add-view>
-        <notification-view id="notificationView"/>
+        <div id="mainContainer">
+        <show-all-view id="showAllView" @editHall="updateHall" :swimhalls="swimhalls"/>
+            <update-view id="updateView" :hall="hall" :swimhalls="swimhalls" />
+        <add-view id="addView"/>
+        </div>
     </div>
 
 </template>
 
 <script>
-  import commentView from '@/components/commentView';
-  import notificationView from '@/components/notificationView';
+  import showAllView from './components/showAllView';
   import addView from './components/addView';
+  import updateView from './components/updateView';
 
   export default {
     name: 'app',
     components: {
-      commentView,
-      notificationView,
+      updateView,
+      showAllView,
       addView
     },
     data() {
       return {
         swimhalls: [],
+        hall:{}
       }
     },
     mounted() {
@@ -45,20 +43,8 @@
           console.error(error);
         }
       },
-
-      async addSwimhall(swimhall) {
-        try {
-          const response = await fetch('http://localhost:8080/api/add', {
-            method: 'POST',
-            body: JSON.stringify(swimhall),
-            headers: {'Content-type': 'application/json; charset=UTF-8'},
-          })
-          const data = await response.json()
-          this.swimhalls = [...this.swimhalls, data];
-          console.log("Uimahalli lisätty!");
-        } catch (error) {
-          console.error(error);
-        }
+      updateHall(hall) {
+        this.hall = hall;
       }
     }
   }
@@ -73,12 +59,19 @@
         color: #2c3e50;
         margin-top: 60px;
     }
-  #notificationView {
-    position: absolute;
-    right: 20px;
-  }
-  #commentView {
-    position: absolute;
-    left: 20px;
-  }
+    #mainContainer{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+    }
+    #showAllView{
+        width: 50%;
+    }
+    #updateView{
+        width: 50%;
+    }
+
+    #addView{
+        width: 100%;
+    }
 </style>
