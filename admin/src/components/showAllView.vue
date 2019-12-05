@@ -1,15 +1,14 @@
 <template>
     <div id="show-all-view">
-        <h1>Uimahallit tietokannassa:</h1>
-        <a href="location = window.location">Päivitä</a>
+        <h2>Tietokanta</h2>
         <p v-if="swimhalls.length < 1">
             Ei uimahalleja!
         </p>
         <table v-else>
             <thead>
             <tr>
-                <th>Uimahallin id</th>
-                <th>Uimahallin nimi</th>
+                <th>id</th>
+                <th>Nimi</th>
                 <th>Kaupunki</th>
             </tr>
             </thead>

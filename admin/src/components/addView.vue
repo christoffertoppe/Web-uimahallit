@@ -79,7 +79,8 @@
           alehinta: parseFloat(this.alehinta),
           osoite: this.osoite,
           kaupunki: this.kaupunki,
-          url: this.url
+          url: this.url,
+          kommentit: []
         };
         const options = {
           method: "POST",
@@ -113,8 +114,7 @@
         this.kaupunki = '',
         this.url = '',
 
-        this.success = true,
-        location = window.location
+        this.success = true
       },
     },
   };
@@ -131,6 +131,5 @@
     input[type="text"] {
     }
     form {
-        color: #0366EE;
     }
 </style>

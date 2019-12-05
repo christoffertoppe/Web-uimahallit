@@ -4,7 +4,7 @@
         <add-view id="addView"/>
         <div id="mainContainer">
         <show-all-view id="showAllView" @editHall="updateHall" :swimhalls="swimhalls"/>
-            <update-view id="updateView" :hall="hall" :swimhalls="swimhalls" />
+            <update-view id="updateView" @delete:kommentti="deleteComment" :hall="hall" :swimhalls="swimhalls" />
         </div>
     </div>
 
@@ -25,7 +25,8 @@
     data() {
       return {
         swimhalls: [],
-        hall:{}
+        hall:{},
+        kommentit:[]
       }
     },
     mounted() {
@@ -45,6 +46,27 @@
       },
       updateHall(hall) {
         this.hall = hall;
+      },
+      async deleteComment(id, commentId) {
+          let url = "http://localhost:8080/api/comment";
+          const data = {
+            id: id,
+            comment: commentId
+          };
+          const options = {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          };
+
+          fetch(url, options)
+          /*.then(res => res.json())
+        .then(data => (console.log(data)))*/
+          /*.then(this.updateComments())*/.catch(function(error) {
+            console.log(error);
+          });
       }
     }
   }
@@ -55,7 +77,6 @@
         font-family: 'Avenir', Helvetica, Arial, sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        text-align: center;
         color: #2c3e50;
         margin-top: 60px;
     }
@@ -65,16 +86,18 @@
     }
     #showAllView{
         width: 50%;
-        padding-right: 50px;
+        padding: 30px;
         background-color: darkgrey;
     }
     #updateView{
         width: 50%;
+        padding: 30px;
         background-color: burlywood;
     }
 
     #addView{
         width: 100%;
+        padding: 30px;
         background-color: deepskyblue;
     }
 </style>

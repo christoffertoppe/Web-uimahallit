@@ -4,50 +4,65 @@
         <h2>Muokkaa uimahallia</h2>
         <form @submit.prevent="updateSwimhall">
             ID:
-            <input type="text" :value="id" required disabled/>
+            <input type="text" size="3" v-model="id" required disabled/>
+            <div>
             Nimi:
-            <input type="text" pattern=".{10,}" placeholder="Uimahallin nimi" :value="nimi" required/>
+            <input type="text" pattern=".{10,}" v-model="nimi" required/>
+            </div>
             <div>
                 Ratapituus:
-                <input type="text" name="ratapituus" :value="ratapituus" id="ei" required>
+                <input type="text" name="ratapituus" v-model="ratapituus" id="ei" required>
                 <!--label><input type="radio" name="ratapituus" :value="ratapituus">17</label>
                 <label><input type="radio" name="ratapituus" :value="ratapituus">25</label>
                 <label><input type="radio" name="ratapituus" :value="ratapituus">50</label>-->
             </div>
             <div>
                 Ratamäärä:
-                <input type="number"  min="0" max="99" :value="ratamäärä" required>
+                <input type="number"  min="0" max="99" v-model="ratamäärä" required>
             </div>
             <div>
                 Puhelin:
-                <input type="text"  pattern="[0-9]{8,}" :value="puhelin" required>
+                <input type="text"  pattern="[0-9]{8,}" v-model="puhelin" required>
             </div>
             <div>
                 Osoite:
-                <input type="text"  :value="osoite" required>
+                <input type="text"  size="40" v-model="osoite" required>
             </div>
             <div>
                 Kaupunki:
-                <input type="text" :value="kaupunki" required>
+                <input type="text" v-model="kaupunki" required>
             </div>
             <fieldset>
                 <legend>Aukioloajat:</legend>
-                MA<input type="text" :value="ma" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>TI<input type="text" :value="ti" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>KE<input type="text" :value="ke" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>TO<input type="text" :value="to" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>PE<input type="text" :value="pe" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>LA<input type="text" :value="la" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>SU<input type="text" :value="su" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required><br>
+                MA<input type="text" v-model="ma" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
+                <br>TI<input type="text" v-model="ti" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
+                <br>KE<input type="text" v-model="ke" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
+                <br>TO<input type="text" v-model="to" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
+                <br>PE<input type="text" v-model="pe" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
+                <br>LA<input type="text" v-model="la" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
+                <br>SU<input type="text" v-model="su" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required><br>
             </fieldset>
             Hinta aikuinen:
-            <input type="number" min="0" max="50" step="0.1" :value="hinta" required>
+            <input type="number" min="0" max="50" step="0.1" v-model="hinta" required>
             Hinta muut:
-            <input type="number" min="0" max="50" step="0.1" :value="alehinta" required>
+            <input type="number" min="0" max="50" step="0.1" v-model="alehinta" required>
             <div>
-                <input type="submit" value="Tallenna muutokset" id="submitButton">
+            Nettisivu:
+            <input type="text" v-model="url" size="50" required>
             </div>
-            <!--<p v-if="success" class="success-message">Uimahalli lisätty</p>-->
+            <div>
+               Kommentit:
+                <ul>
+                <li v-for="kommentti in kommentit" v-bind:key="kommentti">
+                    {{kommentti}}
+                    <button @click="$emit('delete:kommentti', id, kommentti)">Poista</button>
+                </li>
+                </ul>
+            </div>
+           <div>
+               <input type="submit" value="Tallenna muutokset" id="submitButton">
+           </div>
+           <!--<p v-if="success" class="success-message">Uimahalli lisätty</p>-->
         </form>
     </div>
 </template>
@@ -77,54 +92,64 @@
         alehinta: '',
         osoite: '',
         kaupunki: '',
+        url: '',
+        kommentit: ''
       }
     },
     methods: {
     updateSwimhall() {
-      let url = "http://localhost:8080/api/update";
-      const data = {
-        nimi: this.nimi,
-        ratapituus: parseInt(this.ratapituus),
-        ratamäärä: parseInt(this.ratamäärä),
-        puhelin: this.puhelin,
-        aika: [this.ma, this.ti, this.ke, this.to, this.pe, this.la, this.su],
-        hinta: parseFloat(this.hinta),
-        alehinta: parseFloat(this.alehinta),
-        osoite: this.osoite,
-        kaupunki: this.kaupunki,
-        url: this.url
-      };
-      const options = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
-      };
+      if (confirm("Haluatko päivittää tiedot? Tarkista että ne ovat oikein!")) {
+        let url = "http://localhost:8080/api/update";
+        const data = {
+          _id: parseInt(this.id),
+          nimi: this.nimi,
+          ratapituus: parseInt(this.ratapituus),
+          ratamäärä: parseInt(this.ratamäärä),
+          puhelin: this.puhelin,
+          aika: [this.ma, this.ti, this.ke, this.to, this.pe, this.la, this.su],
+          hinta: parseFloat(this.hinta),
+          alehinta: parseFloat(this.alehinta),
+          osoite: this.osoite,
+          kaupunki: this.kaupunki,
+          url: this.url,
+          kommentit: this.kommentit
+        };
+        console.log(data);
+        const options = {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        };
 
-      fetch(url, options).then(res => res.json()).then(data => (console.log(data))).catch(function(error) {
-        console.error(error);
-      });
+        fetch(url, options)
+        /*.then(res => res.json())
+        .then(data => (console.log(data)))*/.catch(function(error) {
+          console.error(error);
+        });
 
-      this.id = '',
-      this.nimi = '',
-      this.ratapituus = '',
-      this.ratamäärä = '',
-      this.puhelin = '',
-      this.ma = '',
-      this.ti = '',
-      this.ke = '',
-      this.to = '',
-      this.pe = '',
-      this.la = '',
-      this.su = '',
-      this.hinta = '',
-      this.alehinta = '',
-      this.osoite = '',
-      this.kaupunki = '',
-      this.url = '',
+        this.id = '',
+            this.nimi = '',
+            this.ratapituus = '',
+            this.ratamäärä = '',
+            this.puhelin = '',
+            this.ma = '',
+            this.ti = '',
+            this.ke = '',
+            this.to = '',
+            this.pe = '',
+            this.la = '',
+            this.su = '',
+            this.hinta = '',
+            this.alehinta = '',
+            this.osoite = '',
+            this.kaupunki = '',
+            this.url = '',
+            this.kommentit= '',
 
-      this.success = true
+            this.success = true
+      }
     }
   },
 
@@ -146,6 +171,8 @@
         this.alehinta = this.hall.alehinta;
         this.osoite = this.hall.osoite;
         this.kaupunki = this.hall.kaupunki;
+        this.url = this.hall.url;
+        this.kommentit = this.hall.kommentit;
       }
     }
   };

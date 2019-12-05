@@ -46,8 +46,6 @@ class Update{
     }
 
     async function updateField(client, idOfListing, jsonObject) {
-    jsonObject["hinta"]
-
       let result = await client.db('swim_halls').
           collection('halls_capital_area').
           updateOne({_id: idOfListing}, {$set: {nimi:jsonObject["nimi"],
@@ -59,7 +57,8 @@ class Update{
                                                 alehinta: jsonObject["alehinta"],
                                                 osoite: jsonObject["osoite"],
                                                 kaupunki: jsonObject["kaupunki"],
-                                                kommentit: jsonObject["kommentit"]
+                                                kommentit: jsonObject["kommentit"],
+                                                url: jsonObject["url"]
                                               }});
       console.log(`${result.matchedCount} document(s) matched the query criteria.`);
       console.log(`${result.modifiedCount} document(s) was/were updated.`);
