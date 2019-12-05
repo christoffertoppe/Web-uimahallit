@@ -21,6 +21,7 @@
                             <li>Kaupunki: {{pool.kaupunki}}</li>
                             <li>Osoite: {{pool.osoite}}</li>
                             <li>Puhelin: {{pool.puhelin}}</li>
+                            <li>Url: <a :href="pool.url" target="_blank">{{pool.url}}</a></li>
                         </ul>
                     </li>
                 </ul>

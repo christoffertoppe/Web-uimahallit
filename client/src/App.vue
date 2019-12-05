@@ -1,6 +1,5 @@
 <template>
   <div id="app">
-    <h1>Uimahallit</h1>
     <SearchView @searchResultFromFetch="updateSearchResult"/>
     <div id="midContainer">
       <SearchResultView id="searchResultView" :searchResult="searchResult" @selectedPool="updatePool" @hideComments="hideComments"/>

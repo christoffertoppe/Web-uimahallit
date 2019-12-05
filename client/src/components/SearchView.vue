@@ -1,5 +1,6 @@
 <template>
     <div id="mainContainer">
+        <h1>Uimahallit</h1>
         <form v-on:submit.prevent="searchByName">
             <fieldset id="searchSet">
                 <label><input v-model="locationName" type="text" name="poolSearch" id="nameSearchField" required></label>
