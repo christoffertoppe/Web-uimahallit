@@ -89,6 +89,11 @@ label{
 fieldset {
     margin: 0;
 }
+
+#mainContainer{
+    display: flex;
+    flex-direction: column;
+}
 #citySet > label{
     float: left;
     width: 16.66666666%;
