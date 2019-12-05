@@ -2,15 +2,17 @@
     <div id="add-view">
 
         <h2>Muokkaa uimahallia</h2>
-        <form @submit.prevent="updateSwimHall">
+        <form @submit.prevent="updateSwimhall">
+            ID:
+            <input type="text" :value="id" required disabled/>
             Nimi:
             <input type="text" pattern=".{10,}" placeholder="Uimahallin nimi" :value="nimi" required/>
             <div>
                 Ratapituus:
-                <label><input type="radio" name="ratapituus" value="ei" id="ei" required>ei tiedossa</label>
-                <label><input type="radio" name="ratapituus" value="17">17</label>
-                <label><input type="radio" name="ratapituus" value="25">25</label>
-                <label><input type="radio" name="ratapituus" value="50">50</label>
+                <input type="text" name="ratapituus" :value="ratapituus" id="ei" required>
+                <!--label><input type="radio" name="ratapituus" :value="ratapituus">17</label>
+                <label><input type="radio" name="ratapituus" :value="ratapituus">25</label>
+                <label><input type="radio" name="ratapituus" :value="ratapituus">50</label>-->
             </div>
             <div>
                 Ratamäärä:
@@ -59,6 +61,7 @@
     },
     data: function() {
       return {
+        id:  '',
         nimi: '',
         ratapituus: '',
         ratamäärä: '',
@@ -76,10 +79,58 @@
         kaupunki: '',
       }
     },
-   // methods:
+    methods: {
+    updateSwimhall() {
+      let url = "http://localhost:8080/api/update";
+      const data = {
+        nimi: this.nimi,
+        ratapituus: parseInt(this.ratapituus),
+        ratamäärä: parseInt(this.ratamäärä),
+        puhelin: this.puhelin,
+        aika: [this.ma, this.ti, this.ke, this.to, this.pe, this.la, this.su],
+        hinta: parseFloat(this.hinta),
+        alehinta: parseFloat(this.alehinta),
+        osoite: this.osoite,
+        kaupunki: this.kaupunki,
+        url: this.url
+      };
+      const options = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+      };
+
+      fetch(url, options).then(res => res.json()).then(data => (console.log(data))).catch(function(error) {
+        console.error(error);
+      });
+
+      this.id = '',
+      this.nimi = '',
+      this.ratapituus = '',
+      this.ratamäärä = '',
+      this.puhelin = '',
+      this.ma = '',
+      this.ti = '',
+      this.ke = '',
+      this.to = '',
+      this.pe = '',
+      this.la = '',
+      this.su = '',
+      this.hinta = '',
+      this.alehinta = '',
+      this.osoite = '',
+      this.kaupunki = '',
+      this.url = '',
+
+      this.success = true
+    }
+  },
 
     watch:{
       hall: function() {
+        this.id = this.hall._id;
         this.nimi = this.hall.nimi;
         this.ratapituus = this.hall.ratapituus;
         this.ratamäärä = this.hall.ratamäärä;

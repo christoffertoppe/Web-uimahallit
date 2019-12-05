@@ -1,10 +1,10 @@
 <template>
     <div id="app">
         <h1>Admin</h1>
+        <add-view id="addView"/>
         <div id="mainContainer">
         <show-all-view id="showAllView" @editHall="updateHall" :swimhalls="swimhalls"/>
             <update-view id="updateView" :hall="hall" :swimhalls="swimhalls" />
-        <add-view id="addView"/>
         </div>
     </div>
 
@@ -62,16 +62,19 @@
     #mainContainer{
         display: flex;
         flex-direction: row;
-        justify-content: space-around;
     }
     #showAllView{
         width: 50%;
+        padding-right: 50px;
+        background-color: darkgrey;
     }
     #updateView{
         width: 50%;
+        background-color: burlywood;
     }
 
     #addView{
         width: 100%;
+        background-color: deepskyblue;
     }
 </style>

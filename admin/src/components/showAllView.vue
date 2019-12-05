@@ -1,6 +1,7 @@
 <template>
     <div id="show-all-view">
         <h1>Uimahallit tietokannassa:</h1>
+        <a href="location = window.location">Päivitä</a>
         <p v-if="swimhalls.length < 1">
             Ei uimahalleja!
         </p>
@@ -17,8 +18,8 @@
                 <td>{{ swimhall._id }}</td>
                 <td>{{ swimhall.nimi }}</td>
                 <td>{{ swimhall.kaupunki }}</td>
-                <td><button v-on:click="showNumber(index)">Päivitä</button></td>
-                <td><button>Poista</button></td>
+                <td><button id="update" v-on:click="showInfo(index)">Muokkaa tietoja</button></td>
+                <td><button id="remove" v-on:click="deleteHall(index, swimhall.nimi)">Poista</button></td>
 
             </tr>
             </tbody>
@@ -33,12 +34,41 @@
       swimhalls: Array,
     },
     methods: {
-      showNumber: function(index) {
+      showInfo: function(index) {
         this.$emit("editHall", this.swimhalls[index]);
+      },
+      deleteHall: function(index, nimi) {
+        let idNum = index + 1;
+        if (confirm("Haluatko varmasti poistaa " + nimi + "n?")) {
+          let url = "http://localhost:8080/api/removeswimhall";
+          const data = {
+            _id: idNum
+          };
+          const options = {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+          };
+
+          fetch(url, options).then(res => res.json()).then(data => (console.log(data))).catch(function(error) {
+            console.error(error);
+          });
+          console.log("Uimahalli " + nimi + " poistettu!");
+        }
       }
     }
   }
 </script>
 
 <style scoped>
+
+    #update {
+        background-color: deepskyblue;
+    }
+    #remove {
+        background-color: red;
+    }
+
 </style>
