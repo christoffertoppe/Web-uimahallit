@@ -9,9 +9,9 @@
 </template>
 
 <script>
-  import SearchView from "../components/SearchView.vue"
-  import SearchResultView from "../components/SearchResultView.vue"
-  import AsideView from "../components/AsideView.vue";
+  import SearchView from "../components/home/SearchView.vue"
+  import SearchResultView from "../components/home/SearchResultView.vue"
+  import AsideView from "../components/home/AsideView.vue";
 
   export default {
     name: 'home',

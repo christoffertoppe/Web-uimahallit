@@ -11,9 +11,9 @@
 </template>
 
 <script>
-  import showAllView from '../components/showAllView';
-  import addView from '../components/addView';
-  import updateView from '../components/updateView';
+  import showAllView from '../components/admin/showAllView';
+  import addView from '../components/admin/addView';
+  import updateView from '../components/admin/updateView';
 
   export default {
     name: 'admin',
