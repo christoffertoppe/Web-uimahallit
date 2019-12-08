@@ -1,5 +1,5 @@
 <template>
-    <div id="add-view">
+    <div id="update-view">
 
         <h2>Muokkaa uimahallia</h2>
         <form id="updateForm">
@@ -59,12 +59,12 @@
             </div>
             <div>
                 Kommentit:
-                <ul>
+                <ol>
                     <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
                         {{kommentti}}
-                        <button @click="deleteComment(id, index)">Poista</button>
+                        <button class="deletebuttons" @click="deleteComment(id, index)">Poista</button>
                     </li>
-                </ul>
+                </ol>
             </div>
             <div>
                 <button type="submit" form="updateForm" @submit.prevent="updateSwimhall">Tallenna muutokset</button>
@@ -78,7 +78,6 @@
   export default {
     name: 'updateView',
     props: {
-      swimhalls: Array,
       hall: Object,
     },
     data: function() {
@@ -210,5 +209,10 @@
 </script>
 
 <style scoped>
+    li {
+        text-align: left;
+    }
+    .deletebuttons {
+    }
 
 </style>

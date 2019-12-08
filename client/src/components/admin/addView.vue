@@ -34,7 +34,7 @@
                 SU<input type="text" v-model="su" placeholder="10.00-20.00 / kiinni" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required><br>
             </fieldset>
             <input type="submit" value="Lisää uimahalli" id="submitButton">
-            <p v-if="success" class="success-message">Uimahalli lisätty</p>
+            <p v-if="success">Uimahalli lisätty</p>
         </form>
     </div>
 </template>
@@ -44,8 +44,8 @@
     name: 'addView',
     data() {
       return {
-        seen: true,
         success: false,
+        submitted: false,
         nimi: '',
         ratapituus: '',
         ratamäärä: '',
@@ -70,7 +70,7 @@
 
         let url = "http://localhost:8080/api/add";
         const data = {
-          nimi: this.nimi,
+          nimi: this.nimi.substr(0,1).toUpperCase() + this.nimi.substr(1),
           ratapituus: parseInt(this.ratapituus),
           ratamäärä: parseInt(this.ratamäärä),
           puhelin: this.puhelin,
@@ -91,11 +91,13 @@
         };
 
         fetch(url, options)
-        .then(res => res.json())
-        .then(data => (console.log(data)))
+        /*.then(res => res.json())
+        .then(data => (console.log(data)))*/
         .catch(function(error) {
           console.error(error);
         });
+
+        this.$emit('add:swimhall', this.nimi, this.kaupunki),
 
         this.nimi = '',
         this.ratapituus = '',
@@ -115,8 +117,8 @@
         this.url = '',
 
         this.success = true
-      },
-    },
+      }
+    }
   };
 </script>
 
@@ -125,11 +127,5 @@
         font-size: large;
         background-color: blue;
         color: white;
-    }
-    input[type="number"]{
-    }
-    input[type="text"] {
-    }
-    form {
     }
 </style>
