@@ -13,12 +13,12 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(swimhall, index) in swimhalls" :key="swimhall._id">
+            <tr v-for="(swimhall, index) in swimhalls" :key="index">
                 <td>{{ swimhall._id }}</td>
                 <td>{{ swimhall.nimi }}</td>
                 <td>{{ swimhall.kaupunki }}</td>
                 <td><button id="update" v-on:click="showInfo(index)">Muokkaa tietoja</button></td>
-                <td><button id="remove" v-on:click="deleteHall(index, swimhall.nimi)">Poista</button></td>
+                <td><button id="remove" v-on:click="deleteHall(swimhall._id, swimhall.nimi)">Poista</button></td>
 
             </tr>
             </tbody>
@@ -37,11 +37,12 @@
         this.$emit("editHall", this.swimhalls[index]);
       },
       deleteHall: function(index, nimi) {
-        let idNum = index + 1;
+        console.log(index);
+        console.log(nimi);
         if (confirm("Haluatko varmasti poistaa " + nimi + "n?")) {
           let url = "http://localhost:8080/api/removeswimhall";
           const data = {
-            _id: idNum
+            _id: index
           };
           const options = {
             method: "DELETE",
@@ -54,9 +55,9 @@
           fetch(url, options).then(res => res.json()).then(data => (console.log(data))).catch(function(error) {
             console.error(error);
           });
-          console.log("Uimahalli " + nimi + " poistettu!");
+          console.log(nimi + " poistettu!");
         }
-      }
+      },
     }
   }
 </script>
