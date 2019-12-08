@@ -4,7 +4,7 @@
     <add-view id="addView"/>
     <div id="mainContainer">
       <show-all-view id="showAllView" @editHall="updateHall" :swimhalls="swimhalls"/>
-      <update-view id="updateView" @delete:kommentti="deleteComment" :hall="hall" :swimhalls="swimhalls" />
+      <update-view id="updateView" :hall="hall" :swimhalls="swimhalls" />
     </div>
   </div>
 
@@ -38,7 +38,6 @@
         try {
           const response = await fetch('http://localhost:8080/api/location/all')
           const data = await response.json()
-          console.log("hakee....")
           this.swimhalls = data
         } catch (error) {
           console.error(error);
@@ -47,27 +46,6 @@
       updateHall(hall) {
         this.hall = hall;
       },
-      async deleteComment(id, commentId) {
-        let url = "http://localhost:8080/api/comment";
-        const data = {
-          id: id,
-          comment: commentId
-        };
-        const options = {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        };
-
-        fetch(url, options)
-                /*.then(res => res.json())
-              .then(data => (console.log(data)))*/
-                /*.then(this.updateComments())*/.catch(function(error) {
-          console.log(error);
-        });
-      }
     }
   }
 </script>

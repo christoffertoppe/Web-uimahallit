@@ -2,12 +2,12 @@
     <div id="add-view">
 
         <h2>Muokkaa uimahallia</h2>
-        <form @submit.prevent="updateSwimhall">
+        <form id="updateForm">
             ID:
             <input type="text" size="3" v-model="id" required disabled/>
             <div>
-            Nimi:
-            <input type="text" pattern=".{10,}" v-model="nimi" required/>
+                Nimi:
+                <input type="text" pattern=".{10,}" v-model="nimi" required/>
             </div>
             <div>
                 Ratapituus:
@@ -18,15 +18,15 @@
             </div>
             <div>
                 Ratamäärä:
-                <input type="number"  min="0" max="99" v-model="ratamäärä" required>
+                <input type="number" min="0" max="99" v-model="ratamäärä" required>
             </div>
             <div>
                 Puhelin:
-                <input type="text"  pattern="[0-9]{8,}" v-model="puhelin" required>
+                <input type="text" pattern="[0-9]{8,}" v-model="puhelin" required>
             </div>
             <div>
                 Osoite:
-                <input type="text"  size="40" v-model="osoite" required>
+                <input type="text" size="40" v-model="osoite" required>
             </div>
             <div>
                 Kaupunki:
@@ -34,35 +34,42 @@
             </div>
             <fieldset>
                 <legend>Aukioloajat:</legend>
-                MA<input type="text" v-model="ma" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>TI<input type="text" v-model="ti" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>KE<input type="text" v-model="ke" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>TO<input type="text" v-model="to" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>PE<input type="text" v-model="pe" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>LA<input type="text" v-model="la" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
-                <br>SU<input type="text" v-model="su" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required><br>
+                MA<input type="text" v-model="ma" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                         title="anna muodossa alku-loppu!" required>
+                <br>TI<input type="text" v-model="ti" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                             title="anna muodossa alku-loppu!" required>
+                <br>KE<input type="text" v-model="ke" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                             title="anna muodossa alku-loppu!" required>
+                <br>TO<input type="text" v-model="to" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                             title="anna muodossa alku-loppu!" required>
+                <br>PE<input type="text" v-model="pe" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                             title="anna muodossa alku-loppu!" required>
+                <br>LA<input type="text" v-model="la" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                             title="anna muodossa alku-loppu!" required>
+                <br>SU<input type="text" v-model="su" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni"
+                             title="anna muodossa alku-loppu!" required><br>
             </fieldset>
             Hinta aikuinen:
             <input type="number" min="0" max="50" step="0.1" v-model="hinta" required>
             Hinta muut:
             <input type="number" min="0" max="50" step="0.1" v-model="alehinta" required>
             <div>
-            Nettisivu:
-            <input type="text" v-model="url" size="50" required>
+                Nettisivu:
+                <input type="text" v-model="url" size="50" required>
             </div>
             <div>
-               Kommentit:
+                Kommentit:
                 <ul>
-                <li v-for="kommentti in kommentit" v-bind:key="kommentti">
-                    {{kommentti}}
-                    <button @click="$emit('delete:kommentti', id, kommentti)">Poista</button>
-                </li>
+                    <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
+                        {{kommentti}}
+                        <button @click="deleteComment(id, index)">Poista</button>
+                    </li>
                 </ul>
             </div>
-           <div>
-               <input type="submit" value="Tallenna muutokset" id="submitButton">
-           </div>
-           <!--<p v-if="success" class="success-message">Uimahalli lisätty</p>-->
+            <div>
+                <button type="submit" form="updateForm" @submit.prevent="updateSwimhall">Tallenna muutokset</button>
+            </div>
+            <!--<p v-if="success" class="success-message">Uimahalli lisätty</p>-->
         </form>
     </div>
 </template>
@@ -72,11 +79,11 @@
     name: 'updateView',
     props: {
       swimhalls: Array,
-      hall: Object
+      hall: Object,
     },
     data: function() {
       return {
-        id:  '',
+        id: '',
         nimi: '',
         ratapituus: '',
         ratamäärä: '',
@@ -93,67 +100,91 @@
         osoite: '',
         kaupunki: '',
         url: '',
-        kommentit: ''
-      }
+        kommentit: '',
+      };
     },
     methods: {
-    updateSwimhall() {
-      if (confirm("Haluatko päivittää tiedot? Tarkista että ne ovat oikein!")) {
-        let url = "http://localhost:8080/api/update";
-        const data = {
-          _id: parseInt(this.id),
-          nimi: this.nimi,
-          ratapituus: parseInt(this.ratapituus),
-          ratamäärä: parseInt(this.ratamäärä),
-          puhelin: this.puhelin,
-          aika: [this.ma, this.ti, this.ke, this.to, this.pe, this.la, this.su],
-          hinta: parseFloat(this.hinta),
-          alehinta: parseFloat(this.alehinta),
-          osoite: this.osoite,
-          kaupunki: this.kaupunki,
-          url: this.url,
-          kommentit: this.kommentit
-        };
-        console.log(data);
-        const options = {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(data)
-        };
+      updateSwimhall() {
+        if (confirm('Haluatko päivittää tiedot? Tarkista että ne ovat oikein!')) {
+          let url = 'http://localhost:8080/api/update';
+          const data = {
+            _id: parseInt(this.id),
+            nimi: this.nimi,
+            ratapituus: parseInt(this.ratapituus),
+            ratamäärä: parseInt(this.ratamäärä),
+            puhelin: this.puhelin,
+            aika: [this.ma, this.ti, this.ke, this.to, this.pe, this.la, this.su],
+            hinta: parseFloat(this.hinta),
+            alehinta: parseFloat(this.alehinta),
+            osoite: this.osoite,
+            kaupunki: this.kaupunki,
+            url: this.url,
+            kommentit: this.kommentit,
+          };
+          console.log(data);
+          const options = {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          };
 
-        fetch(url, options)
-        /*.then(res => res.json())
+          fetch(url, options)
+          /*.then(res => res.json())
         .then(data => (console.log(data)))*/.catch(function(error) {
-          console.error(error);
-        });
+            console.error(error);
+          });
 
-        this.id = '',
-            this.nimi = '',
-            this.ratapituus = '',
-            this.ratamäärä = '',
-            this.puhelin = '',
-            this.ma = '',
-            this.ti = '',
-            this.ke = '',
-            this.to = '',
-            this.pe = '',
-            this.la = '',
-            this.su = '',
-            this.hinta = '',
-            this.alehinta = '',
-            this.osoite = '',
-            this.kaupunki = '',
-            this.url = '',
-            this.kommentit= '',
+          this.id = '',
+              this.nimi = '',
+              this.ratapituus = '',
+              this.ratamäärä = '',
+              this.puhelin = '',
+              this.ma = '',
+              this.ti = '',
+              this.ke = '',
+              this.to = '',
+              this.pe = '',
+              this.la = '',
+              this.su = '',
+              this.hinta = '',
+              this.alehinta = '',
+              this.osoite = '',
+              this.kaupunki = '',
+              this.url = '',
+              this.kommentit = '',
 
-            this.success = true
-      }
-    }
-  },
+              this.success = true;
+        }
+      },
+      deleteComment(id, commentId) {
+        if (confirm('Haluatko poistaa hallin numero ' + id + ' kommentin numero ' + (commentId + 1) + '?')) {
+          let url = 'http://localhost:8080/api/comment';
+          const data = {
+            id: id,
+            comment: commentId,
+          };
+          const options = {
+            method: 'DELETE',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(data),
+          };
 
-    watch:{
+          fetch(url, options)
+          /*.then(res => res.json())
+          .then(data => (console.log(data)))*/
+          /*.then(this.updateComments())*/.catch(function(error) {
+            console.log(error);
+          });
+          console.log('Kommentti numero ' + (commentId + 1) + ' hallista numero ' + id + ' poistettu!');
+        }
+      },
+    },
+
+    watch: {
       hall: function() {
         this.id = this.hall._id;
         this.nimi = this.hall.nimi;
@@ -173,8 +204,8 @@
         this.kaupunki = this.hall.kaupunki;
         this.url = this.hall.url;
         this.kommentit = this.hall.kommentit;
-      }
-    }
+      },
+    },
   };
 </script>
 
