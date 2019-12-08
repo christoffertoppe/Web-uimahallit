@@ -99,6 +99,19 @@ app.post('/api/notification', function(req, res) {
 });
 */
 
+/* POST method handler for authentication on the admin page on the main app.*/
+app.post('/api/auth', function(req, res){
+
+  let username = process.env.ADMIN_USER;
+  let password = process.env.ADMIN_PASSWORD;
+
+  if(req.body["usr"] === username && req.body["pw"] === password){
+    res.json({status: "ACCEPTED"});
+  }else{
+    res.json({status: "DENIED"});
+  }
+});
+
 var server = app.listen(8080, function() {
   var host = server.address().address;
   var port = server.address().port;

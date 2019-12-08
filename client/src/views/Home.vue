@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <SearchView @searchResultFromFetch="updateSearchResult"/>
-    <div id="midContainer">
+    <SearchView id="searchView" @searchResultFromFetch="updateSearchResult"/>
+    <div id="lowerContainer">
       <SearchResultView id="searchResultView" :searchResult="searchResult" @selectedPool="updatePool" @hideComments="hideComments"/>
       <AsideView id="asideView" :showComments="showComments" :pool="pool" />
     </div>
@@ -52,7 +52,11 @@
     margin-top: 60px;
   }
 
-  #midContainer{
+  #searchView{
+    margin: 20px;
+  }
+
+  #lowerContainer{
     display: flex;
     flex-direction: row;
   }
@@ -65,7 +69,7 @@
   }
 
   @media screen and (max-width: 820px){
-    #midContainer{
+    #lowerContainer{
       flex-direction: column;
     }
     #searchResultView{

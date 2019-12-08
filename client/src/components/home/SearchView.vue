@@ -109,7 +109,7 @@ fieldset {
 }
 
 #searchByNameButton{
-margin: 0;
+    margin: 0 0 0 20px;
 }
 
 @media screen and (max-width: 660px){

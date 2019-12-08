@@ -22,14 +22,20 @@
       showAllView,
       addView
     },
+    props:{
+    },
     data() {
       return {
         swimhalls: [],
         hall:{},
-        kommentit:[]
+        kommentit:[],
+        authenticated: this.$parent.authenticated
       }
     },
     mounted() {
+      if(!this.authenticated){
+        this.$router.replace({path:"/"});
+      }
       this.getSwimHalls()
     },
 
