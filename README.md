@@ -9,7 +9,8 @@ Takes the string that is found in the url after the = mark and use it as search 
 Search is made on the database where search word is included in the field nimi.
 
 ### return JSON:   
-{nimi:[String],
+{_id:[Integer],
+nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
  puhelin:[String],
@@ -22,7 +23,7 @@ Search is made on the database where search word is included in the field nimi.
  url:[String]}
  , { ... }
 
-Example
+Example /api/location/?=Leppä
 
 {"_id":3,"nimi":"Leppävaaran
 uimahalli","ratapituus":25,"ratamäärä":8,"puhelin":"0981657570","aika":["7.00-20.00","6.00-20.00","10.00-20.00","6.00-20.00","7.00-20.00","9.00–19.00","9.00–19.00"],"hinta":5.5,"alehinta":3,"osoite":"Veräjäpellonkatu
@@ -33,7 +34,8 @@ uimahalli"],"url":"https://www.espoo.fi/fi-FI/Kulttuuri_ja_liikunta/Liikunta/Lii
 
 return all the data stored on database
 ### return JSON:   
-{nimi:[String],
+{_id:[Integer],
+nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
  puhelin:[String],
@@ -51,7 +53,8 @@ return all the data stored on database
 returns JSON with the swimhalls that have the same city name as in the url after = mark.
 Search is made on the database where search word is included in the field kaupunki.
 ### return JSON:   
-{nimi:[String],
+{_id:[Integer],
+nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
  puhelin:[String],
@@ -100,7 +103,8 @@ hinta:[Double]}
 
 ### or 
 ### JSON that include all the fields:
-{nimi:[String],
+{_id:[Integer],
+nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
  puhelin:[String],
