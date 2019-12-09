@@ -5,7 +5,7 @@
         <ul>
             <li v-for="(city, name) in this.filteredSearchResult" :key="name"><h3>{{name}}</h3>
                 <ul>
-                    <li v-for="(pool, index) in city" :key="index">
+                    <li v-for="(pool, index) in city" :key="pool._id">
                         <h4 class="poolName" @click="helper(pool, index, name)">{{pool.nimi}}</h4>
                         <ul class="poolInfoList" v-if="poolIndex === index && clickedCity === pool.kaupunki">
                             <li class="openingHoursItem">

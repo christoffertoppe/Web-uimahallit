@@ -29,13 +29,13 @@
         swimhalls: [],
         hall:{},
         kommentit:[],
-        // authenticated: this.$parent.authenticated
+        authenticated: this.$parent.authenticated
       }
     },
     mounted() {
-      /*if(!this.authenticated){
+      if(!this.authenticated){
         this.$router.replace({path:"/"});
-      }*/
+      }
       this.getSwimHalls()
     },
 
