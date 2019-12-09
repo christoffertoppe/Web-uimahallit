@@ -79,7 +79,7 @@ app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
   await del.deleteComment(id, comment);
-  let json = JSON.stringify({"id":1});
+  let json = JSON.stringify([{id:1,comment:''}]);
     res.send(json);
 });
 
