@@ -78,9 +78,11 @@ comment:[String]
 
 ## POST /api/add
 
-Receives a JSON with all the swimhall information.
+Receives a JSON with all the swimhall information. 
+Information is added to the end of list in database as a new swimhall.
 ### received JSON:   
-{nimi:[String],
+{_id:[Integer],
+ nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
  puhelin:[String],
