@@ -22,6 +22,12 @@ Search is made on the database where search word is included in the field nimi.
  url:[String]}
  , { ... }
 
+Example
+
+{"_id":3,"nimi":"Leppävaaran
+uimahalli","ratapituus":25,"ratamäärä":8,"puhelin":"0981657570","aika":["7.00-20.00","6.00-20.00","10.00-20.00","6.00-20.00","7.00-20.00","9.00–19.00","9.00–19.00"],"hinta":5.5,"alehinta":3,"osoite":"Veräjäpellonkatu
+15, 02650 Espoo","kaupunki":"Espoo","kommentit":["Hieno
+uimahalli"],"url":"https://www.espoo.fi/fi-FI/Kulttuuri_ja_liikunta/Liikunta/Liikunta_ja_ulkoilupaikat/Uimahallit/Leppavaara"}
  
 ## GET /api/location/all
 
