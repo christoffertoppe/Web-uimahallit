@@ -53,7 +53,7 @@ class Search {
         {useNewUrlParser: true, useUnifiedTopology: true});
     try {
       await client.connect();
-      let result = await findByCity;
+      let result = await findByCity(client, city);
       return (result);
     } catch (e) {
       console.error(e);
@@ -61,7 +61,7 @@ class Search {
       await client.close();
     }
 
-    async function findByCity() {
+    async function findByCity(client, city) {
       const cursor = await client.db('swim_halls').
           collection('halls_capital_area').
           find({kaupunki: city});

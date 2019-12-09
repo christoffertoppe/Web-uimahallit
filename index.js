@@ -131,7 +131,7 @@ app.delete('/api/removeswimhall', function (req, res) {
   }
 });
 
-
+// code for a notification functionality that was never taken to use.
 /*
 app.delete('/api/notification', function(req, res) {
   let string = req.url.split('=');
@@ -165,6 +165,7 @@ app.post('/api/auth', function(req, res){
 /**
  * configuration on what port the server will be runned at
  * if the port is free, else it will stop with an error.
+ * in our project the port is 8080
  * @type {http.Server}
  */
 var server = app.listen(8080, function() {
