@@ -23,7 +23,7 @@ nimi:[String],
  url:[String]}
  , { ... }
 
-Example /api/location/?=Leppä
+#### Example /api/location/?=Leppä
 
 {"_id":3,"nimi":"Leppävaaran
 uimahalli","ratapituus":25,"ratamäärä":8,"puhelin":"0981657570","aika":["7.00-20.00","6.00-20.00","10.00-20.00","6.00-20.00","7.00-20.00","9.00–19.00","9.00–19.00"],"hinta":5.5,"alehinta":3,"osoite":"Veräjäpellonkatu
