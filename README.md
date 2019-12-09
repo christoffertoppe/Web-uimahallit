@@ -4,7 +4,7 @@ GET /api/location
 takes the string that is found in the url after the = mark and use it for searchword.
 Searchword is used the search the database where searchword is included in the field nimi.
 return 
-JSON: {nimi,
+JSON: {nimi:[String],
  ratapituus
  'ratamäärä',
  puhelin,
