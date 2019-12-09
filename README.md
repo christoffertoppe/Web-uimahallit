@@ -3,11 +3,11 @@
 
 
 ## GET /api/location?=value
-### test
+
 Takes the string that is found in the url after the = mark and use it as search word.
 Search is made on the database where search word is included in the field nimi.
-return 
-JSON:   
+
+### return JSON:   
 {nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
@@ -25,8 +25,7 @@ JSON:
 ## GET /api/location/all
 
 return all the data stored on database
-return 
-JSON:   
+### return JSON:   
 {nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
@@ -42,8 +41,7 @@ JSON:
  
 ## GET /api/location/city?=value
 
-return 
-JSON:   
+### return JSON:   
 {nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
@@ -61,7 +59,7 @@ JSON:
 ## POST /api/comment
 
 adds comment to the swimhall with the same id as included in JSON file
-received JSON:
+### received JSON:
 {id:[Integer],
 comment:[String]
 }
@@ -69,7 +67,7 @@ comment:[String]
 ## POST /api/add
 
 Receives a JSON with all the swimhall information.
-JSON:   
+### received JSON:   
 {nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
@@ -87,11 +85,12 @@ adds it to the database
 
 updates the information about a swimhall
 can handle two different JSON formats
-received JSON with two values: 
+### received JSON with two values: 
 {id:[Integer],
 hinta:[Double]}
 
-or JSON that include all the fields:
+### or 
+### JSON that include all the fields:
 {nimi:[String],
  ratapituus:[Integer],
  ratamäärä:[Integer],
@@ -107,12 +106,12 @@ or JSON that include all the fields:
 ## DELETE /api/comment
 
 Deletes a comment with a specific value id of swimhall and comment number
-received JSON:
+### received JSON:
 {id:[Integer],
 comment:[Integer]}
 
 ## DELETE /api/removeswimhall
 
 removes swimhall with the specific id number
-received JSON:
+### received JSON:
 {_id:[Integer]}
