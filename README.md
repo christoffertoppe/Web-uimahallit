@@ -3,9 +3,9 @@
 
 
 ## GET /api/location?=value
-
-takes the string that is found in the url after the = mark and use it for searchword.
-Searchword is used the search the database where searchword is included in the field nimi.
+### test
+Takes the string that is found in the url after the = mark and use it as search word.
+Search is made on the database where search word is included in the field nimi.
 return 
 JSON:   
 {nimi:[String],
