@@ -89,6 +89,7 @@ can handle two different JSON formats
 received JSON with two values: 
 {id:[Integer],
 hinta:[Double]}
+
 or JSON that include all the fields:
 {nimi:[String],
  ratapituus:[Integer],
