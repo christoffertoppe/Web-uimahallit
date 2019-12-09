@@ -2,14 +2,15 @@
   <div id="app">
     <div id="nav">
       <a class="navBar" @click="setAuthToFalse">Home</a> |
-      <a class="navBar" @click="$bvToast.show('adminLoginToast')">Admin</a>
+      <a class="navBar" @click="goAdmin">Admin</a>
+      <!-- a class="navBar" @click="$bvToast.show('adminLoginToast')">Admin</a>
       <b-toast id="adminLoginToast" title="Kirjaudu ylläpitosivulle" no-auto-hide>
         <form id="toastForm">
           <label>Käyttäjänimi: <input class="toastInputField" type="text" v-model="usr" required></label>
           <label>Salasana: <input class="toastInputField" type="password" v-model="pw" required></label>
           <input type="button" value="Kirjaudu sisään" @click="login">
         </form>
-      </b-toast>
+      </b-toast-->
     </div>
     <router-view/>
   </div>
@@ -21,10 +22,10 @@
       return {
         usr: "",
         pw: "",
-        authenticated: false
+        authenticated: true
       };
     },
-    methods:{
+    methods:{/*
       login: function () {
 
         const data = {
@@ -59,12 +60,17 @@
         this.usr = "";
         this.pw = "";
         this.$bvToast.hide();
-      },
+      },*/
       setAuthToFalse: function () {
+        this.$router.replace({path: "/"});
+        /*
         if(this.$route.path !== "/") {
           this.$router.replace({path: "/"});
         }
-        this.authenticated = false;
+        this.authenticated = false;*/
+      },
+      goAdmin: function(){
+        this.$router.replace({path: "/admin"});
       }
     }
   }
