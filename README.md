@@ -1,7 +1,7 @@
-index.js includes all the REST-interface calls made to the back-end.
+# index.js includes all the REST-interface calls made to the back-end.
 
 
-GET /api/location?=value
+## GET /api/location?=value
 
 takes the string that is found in the url after the = mark and use it for searchword.
 Searchword is used the search the database where searchword is included in the field nimi.
@@ -67,7 +67,7 @@ comment:[String]
 
 POST /api/add
 
-Receives and JSON with all the swimhall information.
+Receives a JSON with all the swimhall information.
 JSON:   
 {nimi:[String],
  ratapituus:[Integer],
@@ -105,7 +105,7 @@ or JSON that include all the fields:
   
 DELETE /api/comment
 
-deletes a comment with a specific value id of swimhall and comment number
+Deletes a comment with a specific value id of swimhall and comment number
 received JSON:
 {id:[Integer],
 comment:[Integer]}
