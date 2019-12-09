@@ -1,7 +1,7 @@
 index.js includes all the REST-interface calls made to the back-end.
 
 
-GET /api/location
+GET /api/location?=value
 
 takes the string that is found in the url after the = mark and use it for searchword.
 Searchword is used the search the database where searchword is included in the field nimi.
@@ -39,7 +39,7 @@ JSON:
  url:[String]}
  , { ... }
  
-GET /api/location/city
+GET /api/location/city?=value
 
 return 
 JSON:   
@@ -103,5 +103,14 @@ or JSON that include all the fields:
  url:[String]}
   
 DELETE /api/comment
+
+deletes a comment with a specific value id of swimhall and comment number
+received JSON:
+{id:[Integer],
+comment:[Integer]}
+
 DELETE /api/removeswimhall
 
+removes swimhall with the specific id number
+received JSON:
+{_id:[Integer]}
