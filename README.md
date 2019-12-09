@@ -1,4 +1,5 @@
-# index.js includes all the REST-interface calls made to the back-end.
+# REST API for the project
+## index.js includes all the REST-interface calls made to the back-end.
 
 
 ## GET /api/location?=value
@@ -21,7 +22,7 @@ JSON:
  , { ... }
 
  
-GET /api/location/all
+## GET /api/location/all
 
 return all the data stored on database
 return 
@@ -39,7 +40,7 @@ JSON:
  url:[String]}
  , { ... }
  
-GET /api/location/city?=value
+## GET /api/location/city?=value
 
 return 
 JSON:   
@@ -57,7 +58,7 @@ JSON:
  , { ... }
 
 
-POST /api/comment
+## POST /api/comment
 
 adds comment to the swimhall with the same id as included in JSON file
 received JSON:
@@ -65,7 +66,7 @@ received JSON:
 comment:[String]
 }
 
-POST /api/add
+## POST /api/add
 
 Receives a JSON with all the swimhall information.
 JSON:   
@@ -82,7 +83,7 @@ JSON:
  url:[String]}
 adds it to the database
 
-PUT /api/update
+## PUT /api/update
 
 updates the information about a swimhall
 can handle two different JSON formats
@@ -103,14 +104,14 @@ or JSON that include all the fields:
  kommentit:[Array[String]],
  url:[String]}
   
-DELETE /api/comment
+## DELETE /api/comment
 
 Deletes a comment with a specific value id of swimhall and comment number
 received JSON:
 {id:[Integer],
 comment:[Integer]}
 
-DELETE /api/removeswimhall
+## DELETE /api/removeswimhall
 
 removes swimhall with the specific id number
 received JSON:
