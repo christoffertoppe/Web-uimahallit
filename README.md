@@ -1,5 +1,6 @@
 # REST API for the project
 ## index.js includes all the REST-interface calls made to the back-end.
+## metods are imported from other .js files to make the project organized. 
 
 
 ## GET /api/location?=value
