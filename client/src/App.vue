@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link @click="setAuthToFalse" to="/">Home</router-link> |
-      <a id="adminDropdown" @click="$bvToast.show('adminLoginToast')">Admin</a>
+      <a class="navBar" @click="setAuthToFalse">Home</a> |
+      <a class="navBar" @click="$bvToast.show('adminLoginToast')">Admin</a>
       <b-toast id="adminLoginToast" title="Kirjaudu ylläpitosivulle" no-auto-hide>
         <form id="toastForm">
           <label>Käyttäjänimi: <input class="toastInputField" type="text" v-model="usr" required></label>
@@ -61,6 +61,9 @@
         this.$bvToast.hide();
       },
       setAuthToFalse: function () {
+        if(this.$route.path !== "/") {
+          this.$router.replace({path: "/"});
+        }
         this.authenticated = false;
       }
     }
@@ -92,19 +95,13 @@ form{
 #nav a {
   font-weight: bold;
   /*color: #2c3e50;*/
-  color: #42b983
-}
-
-#nav a.router-link-exact-active {
   color: #42b983;
-}
-
-#adminDropdown{
   cursor: pointer;
 }
-#adminDropdown:hover{
+#nav a:hover{
   text-decoration: underline;
 }
+
 .toastInputField{
   padding: 6px;
   margin: 0;

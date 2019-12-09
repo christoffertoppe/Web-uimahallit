@@ -21,7 +21,8 @@
 </template>
 
 <script>
-    var _ = require('lodash');
+    //var _ = require('lodash');
+    import {groupBy} from "lodash";
 
     export default {
         name: "SearchView",
@@ -73,7 +74,7 @@
         },
         watch:{
             searchResult: function () {
-                this.searchResultGrouped = _.groupBy(this.searchResult, "kaupunki");
+                this.searchResultGrouped = groupBy(this.searchResult, "kaupunki");
                 console.log(this.searchResultGrouped);
                 this.$emit("searchResultFromFetch", this.searchResultGrouped);
             }

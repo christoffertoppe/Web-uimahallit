@@ -1,8 +1,9 @@
 <template>
     <div id="mainContainer">
+        <label>Suodata hinnan mukaan: <input id="priceFilter" type="number" min="0" max="10" step="0.1" v-model="minFilteredPrice"></label>
         <h2>Haun tulokset:</h2>
         <ul>
-            <li v-for="(city, name) in searchResult" :key="name"><h3>{{name}}</h3>
+            <li v-for="(city, name) in this.filteredSearchResult" :key="name"><h3>{{name}}</h3>
                 <ul>
                     <li v-for="(pool, index) in city" :key="index">
                         <h4 class="poolName" @click="helper(pool, index, name)">{{pool.nimi}}</h4>
@@ -38,6 +39,7 @@
         },
         data: function(){
             return{
+                minFilteredPrice: 10,
                 weekdays: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
                 poolIndex: -1,
                 clickedCity: "",
@@ -78,6 +80,13 @@
                 this.updatePoolIndex(-1);
                 this.showComments = false;
                 this.$emit("hideComments", this.showComments);
+            }
+        },
+        computed:{
+            filteredSearchResult: function() {
+                // filtering not complete
+                let filtered = this.searchResult;
+                return filtered;
             }
         }
     }
