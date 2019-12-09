@@ -75,11 +75,12 @@ app.get('/api/location/city',async function(req, res) {
  *  DELETE /api/comment, removes the comment with the same id as the received json.
  *  @app.delete
  */
-app.delete('/api/comment', function(req, res) {
+app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  del.deleteComment(id, comment);
-    res.send();
+  await del.deleteComment(id, comment);
+  let json = JSON.stringify(1);
+    res.send(json);
 });
 
 /*
