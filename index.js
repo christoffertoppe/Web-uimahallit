@@ -1,14 +1,31 @@
+/**
+ * import all Search methods from search.js to index.js
+ * @type {Search}
+ */
 const Search = require('./search');
 const search = new Search();
 
+/**
+ * import all Add methods from add.js to index.js
+ * @type {Add}
+ */
 const Add = require('./add');
 const add = new Add();
 
+/**
+ * import all Delete methods from delete.js to index.js
+ * @type {Delete}
+ */
 const Delete = require('./delete');
 const del = new Delete();
 
+/**
+ * import all Update methods from update.js to index.js
+ * @type {Update}
+ */
 const Update = require('./update');
 const update = new Update();
+
 
 const express = require('express');
 const cors = require('cors');
@@ -18,22 +35,34 @@ require('dotenv').config();
 app.use(cors());
 app.use(bodyParser.json());
 
+
 app.get('/api/location/all', async function(req, res) {
+  /**
+   * GET /api/location/all, return json with all the swimhalls.
+   * @type get
+   *
+   */
     let result = await search.searchAll();
     let json = JSON.stringify(result);
     res.send(json);
-
 });
 
+/*
+ * GET /api/location, return json with the swimhalls found with searchwork found in url.
+ * @get
+ */
 app.get('/api/location', async function(req, res) {
   let string = req.url.split('=');
   let searchWord = string[1];
   let result = await search.search(searchWord);
   let json = JSON.stringify(result);
   res.send(json);
-
 });
 
+/*
+ * GET /api/location/city, return all swimhalls found with the city found in url.
+ * @GET
+ */
 app.get('/api/location/city',async function(req, res) {
     let string = req.url.split('=');
     let searchWord = string[1];
@@ -42,6 +71,10 @@ app.get('/api/location/city',async function(req, res) {
     res.send(json);
 });
 
+/*
+ *  DELETE /api/comment, removes the comment with the same id as the received json.
+ *  @app.delete
+ */
 app.delete('/api/comment', function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
@@ -49,6 +82,10 @@ app.delete('/api/comment', function(req, res) {
     res.send();
 });
 
+/*
+ * POST /api/comment, adds the comment to the swimhall with the same id
+ * as the received json.
+ */
 app.post('/api/comment', function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
@@ -56,17 +93,22 @@ app.post('/api/comment', function(req, res) {
   res.send("kiitos kommentistasi");
 });
 
+/*
+ * POST /api/add, adds to the database a new swimhall exactly as the
+ * received json.
+ */
 app.post('/api/add', async function(req, res) {
-  //console.log(req.body);
   let newhall = req.body;
   let count = await add.getCount();
   newhall['_id'] = count+1;
-  //console.log(newhall['_id']);
-  //console.log(newhall);
   await add.addNewHall(newhall);
   res.send("halli lisätty");
 });
 
+/*
+ * PUT /api/update, if received json has the length of 2 it will try to update the swimhall with same _id
+ * by changing the  field called hinta with a new value.
+ */
 app.put('/api/update', function(req, res) {
   let id = req.body["_id"];
   if(req.body.length === 2) {
@@ -78,12 +120,17 @@ app.put('/api/update', function(req, res) {
   res.send();
 });
 
+/*
+ * DELELTE /api/removeswimhall, will remove the swimhall with the same _id value as in the received json.
+ */
 app.delete('/api/removeswimhall', function (req, res) {
   let id = req.body["_id"];
   if( id != null) {
     del.deleteSwimHall(id);
   }
 });
+
+
 /*
 app.delete('/api/notification', function(req, res) {
   let string = req.url.split('=');
@@ -99,7 +146,9 @@ app.post('/api/notification', function(req, res) {
 });
 */
 
-/* POST method handler for authentication on the admin page on the main app.*/
+/*
+ *  POST /api/auth, method handler for authentication on the admin page on the main app.
+ */
 app.post('/api/auth', function(req, res){
 
   let username = process.env.ADMIN_USER;
@@ -112,6 +161,11 @@ app.post('/api/auth', function(req, res){
   }
 });
 
+/**
+ * configuration on what port the server will be runned at
+ * if the port is free, else it will stop with an error.
+ * @type {http.Server}
+ */
 var server = app.listen(8080, function() {
   var host = server.address().address;
   var port = server.address().port;

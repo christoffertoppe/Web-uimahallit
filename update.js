@@ -2,7 +2,16 @@ var mongo = require('mongodb');
 require('dotenv').config();
 const MongoClient = mongo.MongoClient;
 
+/**
+ * class that lets you update the information stored on the database
+ */
 class Update{
+  /**
+   * lets you update the price of the swimhalls ticket.
+   * @param id
+   * @param updateInfo
+   * @returns {Promise<void>}
+   */
   async update(id, updateInfo) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +
@@ -29,6 +38,12 @@ class Update{
     }
   }
 
+  /**
+   * lets you update the whole swimhalls info
+   * @param id
+   * @param updateInfo
+   * @returns {Promise<void>}
+   */
   async updateAll(id, updateInfo) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +

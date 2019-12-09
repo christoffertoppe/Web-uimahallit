@@ -2,8 +2,17 @@ var mongo = require('mongodb');
 require('dotenv').config();
 const MongoClient = mongo.MongoClient;
 
+/**
+ * class with methods to delete comments and swimhalls
+ */
 class Delete {
-  async deleteComment(id, comment) {
+  /**
+   * delete comment from specific swimhall with same id, and the comment with same id as commentid.
+   * @param id
+   * @param comment
+   * @returns {Promise<string>}
+   */
+  async deleteComment(id, commentid) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +
         '@siseujula-vfiyp.mongodb.net/test?retryWrites=true&w=majority';
@@ -11,7 +20,7 @@ class Delete {
         {useNewUrlParser: true, useUnifiedTopology: true});
     try {
       await client.connect();
-      await deleteComment(client, id, comment);
+      await deleteComment(client, id, commentid);
       return ('Comment removed');
     } catch (e) {
       console.error(e);
@@ -28,6 +37,11 @@ class Delete {
     }
   }
 
+  /**
+   * deletes the swimhall with same id as parameter id.
+   * @param id
+   * @returns {Promise<string>}
+   */
   async deleteSwimHall(id){
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +

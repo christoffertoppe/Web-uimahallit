@@ -1,9 +1,18 @@
+
 var mongo = require('mongodb');
 require('dotenv').config();
 const MongoClient = mongo.MongoClient;
 
+/**
+ * Class that provide methods to add comments and swimhalls
+ */
 class Add {
-
+  /**
+   * add user comment for swimhall id and the comment
+   * @param id
+   * @param comment
+   * @returns {Promise<string>}
+   */
   async addComment(id, comment) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +
@@ -39,6 +48,12 @@ class Add {
       return ('Notification added');
     }
     */
+
+  /**
+   * add new swimhall with json element including all info
+   * @param hallInfo
+   * @returns {Promise<void>}
+   */
   async addNewHall(hallInfo) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +
@@ -64,6 +79,10 @@ class Add {
     }
   }
 
+  /**
+   * method to get the last index used my swimhalls
+   * @returns {Promise<void>}
+   */
   async getCount() {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
         process.env.DB_PASSWORD +
