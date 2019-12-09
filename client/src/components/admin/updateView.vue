@@ -2,7 +2,7 @@
     <div id="update-view">
 
         <h2>Muokkaa uimahallia</h2>
-        <form id="updateForm">
+        <form @submit.prevent="updateSwimhall">
             ID:
             <input type="text" size="3" v-model="id" required disabled/>
             <div>
@@ -58,19 +58,19 @@
                 <input type="text" v-model="url" size="50" required>
             </div>
             <div>
-                Kommentit:
-                <ol>
-                    <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
-                        {{kommentti}}
-                        <button class="deletebuttons" @click="deleteComment(id, index)">Poista</button>
-                    </li>
-                </ol>
-            </div>
-            <div>
-                <button type="submit" form="updateForm" @submit.prevent="updateSwimhall">Tallenna muutokset</button>
+                <input type="submit" value="Tallenna muutokset" id="submitButton">
             </div>
             <!--<p v-if="success" class="success-message">Uimahalli lisätty</p>-->
         </form>
+        <div>
+            Kommentit:
+            <ol>
+                <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
+                    {{kommentti}}
+                    <button class="deletebuttons" @click="deleteComment(id, index)">Poista</button>
+                </li>
+            </ol>
+        </div>
     </div>
 </template>
 
@@ -78,6 +78,7 @@
   export default {
     name: 'updateView',
     props: {
+      swimhalls: Array,
       hall: Object,
     },
     data: function() {

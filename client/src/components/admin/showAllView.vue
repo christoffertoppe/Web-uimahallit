@@ -58,6 +58,11 @@
           console.log(nimi + " poistettu!");
         }
       },
+    },
+    watch: {
+      swimhalls: function f() {
+        console.log(this.swimhalls);
+      }
     }
   }
 </script>

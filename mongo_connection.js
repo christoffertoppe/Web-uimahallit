@@ -17,7 +17,8 @@ async function findLastId(client) {
   const cursor = await client.db('swim_halls').
       collection('halls_capital_area').find().sort({_id:-1}).limit(1);
   const result = await cursor.toArray();
-  console.log(result);
+  const result2 = JSON.stringify(result);
+  console.log(result2.nimi);
 }
 
 //COUNT
@@ -123,10 +124,10 @@ async function findOneListingByName(client, nameOfListing) {
 }
 
 //UPDATE
-async function updateListingByName(client, nameOfListing, updatedListing) {
+async function updateListingByName(client, idOfListing, updatedListing) {
   result = await client.db('swim_halls').
       collection('halls_capital_area').
-      updateOne({nimi: nameOfListing}, {$set: updatedListing});
+      updateOne({_id: idOfListing}, {$set: {hinta: updatedListing}});
 
   console.log(`${result.matchedCount} document(s) matched the query criteria.`);
   console.log(`${result.modifiedCount} document(s) was/were updated.`);
@@ -136,8 +137,8 @@ async function updateListingByName(client, nameOfListing, updatedListing) {
 async function updateManyListings(client) {
   result = await client.db('swim_halls').
       collection('halls_capital_area').
-      updateMany({kommentit: {$exists: false}},
-          {$set: {kommentit: []}});
+      updateMany({url: {$exists: false}},
+          {$set: {url: "www.esim.fi"}});
   console.log(`${result.matchedCount} document(s) matched the query criteria.`);
   console.log(`${result.modifiedCount} document(s) was/were updated.`);
 }
@@ -171,6 +172,18 @@ async function deleteListingByName(client, numberOfListing) {
   console.log(`${result.deletedCount} document(s) was/were deleted.`);
 }
 
+async function getHigh(client) {
+  result = await client.db('swim_halls').
+      collection('halls_capital_area').aggregate({
+        $group: {
+          _id: '',
+          last: {
+            $max: "$_id"}
+        }
+      });
+  console.log(result);
+}
+
 async function main() {
   const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
       process.env.DB_PASSWORD +
@@ -182,7 +195,8 @@ async function main() {
     //await findByList(client);
     //await findByLimits(client);
     //await findByWord(client);
-    //await findLastId(client);
+    await findLastId(client);
+    //await getHigh();
     //await count(client);
     //await listDatabases(client);
     //await findAllListings(client);
@@ -192,7 +206,8 @@ async function main() {
     //await deleteListingByName(client, 2);
     //await updateManyListings(client);
     //await deleteField(client, 4);
-    //await updateField(client, 3,"Hieno uimahalli");
+    //await updateField(client, 13, "pertti on uimamaisteri")
+    //await updateListingByName(client, 13,9.8);
     /*await updateListingByName(client, "Mäkelänrinteen uimahalli", {
           ratamäärä:8
     });
