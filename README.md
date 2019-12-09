@@ -1,6 +1,6 @@
 # REST API for the project
 ## index.js includes all the REST-interface calls made to the back-end.
-## metods are imported from other .js files to make the project organized. 
+## methods are imported from other .js files to make the project organized. 
 
 
 ## GET /api/location?=value
@@ -42,6 +42,8 @@ return all the data stored on database
  
 ## GET /api/location/city?=value
 
+returns JSON with the swimhalls that have the same city name as in the url after = mark.
+Search is made on the database where search word is included in the field kaupunki.
 ### return JSON:   
 {nimi:[String],
  ratapituus:[Integer],
@@ -84,8 +86,8 @@ adds it to the database
 
 ## PUT /api/update
 
-updates the information about a swimhall
-can handle two different JSON formats
+updates the information about a swimhall.
+This call can handle two different JSON formats
 ### received JSON with two values: 
 {id:[Integer],
 hinta:[Double]}
@@ -113,6 +115,6 @@ comment:[Integer]}
 
 ## DELETE /api/removeswimhall
 
-removes swimhall with the specific id number
+Removes swimhall with the specific id number
 ### received JSON:
 {_id:[Integer]}
