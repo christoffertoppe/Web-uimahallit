@@ -8,7 +8,7 @@
                 <li v-for="(city, name) in this.searchResult" :key="name"><h3>{{name}}</h3>
                     <ul>
                         <li v-for="(pool, index) in city" :key="pool._id">
-                            <h4 class="poolName" @click="helper(pool, index, name)">{{pool.nimi}}</h4>
+                            <h5 class="poolName" @click="helper(pool, index, name)">{{pool.nimi}}</h5>
                             <ul class="poolInfoList" v-if="poolIndex === index && currentCity === pool.kaupunki">
                                 <li class="openingHoursItem">
                                     <h5>Aukioloajat:</h5>
@@ -154,5 +154,17 @@ li{
 #mainContainer{
     display: flex;
     flex-direction: row;
+}
+
+@media screen and (max-width: 820px){
+    #mainContainer{
+        flex-direction: column;
+    }
+    #poolListContainer{
+        width: 100%;
+    }
+    #commentContainer{
+        width: 100%;
+    }
 }
 </style>
