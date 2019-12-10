@@ -36,7 +36,7 @@
             <h3>Kommenttiosio</h3>
             <div v-if="showComments">
                 <ul id="commentList">
-                    <li v-for="(comment, index) in this.currentPool.kommentit" :key=index class="comment">{{comment}}</li>
+                    <li v-for="(comment, index) in this.currentPool.kommentit" :key=index class="commentListItem">{{comment}}</li>
                 </ul>
 
                 <form v-on:submit.prevent="sendComment" id="commentForm">
@@ -104,6 +104,10 @@
                     body: JSON.stringify(data)
                 };
                 fetch(url, options)
+                    .then(res => res.json())
+                    .then(res => {
+                        console.log(res.status);
+                    })
                     .catch(function(error){
                         console.log(error);
                     });
@@ -136,6 +140,12 @@ li{
     background: #0366EE;
     color: white;
     cursor: pointer;
+}
+
+.commentListItem{
+    padding: 20px;
+    border: #0366EE solid 1px;
+    border-radius: 10px;
 }
 
 #mainContainer{

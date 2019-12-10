@@ -113,7 +113,7 @@ fieldset {
     margin: 0 0 0 20px;
 }
 
-@media screen and (max-width: 660px){
+@media screen and (max-width: 680px){
     #citySet > label{
         float: none;
         width: 100%;

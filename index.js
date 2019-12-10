@@ -91,7 +91,7 @@ app.post('/api/comment', function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
   add.addComment(id, comment);
-  res.send("kiitos kommentistasi");
+  res.json({status: "Comment received"});
 });
 
 /*
