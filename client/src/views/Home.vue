@@ -9,6 +9,9 @@
   import SearchView from "../components/home/SearchView.vue"
   import SearchResultView from "../components/home/SearchResultView.vue"
 
+  /**
+   * Component that hold SearchView and SearchResultView. Rendered using vue routing.
+   */
   export default {
     name: 'home',
     components: {
@@ -23,6 +26,10 @@
       };
     },
     methods:{
+      /**
+       * updates search result data emitted from SearchView
+       * @param{object} data - grouped JavaScript object which contains swimming pools
+       */
       updateSearchResult(data){
         this.searchResult = data;
       },

@@ -24,10 +24,19 @@
     //var _ = require('lodash');
     import {groupBy} from "lodash";
 
+    /**
+     * Component that handles searching for inside swimming pools in the metropolitan area of Helsinki Finland.
+     * The search option are searching all swimming pools, searching pools by city and searching pools by keyword.
+     * The search result is in JSON format and are emitted to SearchResultView component that handles viewing the swimming pools.
+     *
+     */
     export default {
         name: "SearchView",
-        props:{
-        },
+        /**
+         * locationName - user input keyword used to search for pools
+         * searchResult - An array of JavaScript objects, each object contains information on a specific pool
+         * searchResultGrouped - JavaScript object that groups pools by their city, lodash library used for grouping
+         */
         data: function (){
             return{
                 locationName:"",
@@ -36,6 +45,9 @@
             }
         },
         methods:{
+            /**
+             * Function for searching every swimming pool in the database.
+             */
             searchAll: function(){
                 let url = "http://localhost:8080/api/location/all";
 
@@ -45,6 +57,10 @@
                     console.error(error);
                 });
             },
+            /**
+             * Function for searching swimming pools in the database by city name.
+             * @param event - event object from clicking a DOM element
+             */
             searchByCity: function(event) {
                 let city = event.target.getAttribute("value");
                 console.log(city);
@@ -57,6 +73,9 @@
                     });
 
             },
+            /**
+             * Function for searching swimming pools in the database by keyword.
+             */
             searchByName: function(){
                 console.log(this.locationName);
 
@@ -73,6 +92,11 @@
             }
         },
         watch:{
+            /**
+             * Function that handles grouping of search result when searchResult-data changes.
+             * lodash library used for grouping.
+             * Emits searchResultGrouped to Home component that conveys it to be used in SearchResultView
+             */
             searchResult: function () {
                 this.searchResultGrouped = groupBy(this.searchResult, "kaupunki");
                 console.log(this.searchResultGrouped);

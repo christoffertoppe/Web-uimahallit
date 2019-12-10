@@ -50,11 +50,26 @@
 </template>
 
 <script>
+
+    /**
+     * Component handles showing swimming pool search results, and the logic for displaying pool information and comments.
+     */
     export default {
         name: "SearchResultView",
+        /**
+         * searchResult - Contains information on the swimming pools. Receives the grouped object emitted from searchView by searchResult
+         */
         props:{
             searchResult: Object
         },
+        /**
+         * weekdays - An array containing weekdays, used in printing opening hours for swimming pools
+         * poolIndex - Indicates current clicked index of the swimming pool array, used in hiding pool data and comments
+         * currentCity - Indicates current clicked city of the grouped swimming pool object
+         * currentPool - The current pool that is clicked in the swimming pool array, used to display corresponding comments
+         * userComment - User comment string
+         * showComments - Flag for indicating whether comment section for a swimming pool should be displayed
+         */
         data: function(){
             return{
                 weekdays: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
@@ -68,6 +83,12 @@
             }
         },
         methods:{
+            /**
+             * Updates the index of swimming pool array the user clicks.
+             * The pool information and comments are hidden if user clicks the same index twice
+             *
+             * @param{number} index - list item index the user clicked
+             */
             updatePoolIndex: function(index){
                 if(this.poolIndex === index){
                     this.poolIndex = -1;
@@ -77,17 +98,39 @@
                     this.showComments = true;
                 }
             },
+            /**
+             * Updates the current city based on the location where the pool that user has clicked.
+             * Prevents displaying pool information from other cities with the same pool index.
+             *
+             * @param{String} name - name of the city
+             */
             updateCurrentCity: function(name){
               this.currentCity = name;
             },
+            /**
+             * Updates the pool that user has clicked, used to show corresponding comments
+             * @param{Object} pool - pool that user has clicked
+             */
             updateCurrentPool: function(pool){
                 this.currentPool = pool;
             },
+            /**
+             * Helper function that fires when user clicks a pool in the displayed pool array.
+             * Contains functions tha
+             *
+             * @param{Object} pool - pool object from the pool list user has clicked
+             * @param{number} index - index from the pool list user has clicked
+             * @param{string} name - city name
+             */
             helper:function(pool, index, name){
                 this.updateCurrentPool(pool);
                 this.updatePoolIndex(index);
                 this.updateCurrentCity(name);
             },
+            /**
+             * Fires when user clicks the corresponding button. Sends user comment string to api using http post request.
+             *
+             */
             sendComment: function () {
                 console.log(this.userComment);
 

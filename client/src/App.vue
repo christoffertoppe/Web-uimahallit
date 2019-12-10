@@ -15,16 +15,24 @@
   </div>
 </template>
 <script>
+  /**
+   * App component
+   */
   export default {
     name: 'app',
     data: function () {
       return {
         usr: "",
         pw: "",
-        authenticated: true
+        authenticated: false
       };
     },
     methods:{
+      /**
+       * Fires when user clicks corresponding button. Authenticates user by sending http post request to api
+       * that compares user input to credentials(environment variables) given in local .env file
+       * User is authenticated if api responds with "ACCEPTED", and vue router renders Admin component(s)
+       */
       login: function () {
 
         const data = {
@@ -60,6 +68,9 @@
         this.pw = "";
         this.$bvToast.hide();
       },
+      /**
+       * Sets user authentication flag to false when moving from admin page
+       */
       setAuthToFalse: function () {
         this.$router.replace({path: "/"});
 
