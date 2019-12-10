@@ -13,11 +13,11 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(swimhall, index) in swimhalls" :key="index">
+            <tr v-for="(swimhall, index) in swimhalls" :key="swimhall._id">
                 <td>{{ swimhall._id }}</td>
                 <td>{{ swimhall.nimi }}</td>
                 <td>{{ swimhall.kaupunki }}</td>
-                <td><button id="update" v-on:click="showInfo(index)">Muokkaa tietoja</button></td>
+                <td><button id="update" v-on:click="modifyHall(index)">Muokkaa tietoja</button></td>
                 <td><button id="remove" v-on:click="deleteHall(swimhall._id, swimhall.nimi)">Poista</button></td>
 
             </tr>
@@ -27,15 +27,28 @@
 </template>
 
 <script>
+  /**
+   * Component takes care of showing all the swimming halls of the database.
+   * It also offers the buttons for updating and deleting swimming halls.
+   * Retrieves the data from Admin through swimhalls array
+   */
   export default {
     name: "showAllView",
     props: {
       swimhalls: Array,
     },
     methods: {
-      showInfo: function(index) {
+      /**
+       * Offers the data of selected swimming hall for the updateView form by emitting the data of the chosen swimming hall
+       * to Admin component. Admin component conveys the data to updateView for showing it in the update form with hall Object.
+       */
+      modifyHall: function(index) {
         this.$emit("editHall", this.swimhalls[index]);
       },
+      /**
+       * Deletes the chosen swimming hall. Sends the index of the removable hall to the api using
+       * http delete request.
+       */
       deleteHall: function(index, nimi) {
         console.log(index);
         console.log(nimi);
@@ -58,12 +71,12 @@
           console.log(nimi + " poistettu!");
         }
       },
-    },
+    },/*
     watch: {
-      swimhalls: function f() {
-        console.log(this.swimhalls);
+      swimhalls: function() {
+        console.log("muuttuuu!");
       }
-    }
+    }*/
   }
 </script>
 

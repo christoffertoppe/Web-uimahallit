@@ -11,9 +11,9 @@
 </template>
 
 <script>
-  import showAllView from './components/showAllView';
-  import addView from './components/addView';
-  import updateView from './components/updateView';
+  import showAllView from './components/VANHAshowAllView';
+  import addView from './components/VANHAaddView';
+  import updateView from './components/VANHAupdateView';
 
   export default {
     name: 'app',

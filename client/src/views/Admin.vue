@@ -1,10 +1,10 @@
 <template>
   <div id="admin">
     <h1>Admin</h1>
-    <add-view id="addView"/>
+    <add-view id="addView" @add:swimhall="addHall"/>
     <div id="mainContainer">
       <show-all-view id="showAllView" @editHall="updateHall" :swimhalls="swimhalls"/>
-      <update-view id="updateView" :hall="hall" :swimhalls="swimhalls" />
+      <update-view id="updateView" :hall="hall" />
     </div>
   </div>
 
@@ -15,6 +15,9 @@
   import addView from '../components/admin/addView';
   import updateView from '../components/admin/updateView';
 
+  /**
+   * Component that holds showAllView, addView and updateView
+   */
   export default {
     name: 'admin',
     components: {
@@ -25,13 +28,20 @@
     props:{
     },
     data() {
+      /**
+       * swimhalls - An empty array of the swimming halls where the database data is inserted
+       * hall - An empty swimming hall object in which the to-be-updated data is transferred
+       * authenticated - ????
+       */
       return {
         swimhalls: [],
         hall:{},
-        kommentit:[],
         authenticated: this.$parent.authenticated
       }
     },
+    /**
+     * Loads the database data right away to fill the table in showAllView
+     */
     mounted() {
       if(!this.authenticated){
         this.$router.replace({path:"/"});
@@ -40,6 +50,9 @@
     },
 
     methods: {
+      /**
+       * Retrieves all the data from the swimming hall database and inserts it into swimhalls variable for the showAllView table.
+       */
       async getSwimHalls() {
         try {
           const response = await fetch('http://localhost:8080/api/location/all')
@@ -49,10 +62,18 @@
           console.error(error);
         }
       },
+      /**
+       * Sets the swimming hall to be modified from showAllView to the updateView.
+       * @param {object} hall - swimming hall object that was chosen with showAllView's update button
+       */
       updateHall(hall) {
         this.hall = hall;
       },
-    }
+      /*addHall(nimi) {
+        console.log(nimi);
+        this.getSwimHalls();
+      }*/
+    },
   }
 </script>
 

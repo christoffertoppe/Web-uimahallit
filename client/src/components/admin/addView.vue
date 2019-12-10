@@ -41,11 +41,18 @@
 
 <script>
   export default {
+    /**
+     * Component handles the adding of a new swimming hall to the database
+     */
     name: 'addView',
+    /**
+     * Set default data for the add form
+     *
+     * success - Shows if the swimming hall has been added
+     */
     data() {
       return {
         success: false,
-        submitted: false,
         nimi: '',
         ratapituus: '',
         ratamäärä: '',
@@ -66,9 +73,15 @@
     },
 
     methods: {
+      /**
+       * Adds a new swimming hall when form is submitted. Sends the new swimmming hall data to api using a http post request.
+       * After the sending the method empties the form.
+       */
       createSwimhall() {
-
         let url = "http://localhost:8080/api/add";
+        /**
+         * Retrieved data from the add form
+         */
         const data = {
           nimi: this.nimi.substr(0,1).toUpperCase() + this.nimi.substr(1),
           ratapituus: parseInt(this.ratapituus),
@@ -97,7 +110,7 @@
           console.error(error);
         });
 
-        this.$emit('add:swimhall', this.nimi, this.kaupunki),
+        this.$emit('add:swimhall', this.nimi),
 
         this.nimi = '',
         this.ratapituus = '',

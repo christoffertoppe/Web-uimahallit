@@ -65,7 +65,7 @@ class Update{
           collection('halls_capital_area').
           updateOne({_id: idOfListing}, {$set: {nimi:jsonObject["nimi"],
                                                 ratapituus: jsonObject["ratapituus"],
-                                                'ratamäärä': jsonObject["ratamäärä"],
+                                                ratamäärä: jsonObject["ratamäärä"],
                                                 puhelin: jsonObject["puhelin"],
                                                 aika: jsonObject["aika"],
                                                 hinta: jsonObject["hinta"],

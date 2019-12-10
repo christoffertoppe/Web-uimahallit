@@ -2,7 +2,7 @@
     <div id="update-view">
 
         <h2>Muokkaa uimahallia</h2>
-        <form @submit.prevent="updateSwimhall">
+        <form id="updateForm">
             ID:
             <input type="text" size="3" v-model="id" required disabled/>
             <div>
@@ -58,34 +58,28 @@
                 <input type="text" v-model="url" size="50" required>
             </div>
             <div>
-                <input type="submit" value="Tallenna muutokset" id="submitButton">
+                Kommentit:
+                <ol>
+                    <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
+                        {{kommentti}}
+                        <button class="deletebuttons" @click="deleteComment(id, index)">Poista</button>
+                    </li>
+                </ol>
             </div>
+            <div>
+                <button type="submit" form="updateForm" @submit.prevent="updateSwimhall">Tallenna muutokset</button>
+            </div>
+            <p v-if="success" class="success-message">Uimahallia muokattu!</p>
         </form>
-        <div  :key="mock">
-            Kommentit:
-            <ol>
-                <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
-                    {{kommentti}}
-                    <button class="deletebuttons" @click="deleteComment(id, index)">Poista</button>
-                </li>
-            </ol>
-        </div>
     </div>
 </template>
 
 <script>
   export default {
-    /**
-     * Component handles the updating of the swimming hall data. It also allows to delete comments of the chosen swimming hall.
-     * It retrieves the data of the update form through hall object of the Admin which retrieved the data from showAllView.
-     */
     name: 'updateView',
     props: {
       hall: Object,
     },
-    /**
-     * Set default data for the add form
-     */
     data: function() {
       return {
         id: '',
@@ -106,14 +100,9 @@
         kaupunki: '',
         url: '',
         kommentit: '',
-        mock: 0
       };
     },
     methods: {
-      /**
-       * Takes the form data when form is submitted. Sends this update data to api using a http put request.
-       * After the send method empties the form.
-       */
       updateSwimhall() {
         if (confirm('Haluatko päivittää tiedot? Tarkista että ne ovat oikein!')) {
           let url = 'http://localhost:8080/api/update';
@@ -131,6 +120,7 @@
             url: this.url,
             kommentit: this.kommentit,
           };
+          console.log(data);
           const options = {
             method: 'PUT',
             headers: {
@@ -162,16 +152,11 @@
               this.osoite = '',
               this.kaupunki = '',
               this.url = '',
-              this.kommentit = ''
+              this.kommentit = '',
+
+              this.success = true;
         }
       },
-      /**
-       * Deletes the chosen comment of the swimming hall that was being updated. Sends the id and commentId to api using a http delete request.
-       * After the send method empties the whole form.
-       *
-       * @param {int} id - The id of the swimming hall in the database for the to-be-deleted comment = swimming hall number
-       * @param {int} commentId - The index number of the kommentit array for the to-be-deleted comment = index of the kommentit array
-       */
       deleteComment(id, commentId) {
         if (confirm('Haluatko poistaa hallin numero ' + id + ' kommentin numero ' + (commentId + 1) + '?')) {
           let url = 'http://localhost:8080/api/comment';
@@ -187,39 +172,17 @@
             body: JSON.stringify(data),
           };
 
-          fetch(url, options)/*
-          .then(res => res.json())
-          .then(data => (this.mock = data.id))*/
-          .catch(function(error) {
+          fetch(url, options)
+          /*.then(res => res.json())
+          .then(data => (console.log(data)))*/
+          /*.then(this.updateComments())*/.catch(function(error) {
             console.log(error);
           });
           console.log('Kommentti numero ' + (commentId + 1) + ' hallista numero ' + id + ' poistettu!');
-          console.log(this.mock);
-          this.id = '',
-          this.nimi = '',
-          this.ratapituus = '',
-          this.ratamäärä = '',
-          this.puhelin = '',
-          this.ma = '',
-          this.ti = '',
-          this.ke = '',
-          this.to = '',
-          this.pe = '',
-          this.la = '',
-          this.su = '',
-          this.hinta = '',
-          this.alehinta = '',
-          this.osoite = '',
-          this.kaupunki = '',
-          this.url = '',
-          this.kommentit = ''
         }
       },
     },
-    /**
-     * Function brings information of the selected swimming hall to the update form when hall object from Admin changes
-     * i.e. when user selects another swimming hall to update in showAllView.
-     */
+
     watch: {
       hall: function() {
         this.id = this.hall._id;
