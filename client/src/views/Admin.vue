@@ -3,8 +3,8 @@
     <h1>Admin</h1>
     <add-view id="addView" @add:swimhall="addHall"/>
     <div id="mainContainer">
-      <show-all-view id="showAllView" @editHall="updateHall" :swimhalls="swimhalls"/>
-      <update-view id="updateView" :hall="hall" />
+      <show-all-view id="showAllView" @delete:swimhall="deleteHall" @editHall="transferHall" :swimhalls="swimhalls"/>
+      <update-view id="updateView" @update:swimhall="updateHall" :hall="hall" />
     </div>
   </div>
 
@@ -31,12 +31,13 @@
       /**
        * swimhalls - An empty array of the swimming halls where the database data is inserted
        * hall - An empty swimming hall object in which the to-be-updated data is transferred
+       * edited - A flag to keep track when the list of showAllView needs to be updated
        * authenticated - Flag for checking if the user has been authenticated by the server, value got from parent component App.vue
        */
       return {
         swimhalls: [],
-        added: false,
         hall:{},
+        edited: false,
         authenticated: this.$parent.authenticated
       }
     },
@@ -53,7 +54,7 @@
 
     methods: {
       /**
-       * Retrieves all the data from the swimming hall database and inserts it into swimhalls variable for the showAllView table.
+       * Retrieves all the data from the swimming hall database and inserts it into swimhalls array to be shown in the showAllView table.
        */
       async getSwimHalls() {
         try {
@@ -65,22 +66,41 @@
         }
       },
       /**
-       * Sets the swimming hall to be modified from showAllView to the updateView.
+       * Sets the swimming hall to be updated from the list of showAllView to the update form of the updateView.
+       * Also notifies the watcher when another hall from the list has been selected.
        * @param {object} hall - swimming hall object that was chosen with showAllView's update button
        */
-      updateHall(hall) {
+      transferHall(hall) {
         this.hall = hall;
+        this.edited = true;
       },
-      addHall(data) {
-        console.log("Admin saavutettu!");
-        this.swimhalls = Object.values(data);
-        this.added = true;
-      }
+      /**
+       * Notifies the watcher when new swimming hall has been added in addView.
+       */
+      addHall() {
+        this.edited = true;
+      },
+      /**
+       * Notifies the watcher when swimming hall has been deleted in showAllView.
+       */
+      deleteHall() {
+        this.edited = true;
+      },
+      /**
+       * Notifies the watcher when swimming hall has been edited in updateView.
+       */
+      updateHall() {
+        this.edited = true;
+      },
     },
+    /**
+     * Watcher updates the list of the swimming halls in showAllView with getSwimhalls function
+     * and thus keeping the view updated for the user.
+     */
     watch: {
-      added: function() {
+      edited: function() {
         this.getSwimHalls();
-        this.added = false;
+        this.edited = false;
       }
     }
   }

@@ -61,12 +61,12 @@
                 <input type="submit" value="Tallenna muutokset" id="submitButton">
             </div>
         </form>
-        <div  :key="mock">
+        <div>
             Kommentit:
             <ol>
                 <li v-for="(kommentti, index) in kommentit" v-bind:key="index">
                     {{kommentti}}
-                    <button class="deletebuttons" @click="deleteComment(id, index)">Poista</button>
+                    <button class="deletebuttons" @click="deleteComment(id, index, nimi)">Poista</button>
                 </li>
             </ol>
         </div>
@@ -140,10 +140,12 @@
           };
 
           fetch(url, options)
-          /*.then(res => res.json())
-        .then(data => (console.log(data)))*/.catch(function(error) {
+          .then(res => res.json())
+          .then(data => (console.log(data)))
+          .catch(function(error) {
             console.error(error);
           });
+          this.$emit('update:swimhall');
 
           this.id = '',
               this.nimi = '',
@@ -166,18 +168,20 @@
         }
       },
       /**
-       * Deletes the chosen comment of the swimming hall that was being updated. Sends the id and commentId to api using a http delete request.
-       * After the send method empties the whole form.
+       * Deletes the chosen comment of the swimming hall that was being updated. Sends the id, commentId and name to api using a http delete request.
+       * Retrieves the swimming hall info from the database without the deleted comment back to the update form.
        *
        * @param {int} id - The id of the swimming hall in the database for the to-be-deleted comment = swimming hall number
        * @param {int} commentId - The index number of the kommentit array for the to-be-deleted comment = index of the kommentit array
+       * @param {String} name - The name of the swimming hall for the to-be-deleted comments
        */
-      deleteComment(id, commentId) {
-        if (confirm('Haluatko poistaa hallin numero ' + id + ' kommentin numero ' + (commentId + 1) + '?')) {
+      deleteComment(id, commentId, name) {
+        if (confirm('Haluatko poistaa ' + name + 'sta kommentin numero ' + (commentId + 1) + '?')) {
           let url = 'http://localhost:8080/api/comment';
           const data = {
             id: id,
             comment: commentId,
+            name: name
           };
           const options = {
             method: 'DELETE',
@@ -187,37 +191,37 @@
             body: JSON.stringify(data),
           };
 
-          fetch(url, options)/*
+          fetch(url, options)
           .then(res => res.json())
-          .then(data => (this.mock = data.id))*/
+          .then(data => {
+            this.id = data[0]._id,
+            this.nimi = data[0].nimi,
+            this.ratapituus = data[0].ratapituus,
+            this.ratamäärä = data[0].ratamäärä,
+            this.puhelin = data[0].puhelin,
+            this.ma = data[0].aika[0],
+            this.ti = data[0].aika[1],
+            this.ke = data[0].aika[2],
+            this.to = data[0].aika[3],
+            this.pe = data[0].aika[4],
+            this.la = data[0].aika[5],
+            this.su = data[0].aika[6],
+            this.hinta = data[0].hinta,
+            this.alehinta = data[0].alehinta,
+            this.osoite = data[0].osoite,
+            this.kaupunki = data[0].kaupunki,
+            this.url = data[0].url,
+            this.kommentit = data[0].kommentit
+          })
           .catch(function(error) {
             console.log(error);
           });
           console.log('Kommentti numero ' + (commentId + 1) + ' hallista numero ' + id + ' poistettu!');
-          console.log(this.mock);
-          this.id = '',
-          this.nimi = '',
-          this.ratapituus = '',
-          this.ratamäärä = '',
-          this.puhelin = '',
-          this.ma = '',
-          this.ti = '',
-          this.ke = '',
-          this.to = '',
-          this.pe = '',
-          this.la = '',
-          this.su = '',
-          this.hinta = '',
-          this.alehinta = '',
-          this.osoite = '',
-          this.kaupunki = '',
-          this.url = '',
-          this.kommentit = ''
         }
       },
     },
     /**
-     * Function brings information of the selected swimming hall to the update form when hall object from Admin changes
+     * Watcher brings information of the selected swimming hall to the update form when hall object from Admin changes
      * i.e. when user selects another swimming hall to update in showAllView.
      */
     watch: {

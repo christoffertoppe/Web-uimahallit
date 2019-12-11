@@ -69,6 +69,7 @@
             console.error(error);
           });
           console.log(nimi + " poistettu!");
+          this.$emit('delete:swimhall');
         }
       },
     },

@@ -48,7 +48,7 @@
     /**
      * Set default data for the add form
      *
-     * success - Shows if the swimming hall has been added
+     * success - Flag expressing if the swimming hall has been added
      */
     data() {
       return {
@@ -110,7 +110,7 @@
           console.error(error);
         });
 
-        this.$emit('add:swimhall', data),
+        this.$emit('add:swimhall'),
 
         this.nimi = '',
         this.ratapituus = '',
