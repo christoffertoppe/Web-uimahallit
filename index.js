@@ -26,7 +26,6 @@ const del = new Delete();
 const Update = require('./update');
 const update = new Update();
 
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -35,16 +34,15 @@ require('dotenv').config();
 app.use(cors());
 app.use(bodyParser.json());
 
-
 app.get('/api/location/all', async function(req, res) {
   /**
    * GET /api/location/all, return json with all the swimhalls.
    * @type get
    *
    */
-    let result = await search.searchAll();
-    let json = JSON.stringify(result);
-    res.send(json);
+  let result = await search.searchAll();
+  let json = JSON.stringify(result);
+  res.send(json);
 });
 
 /*
@@ -63,12 +61,12 @@ app.get('/api/location', async function(req, res) {
  * GET /api/location/city, return all swimhalls found with the city found in url.
  * @GET
  */
-app.get('/api/location/city',async function(req, res) {
-    let string = req.url.split('=');
-    let searchWord = string[1];
-    let result = await search.searchCity(searchWord);
-    let json = JSON.stringify(result);
-    res.send(json);
+app.get('/api/location/city', async function(req, res) {
+  let string = req.url.split('=');
+  let searchWord = string[1];
+  let result = await search.searchCity(searchWord);
+  let json = JSON.stringify(result);
+  res.send(json);
 });
 
 /*
@@ -91,10 +89,33 @@ app.delete('/api/comment', async function(req, res) {
 app.post('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
+  let type = req.body['type'];
+  let result = '';
   await add.addComment(id, comment);
-  let allHalls = await search.searchAll();
-  allHalls = JSON.stringify(allHalls);
-  res.send(allHalls);
+  switch (type) {
+    case 'all':
+      result = search.searchAll();
+      break;
+    case 'Helsinki':
+      result = search.searchCity(type);
+      break;
+    case 'Espoo':
+      result = search.searchCity(type);
+      break;
+    case 'Kauniainen':
+      result = search.searchCity(type);
+      break;
+    case 'Kerava':
+      result = search.searchCity(type);
+      break;
+    case 'Vantaa':
+      result = search.searchCity(type);
+      break;
+    default:
+      result = search.search(type);
+  }
+
+  res.send(result);
 });
 
 /*
@@ -104,7 +125,7 @@ app.post('/api/comment', async function(req, res) {
 app.post('/api/add', async function(req, res) {
   let newhall = req.body;
   let count = await add.getCount();
-  newhall['_id'] = count+1;
+  newhall['_id'] = count + 1;
   await add.addNewHall(newhall);
   let allHalls = await search.searchAll();
   allHalls = JSON.stringify(allHalls);
@@ -116,12 +137,12 @@ app.post('/api/add', async function(req, res) {
  * by changing the  field called hinta with a new value.
  */
 app.put('/api/update', async function(req, res) {
-  let id = req.body["_id"];
-  if(req.body.length === 2) {
-    let hinta = parseInt(req.body["hinta"]);
+  let id = req.body['_id'];
+  if (req.body.length === 2) {
+    let hinta = parseInt(req.body['hinta']);
     await update.update(id, hinta);
   } else {
-    await update.updateAll(id, req.body)
+    await update.updateAll(id, req.body);
   }
   let allHalls = await search.searchAll();
   allHalls = JSON.stringify(allHalls);
@@ -131,9 +152,9 @@ app.put('/api/update', async function(req, res) {
 /*
  * DELELTE /api/removeswimhall, will remove the swimhall with the same _id value as in the received json.
  */
-app.delete('/api/removeswimhall', async function (req, res) {
-  let id = req.body["_id"];
-  if( id != null) {
+app.delete('/api/removeswimhall', async function(req, res) {
+  let id = req.body['_id'];
+  if (id != null) {
     await del.deleteSwimHall(id);
   }
   let allHalls = await search.searchAll();
@@ -160,15 +181,15 @@ app.post('/api/notification', function(req, res) {
 /*
  *  POST /api/auth, method handler for authentication on the admin page on the main app.
  */
-app.post('/api/auth', async function(req, res){
+app.post('/api/auth', async function(req, res) {
 
   let username = process.env.ADMIN_USER;
   let password = process.env.ADMIN_PASSWORD;
 
-  if(req.body["usr"] === username && req.body["pw"] === password){
-    res.json({status: "ACCEPTED"});
-  }else{
-    res.json({status: "DENIED"});
+  if (req.body['usr'] === username && req.body['pw'] === password) {
+    res.json({status: 'ACCEPTED'});
+  } else {
+    res.json({status: 'DENIED'});
   }
 });
 
