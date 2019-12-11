@@ -91,7 +91,9 @@ app.post('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
   await add.addComment(id, comment);
-  res.json({status: "Comment received"});
+  let allHalls = await search.searchAll();
+  allHalls = JSON.stringify(allHalls);
+  res.send(allHalls);
 });
 
 /*
@@ -104,7 +106,7 @@ app.post('/api/add', async function(req, res) {
   newhall['_id'] = count+1;
   await add.addNewHall(newhall);
   let allHalls = await search.searchAll();
-  allHalls = JSON.stringify(allHalls)
+  allHalls = JSON.stringify(allHalls);
   res.send(allHalls);
 });
 
@@ -121,6 +123,7 @@ app.put('/api/update', async function(req, res) {
     await update.updateAll(id, req.body)
   }
   let allHalls = await search.searchAll();
+  allHalls = JSON.stringify(allHalls);
   res.send(allHalls);
 });
 
@@ -133,6 +136,7 @@ app.delete('/api/removeswimhall', async function (req, res) {
     await del.deleteSwimHall(id);
   }
   let allHalls = await search.searchAll();
+  allHalls = JSON.stringify(allHalls);
   res.send(allHalls);
 });
 
