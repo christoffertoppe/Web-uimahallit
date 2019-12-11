@@ -103,7 +103,8 @@ app.post('/api/add', async function(req, res) {
   let count = await add.getCount();
   newhall['_id'] = count+1;
   await add.addNewHall(newhall);
-  res.send("halli lisätty");
+  let allHalls = await search.searchAll();
+  res.json(allHalls);
 });
 
 /*
