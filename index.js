@@ -76,7 +76,7 @@ app.get('/api/location/city', async function(req, res) {
 app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  let name = req.body['nimi'];
+  let name = req.body['name'];
   await del.deleteComment(id, comment);
   let hall = await search.search(name);
   let result = JSON.stringify(hall);
@@ -94,7 +94,7 @@ app.post('/api/comment', async function(req, res) {
   let result = '';
 
   await add.addComment(id, comment);
-  
+
    if(type.localeCompare("all") ===  0)  {
      result = await search.searchAll();
    } else {
