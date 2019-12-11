@@ -76,9 +76,9 @@ app.get('/api/location/city', async function(req, res) {
 app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  let nimi = req.body['nimi'];
+  let name = req.body['nimi'];
   await del.deleteComment(id, comment);
-  let hall = await search.search(nimi);
+  let hall = await search.search(name);
   let result = JSON.stringify(hall);
   res.send(result);
 });
