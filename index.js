@@ -87,10 +87,10 @@ app.delete('/api/comment', async function(req, res) {
  * POST /api/comment, adds the comment to the swimhall with the same id
  * as the received json.
  */
-app.post('/api/comment', function(req, res) {
+app.post('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  add.addComment(id, comment);
+  await add.addComment(id, comment);
   res.json({status: "Comment received"});
 });
 
@@ -110,13 +110,13 @@ app.post('/api/add', async function(req, res) {
  * PUT /api/update, if received json has the length of 2 it will try to update the swimhall with same _id
  * by changing the  field called hinta with a new value.
  */
-app.put('/api/update', function(req, res) {
+app.put('/api/update', async function(req, res) {
   let id = req.body["_id"];
   if(req.body.length === 2) {
     let hinta = parseInt(req.body["hinta"]);
-    update.update(id, hinta);
+    await update.update(id, hinta);
   } else {
-    update.updateAll(id, req.body)
+    await update.updateAll(id, req.body)
   }
   res.send();
 });
@@ -124,11 +124,12 @@ app.put('/api/update', function(req, res) {
 /*
  * DELELTE /api/removeswimhall, will remove the swimhall with the same _id value as in the received json.
  */
-app.delete('/api/removeswimhall', function (req, res) {
+app.delete('/api/removeswimhall', async function (req, res) {
   let id = req.body["_id"];
   if( id != null) {
-    del.deleteSwimHall(id);
+    await del.deleteSwimHall(id);
   }
+  res.send();
 });
 
 // code for a notification functionality that was never taken to use.
@@ -150,7 +151,7 @@ app.post('/api/notification', function(req, res) {
 /*
  *  POST /api/auth, method handler for authentication on the admin page on the main app.
  */
-app.post('/api/auth', function(req, res){
+app.post('/api/auth', async function(req, res){
 
   let username = process.env.ADMIN_USER;
   let password = process.env.ADMIN_PASSWORD;
