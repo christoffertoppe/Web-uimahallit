@@ -76,11 +76,11 @@ app.get('/api/location/city', async function(req, res) {
 app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  /*let nimi = req.body['nimi'];*/
+  let nimi = req.body['nimi'];
   await del.deleteComment(id, comment);
-  let allHalls = await search.searchAll();
-  allHalls = JSON.stringify(allHalls);
-  res.send(allHalls);
+  let hall = await search.search(nimi);
+  result = JSON.stringify(hall);
+  res.send(result);
 });
 
 /*
@@ -174,7 +174,7 @@ app.delete('/api/notification', function(req, res) {
 
 app.post('/api/notification', function(req, res) {
 
-  //let result = addNotification(addMsg);
+  //let result = addNotification(message);
   res.send(result);
 });
 */
