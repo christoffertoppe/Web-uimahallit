@@ -104,7 +104,8 @@ app.post('/api/add', async function(req, res) {
   newhall['_id'] = count+1;
   await add.addNewHall(newhall);
   let allHalls = await search.searchAll();
-  res.json(allHalls);
+  allHalls = JSON.stringify(allHalls)
+  res.send(allHalls);
 });
 
 /*
@@ -119,7 +120,8 @@ app.put('/api/update', async function(req, res) {
   } else {
     await update.updateAll(id, req.body)
   }
-  res.send();
+  let allHalls = await search.searchAll();
+  res.send(allHalls);
 });
 
 /*
@@ -130,7 +132,8 @@ app.delete('/api/removeswimhall', async function (req, res) {
   if( id != null) {
     await del.deleteSwimHall(id);
   }
-  res.send();
+  let allHalls = await search.searchAll();
+  res.send(allHalls);
 });
 
 // code for a notification functionality that was never taken to use.
