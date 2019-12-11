@@ -92,29 +92,18 @@ app.post('/api/comment', async function(req, res) {
   let comment = req.body['comment'];
   let type = req.body['type'];
   let result = '';
+
   await add.addComment(id, comment);
-  switch (type) {
-    case 'all':
-      result = await search.searchAll();
-      break;
-    case 'Helsinki':
-      result = await search.searchCity(type);
-      break;
-    case 'Espoo':
-      result = await search.searchCity(type);
-      break;
-    case 'Kauniainen':
-      result = await search.searchCity(type);
-      break;
-    case 'Kerava':
-      result = await search.searchCity(type);
-      break;
-    case 'Vantaa':
-      result = await search.searchCity(type);
-      break;
-    default:
-      result = await search.search(type);
-  }
+  
+   if(type.localeCompare("all") ===  0)  {
+     result = await search.searchAll();
+   } else {
+     result = await search.searchCity(type);
+   }
+     if(result.length === 0) {
+       result = await search.search(type);
+     }
+
 
   res.send(result);
 });
