@@ -33,7 +33,7 @@
                 LA<input type="text" v-model="la" placeholder="10.00-20.00 / kiinni" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required>
                 SU<input type="text" v-model="su" placeholder="10.00-20.00 / kiinni" pattern="[0-9]{1,2}.[0-9]{2}(?:-|–)[0-9]{1,2}.[0-9]{2}.*|kiinni" title="anna muodossa alku-loppu!" required><br>
             </fieldset>
-            <input type="submit" value="Lisää uimahalli" id="submitButton">
+            <input type="submit" value="Lisää uimahalli" id="submitButtonAdd">
             <p v-if="success">Uimahalli lisätty</p>
         </form>
     </div>
