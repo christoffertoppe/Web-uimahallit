@@ -1,7 +1,6 @@
 <template>
     <div>
         <div id="mainContainer">
-        <!--label>Suodata hinnan mukaan: <input id="priceFilter" type="number" min="0" max="10" step="0.1" v-model="minFilteredPrice"></label-->
         <div id="poolListContainer">
             <h2>Haun tulokset:</h2>
             <ul>
@@ -131,7 +130,7 @@
             },
             /**
              * Fires when user clicks the corresponding button. Sends user comment string to api using http post request.
-             *
+             * Respond contains set of pool objects with updates comments
              */
             sendComment: function () {
                 console.log(this.userComment);

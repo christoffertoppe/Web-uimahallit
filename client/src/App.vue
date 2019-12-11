@@ -56,7 +56,6 @@
             this.authenticated = true;
             this.$router.replace({path:"/admin"});
           }else {
-            // EXPLANATION
             this.authenticated = false;
           }
         })
@@ -90,7 +89,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  min-height: 780px;
+  min-height: 810px;
 }
 
 label{
