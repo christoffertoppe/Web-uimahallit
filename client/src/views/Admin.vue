@@ -35,6 +35,7 @@
        */
       return {
         swimhalls: [],
+        added: false,
         hall:{},
         authenticated: this.$parent.authenticated
       }
@@ -70,11 +71,18 @@
       updateHall(hall) {
         this.hall = hall;
       },
-      /*addHall(nimi) {
-        console.log(nimi);
-        this.getSwimHalls();
-      }*/
+      addHall(data) {
+        console.log("Admin saavutettu!");
+        this.swimhalls = Object.values(data);
+        this.added = true;
+      }
     },
+    watch: {
+      added: function() {
+        this.getSwimHalls();
+        this.added = false;
+      }
+    }
   }
 </script>
 

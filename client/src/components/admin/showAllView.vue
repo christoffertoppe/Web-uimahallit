@@ -71,12 +71,7 @@
           console.log(nimi + " poistettu!");
         }
       },
-    },/*
-    watch: {
-      swimhalls: function() {
-        console.log("muuttuuu!");
-      }
-    }*/
+    },
   }
 </script>
 

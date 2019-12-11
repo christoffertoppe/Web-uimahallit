@@ -104,13 +104,13 @@
         };
 
         fetch(url, options)
-        /*.then(res => res.json())
-        .then(data => (console.log(data)))*/
+        .then(res => res.json())
+        .then(data => (console.log(data)))
         .catch(function(error) {
           console.error(error);
         });
 
-        this.$emit('add:swimhall', this.nimi),
+        this.$emit('add:swimhall', data),
 
         this.nimi = '',
         this.ratapituus = '',
