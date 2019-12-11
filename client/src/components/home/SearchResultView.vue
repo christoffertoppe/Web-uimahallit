@@ -5,7 +5,7 @@
         <div id="poolListContainer">
             <h2>Haun tulokset:</h2>
             <ul>
-                <li v-for="(city, name) in this.searchResult" :key="name"><h3>{{name}}</h3>
+                <li v-for="(city, name) in this.watchedSearchResult" :key="name"><h3>{{name}}</h3>
                     <ul>
                         <li v-for="(pool, index) in city" :key="pool._id">
                             <h5 class="poolName" @click="helper(pool, index, name)">{{pool.nimi}}</h5>
@@ -50,7 +50,7 @@
 </template>
 
 <script>
-
+    import {groupBy} from "lodash";
     /**
      * Component handles showing swimming pool search results, and the logic for displaying pool information and comments.
      */
@@ -60,7 +60,8 @@
          * searchResult - Contains information on the swimming pools. Receives the grouped object emitted from searchView by searchResult
          */
         props:{
-            searchResult: Object
+            searchResult: Object,
+            latestSearchType: String
         },
         /**
          * weekdays - An array containing weekdays, used in printing opening hours for swimming pools
@@ -79,7 +80,8 @@
 
                 currentPool: {},
                 userComment: "",
-                showComments: false
+                showComments: false,
+                watchedSearchResult: {}
             }
         },
         methods:{
@@ -133,11 +135,13 @@
              */
             sendComment: function () {
                 console.log(this.userComment);
+                console.log(this.latestSearchType);
 
                 let url = "http://localhost:8080/api/comment";
                 const data = {
                     id: this.currentPool._id,
-                    comment: this.userComment
+                    comment: this.userComment,
+                    type: this.latestSearchType
                 };
                 const options = {
                     method: "POST",
@@ -149,7 +153,11 @@
                 fetch(url, options)
                     .then(res => res.json())
                     .then(res => {
-                        console.log(res.status);
+                        console.log("kommentti vastaus");
+                        console.log(res);
+                        let grouped = groupBy(res, "kaupunki");
+                        this.watchedSearchResult = grouped;
+                        this.currentPool = grouped[this.currentCity][this.poolIndex];
                     })
                     .catch(function(error){
                         console.log(error);
@@ -158,6 +166,14 @@
                 this.userComment = "";
             }
         },
+        watch:{
+            searchResult: function(){
+                this.poolIndex = -1;
+                this.showComments = false;
+                this.currentPool = {};
+                this.watchedSearchResult = this.searchResult;
+            }
+        }
     }
 </script>
 

@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="home">
     <SearchView id="searchView" @searchResultFromFetch="updateSearchResult"/>
-    <SearchResultView id="searchResultView" :searchResult="searchResult"/>
+    <SearchResultView id="searchResultView" :searchResult="searchResult" :latestSearchType="latestSearchType"/>
   </div>
 </template>
 
@@ -21,6 +21,7 @@
     data: function(){
       return{
         searchResult: {},
+        latestSearchType: "",
         showComments: false,
         pool: {}
       };
@@ -30,15 +31,16 @@
        * updates search result data emitted from SearchView
        * @param{object} data - grouped JavaScript object which contains swimming pools
        */
-      updateSearchResult(data){
+      updateSearchResult(data, latestSearchType){
         this.searchResult = data;
+        this.latestSearchType = latestSearchType;
       },
     }
   }
 </script>
 
 <style>
-  #app {
+  #home {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;

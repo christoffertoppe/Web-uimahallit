@@ -41,7 +41,8 @@
             return{
                 locationName:"",
                 searchResult:[],
-                searchResultGrouped:{}
+                searchResultGrouped:{},
+                latestSearchType: ""
             }
         },
         methods:{
@@ -50,6 +51,7 @@
              */
             searchAll: function(){
                 let url = "http://localhost:8080/api/location/all";
+                this.latestSearchType = "all";
 
                 fetch(url).then(res => res.json())
                     .then(data => (this.searchResult = data))
@@ -64,6 +66,7 @@
             searchByCity: function(event) {
                 let city = event.target.getAttribute("value");
                 console.log(city);
+                this.latestSearchType = city;
 
                 let url = "http://localhost:8080/api/location/city?name=" + city;
                 fetch(url).then(res => res.json())
@@ -78,6 +81,7 @@
              */
             searchByName: function(){
                 console.log(this.locationName);
+                this.latestSearchType = this.locationName;
 
                 let url = "http://localhost:8080/api/location?searchWord=" + this.locationName;
                 fetch(url).then(res => res.json())
@@ -99,8 +103,9 @@
              */
             searchResult: function () {
                 this.searchResultGrouped = groupBy(this.searchResult, "kaupunki");
+                console.log("hakutyyppi: " + this.latestSearchType)
                 console.log(this.searchResultGrouped);
-                this.$emit("searchResultFromFetch", this.searchResultGrouped);
+                this.$emit("searchResultFromFetch", this.searchResultGrouped, this.latestSearchType);
             }
         }
     }

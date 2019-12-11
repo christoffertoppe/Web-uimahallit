@@ -7,7 +7,7 @@
         <form id="toastForm">
           <label>Käyttäjänimi: <input class="toastInputField" type="text" v-model="usr" required></label>
           <label>Salasana: <input class="toastInputField" type="password" v-model="pw" required></label>
-          <input type="button" value="Kirjaudu sisään" @click="login">
+          <input type="button" value="Kirjaudu sisään" @click="login" v-on:keyup="login">
         </form>
       </b-toast>
     </div>
@@ -90,7 +90,6 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-
 }
 
 label{
