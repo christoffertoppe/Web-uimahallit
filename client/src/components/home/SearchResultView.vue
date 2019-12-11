@@ -205,7 +205,6 @@ li{
     padding: 20px;
     border: #0366EE solid 1px;
     border-radius: 10px;
-    margin-right: 5px;
 }
 
 #mainContainer{
