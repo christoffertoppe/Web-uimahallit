@@ -72,19 +72,5 @@
         padding: 1px;
         margin: 1px;
 
-
-    }
-}
-
-
-@media screen and (max-width: 420px) {
-    #showAllView {
-        flex-direction: column;
-    }
-    #showAllView td {
-        width: 100%;
-    }
-    #showAllView button {
-        width: 100%;
     }
 }
