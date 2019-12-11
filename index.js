@@ -94,25 +94,25 @@ app.post('/api/comment', async function(req, res) {
   await add.addComment(id, comment);
   switch (type) {
     case 'all':
-      result = search.searchAll();
+      result = await search.searchAll();
       break;
     case 'Helsinki':
-      result = search.searchCity(type);
+      result = await search.searchCity(type);
       break;
     case 'Espoo':
-      result = search.searchCity(type);
+      result = await search.searchCity(type);
       break;
     case 'Kauniainen':
-      result = search.searchCity(type);
+      result = await search.searchCity(type);
       break;
     case 'Kerava':
-      result = search.searchCity(type);
+      result = await search.searchCity(type);
       break;
     case 'Vantaa':
-      result = search.searchCity(type);
+      result = await search.searchCity(type);
       break;
     default:
-      result = search.search(type);
+      result = await search.search(type);
   }
 
   res.send(result);
