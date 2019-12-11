@@ -11,7 +11,7 @@
             </div>
             <div>
                 Ratapituus:
-                <input type="text" name="ratapituus" v-model="ratapituus" id="ei" required>
+                <input type="text" name="ratapituus" v-model="ratapituus" id="eiUpdate" required>
                 <!--label><input type="radio" name="ratapituus" :value="ratapituus">17</label>
                 <label><input type="radio" name="ratapituus" :value="ratapituus">25</label>
                 <label><input type="radio" name="ratapituus" :value="ratapituus">50</label>-->

@@ -113,4 +113,6 @@
     padding: 30px;
     background-color: deepskyblue;
   }
+
+    @import "../assets/admin.module.css";
 </style>
