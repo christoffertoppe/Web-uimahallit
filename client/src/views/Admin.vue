@@ -31,7 +31,7 @@
       /**
        * swimhalls - An empty array of the swimming halls where the database data is inserted
        * hall - An empty swimming hall object in which the to-be-updated data is transferred
-       * authenticated - ????
+       * authenticated - Flag for checking if the user has been authenticated by the server, value got from parent component App.vue
        */
       return {
         swimhalls: [],
@@ -40,6 +40,7 @@
       }
     },
     /**
+     * If user not authenticated, page is redirected to home page "/"
      * Loads the database data right away to fill the table in showAllView
      */
     mounted() {
