@@ -54,7 +54,6 @@ const del = new Delete();
 const Update = require('./update');
 const update = new Update();
 
-
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -63,20 +62,19 @@ require('dotenv').config();
 app.use(cors());
 app.use(bodyParser.json());
 
-
 app.get('/api/location/all', async function(req, res) {
   /**
    * GET /api/location/all, return json with all the swimhalls.
    * @type get
    *
    */
-    let result = await search.searchAll();
-    let json = JSON.stringify(result);
-    res.send(json);
+  let result = await search.searchAll();
+  let json = JSON.stringify(result);
+  res.send(json);
 });
 
 /*
- * GET /api/location, return json with the swimhalls found with searchwork found in url.
+ * GET /api/location, return json with the swimhalls found with searchwork that was in url.
  * @get
  */
 app.get('/api/location', async function(req, res) {
@@ -88,77 +86,106 @@ app.get('/api/location', async function(req, res) {
 });
 
 /*
- * GET /api/location/city, return all swimhalls found with the city found in url.
+ * GET /api/location/city, return all swimhalls found with the city specified in url.
  * @GET
  */
-app.get('/api/location/city',async function(req, res) {
-    let string = req.url.split('=');
-    let searchWord = string[1];
-    let result = await search.searchCity(searchWord);
-    let json = JSON.stringify(result);
-    res.send(json);
+app.get('/api/location/city', async function(req, res) {
+  let string = req.url.split('=');
+  let searchWord = string[1];
+  let result = await search.searchCity(searchWord);
+  let json = JSON.stringify(result);
+  res.send(json);
 });
 
 /*
- *  DELETE /api/comment, removes the comment with the same id as the received json.
- *  @app.delete
+ * DELETE /api/comment, removes the comment with the same id as the received json.
+ * Returns the same json where the comment is gone.
+ * @app.delete
  */
-app.delete('/api/comment', function(req, res) {
+app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  del.deleteComment(id, comment);
-    res.send();
+  let name = req.body['name'];
+  await del.deleteComment(id, comment);
+  let hall = await search.search(name);
+  let result = JSON.stringify(hall);
+  res.send(result);
 });
 
 /*
  * POST /api/comment, adds the comment to the swimhall with the same id
  * as the received json.
+ * Returns the same json that was used with the comment added.
  */
-app.post('/api/comment', function(req, res) {
+app.post('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
-  add.addComment(id, comment);
-  res.send("kiitos kommentistasi");
+  let type = req.body['type'];
+  let result = '';
+
+  await add.addComment(id, comment);
+
+  if (type.localeCompare('all') === 0) {
+    result = await search.searchAll();
+  } else {
+    result = await search.searchCity(type);
+  }
+  if (result.length === 0) {
+    result = await search.search(type);
+  }
+
+  res.send(result);
 });
 
 /*
  * POST /api/add, adds to the database a new swimhall exactly as the
  * received json.
+ * Returns all data from database.
  */
 app.post('/api/add', async function(req, res) {
   let newhall = req.body;
   let count = await add.getCount();
-  newhall['_id'] = count+1;
+  newhall['_id'] = count + 1;
   await add.addNewHall(newhall);
-  res.send("halli lisätty");
+  let allHalls = await search.searchAll();
+  allHalls = JSON.stringify(allHalls);
+  res.send(allHalls);
 });
 
 /*
  * PUT /api/update, if received json has the length of 2 it will try to update the swimhall with same _id
- * by changing the  field called hinta with a new value.
+ * by changing the  field called hinta with a new value,
+ * else it will update all the fields for the specified swimhall.
+ * Returns all data from database.
  */
-app.put('/api/update', function(req, res) {
-  let id = req.body["_id"];
-  if(req.body.length === 2) {
-    let hinta = parseInt(req.body["hinta"]);
-    update.update(id, hinta);
+app.put('/api/update', async function(req, res) {
+  let id = req.body['_id'];
+  if (req.body.length === 2) {
+    let hinta = parseInt(req.body['hinta']);
+    await update.update(id, hinta);
   } else {
-    update.updateAll(id, req.body)
+    await update.updateAll(id, req.body);
   }
-  res.send();
+  let allHalls = await search.searchAll();
+  allHalls = JSON.stringify(allHalls);
+  res.send(allHalls);
 });
 
 /*
  * DELELTE /api/removeswimhall, will remove the swimhall with the same _id value as in the received json.
+ * Returns all data from database.
  */
-app.delete('/api/removeswimhall', function (req, res) {
-  let id = req.body["_id"];
-  if( id != null) {
-    del.deleteSwimHall(id);
+app.delete('/api/removeswimhall', async function(req, res) {
+  let id = req.body['_id'];
+  if (id != null) {
+    await del.deleteSwimHall(id);
   }
+  let allHalls = await search.searchAll();
+  allHalls = JSON.stringify(allHalls);
+  res.send(allHalls);
 });
 
-
+// code for a notification functionality that was never taken to use.
 /*
 app.delete('/api/notification', function(req, res) {
   let string = req.url.split('=');
@@ -169,7 +196,7 @@ app.delete('/api/notification', function(req, res) {
 
 app.post('/api/notification', function(req, res) {
 
-  //let result = addNotification(addMsg);
+  //let result = addNotification(message);
   res.send(result);
 });
 */
@@ -177,21 +204,22 @@ app.post('/api/notification', function(req, res) {
 /*
  *  POST /api/auth, method handler for authentication on the admin page on the main app.
  */
-app.post('/api/auth', function(req, res){
+app.post('/api/auth', async function(req, res) {
 
   let username = process.env.ADMIN_USER;
   let password = process.env.ADMIN_PASSWORD;
 
-  if(req.body["usr"] === username &amp;&amp; req.body["pw"] === password){
-    res.json({status: "ACCEPTED"});
-  }else{
-    res.json({status: "DENIED"});
+  if (req.body['usr'] === username &amp;&amp; req.body['pw'] === password) {
+    res.json({status: 'ACCEPTED'});
+  } else {
+    res.json({status: 'DENIED'});
   }
 });
 
 /**
  * configuration on what port the server will be runned at
  * if the port is free, else it will stop with an error.
+ * in our project the port is 8080
  * @type {http.Server}
  */
 var server = app.listen(8080, function() {
@@ -214,7 +242,7 @@ var server = app.listen(8080, function() {
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Mon Dec 09 2019 09:36:59 GMT+0200 (GMT+02:00)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.3</a> on Wed Dec 11 2019 16:24:42 GMT+0200 (GMT+02:00)
 </footer>
 
 <script> prettyPrint(); </script>
