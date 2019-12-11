@@ -1,5 +1,4 @@
 
-
 #admin {
     font-family: 'Avenir', Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
@@ -7,22 +6,25 @@
     color: #2c3e50;
     margin-top: 60px;
 }
-#mainContainer{
+
+#mainContainer {
     display: flex;
     flex-direction: row;
 }
-#showAllView{
+
+#showAllView {
     width: 50%;
     padding: 30px;
     background-color: darkgrey;
 }
-#updateView{
+
+#updateView {
     width: 50%;
     padding: 30px;
     background-color: burlywood;
 }
 
-#addView{
+#addView {
     width: 100%;
     padding: 30px;
     background-color: deepskyblue;
@@ -43,7 +45,6 @@
     #showAllView {
         width: 100%;
         font-size: 12px;
-        margin-right: 40px;
     }
 
     #updateView {
@@ -64,4 +65,26 @@
 
     }
 
+}
+
+@media screen and (max-width: 500px) {
+    #showAllView button{
+        padding: 1px;
+        margin: 1px;
+
+
+    }
+}
+
+
+@media screen and (max-width: 420px) {
+    #showAllView {
+        flex-direction: column;
+    }
+    #showAllView td {
+        width: 100%;
+    }
+    #showAllView button {
+        width: 100%;
+    }
 }
