@@ -46,7 +46,7 @@ app.get('/api/location/all', async function(req, res) {
 });
 
 /*
- * GET /api/location, return json with the swimhalls found with searchwork found in url.
+ * GET /api/location, return json with the swimhalls found with searchwork that was in url.
  * @get
  */
 app.get('/api/location', async function(req, res) {
@@ -58,7 +58,7 @@ app.get('/api/location', async function(req, res) {
 });
 
 /*
- * GET /api/location/city, return all swimhalls found with the city found in url.
+ * GET /api/location/city, return all swimhalls found with the city specified in url.
  * @GET
  */
 app.get('/api/location/city', async function(req, res) {
@@ -70,8 +70,9 @@ app.get('/api/location/city', async function(req, res) {
 });
 
 /*
- *  DELETE /api/comment, removes the comment with the same id as the received json.
- *  @app.delete
+ * DELETE /api/comment, removes the comment with the same id as the received json.
+ * Returns the same json where the comment is gone.
+ * @app.delete
  */
 app.delete('/api/comment', async function(req, res) {
   let id = req.body['id'];
@@ -86,34 +87,23 @@ app.delete('/api/comment', async function(req, res) {
 /*
  * POST /api/comment, adds the comment to the swimhall with the same id
  * as the received json.
+ * Returns the same json that was used with the comment added.
  */
 app.post('/api/comment', async function(req, res) {
   let id = req.body['id'];
   let comment = req.body['comment'];
   let type = req.body['type'];
   let result = '';
+
   await add.addComment(id, comment);
-  switch (type) {
-    case 'all':
-      result = await search.searchAll();
-      break;
-    case 'Helsinki':
-      result = await search.searchCity(type);
-      break;
-    case 'Espoo':
-      result = await search.searchCity(type);
-      break;
-    case 'Kauniainen':
-      result = await search.searchCity(type);
-      break;
-    case 'Kerava':
-      result = await search.searchCity(type);
-      break;
-    case 'Vantaa':
-      result = await search.searchCity(type);
-      break;
-    default:
-      result = await search.search(type);
+
+  if (type.localeCompare('all') === 0) {
+    result = await search.searchAll();
+  } else {
+    result = await search.searchCity(type);
+  }
+  if (result.length === 0) {
+    result = await search.search(type);
   }
 
   res.send(result);
@@ -122,6 +112,7 @@ app.post('/api/comment', async function(req, res) {
 /*
  * POST /api/add, adds to the database a new swimhall exactly as the
  * received json.
+ * Returns all data from database.
  */
 app.post('/api/add', async function(req, res) {
   let newhall = req.body;
@@ -135,7 +126,9 @@ app.post('/api/add', async function(req, res) {
 
 /*
  * PUT /api/update, if received json has the length of 2 it will try to update the swimhall with same _id
- * by changing the  field called hinta with a new value.
+ * by changing the  field called hinta with a new value,
+ * else it will update all the fields for the specified swimhall.
+ * Returns all data from database.
  */
 app.put('/api/update', async function(req, res) {
   let id = req.body['_id'];
@@ -152,6 +145,7 @@ app.put('/api/update', async function(req, res) {
 
 /*
  * DELELTE /api/removeswimhall, will remove the swimhall with the same _id value as in the received json.
+ * Returns all data from database.
  */
 app.delete('/api/removeswimhall', async function(req, res) {
   let id = req.body['_id'];
