@@ -106,7 +106,6 @@
         kaupunki: '',
         url: '',
         kommentit: '',
-        mock: 0
       };
     },
     methods: {
@@ -254,8 +253,6 @@
 <style scoped>
     li {
         text-align: left;
-    }
-    .deletebuttons {
     }
 
 </style>

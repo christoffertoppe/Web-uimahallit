@@ -45,7 +45,7 @@
        * to Admin component. Admin component conveys the data to updateView for showing it in the update form with hall Object.
        */
       modifyHall: function(index) {
-        this.$emit("editHall", this.swimhalls[index]);
+        this.$emit("transfer:swimhall", this.swimhalls[index]);
       },
       /**
        * @vuese

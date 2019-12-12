@@ -3,7 +3,7 @@
     <h1>Admin</h1>
     <add-view id="addView" @add:swimhall="addHall"/>
     <div id="mainContainer">
-      <show-all-view id="showAllView" @delete:swimhall="deleteHall" @editHall="transferHall" :swimhalls="swimhalls"/>
+      <show-all-view id="showAllView" @delete:swimhall="deleteHall" @transfer:swimhall="transferHall" :swimhalls="swimhalls"/>
       <update-view id="updateView" @update:swimhall="updateHall" :hall="hall" />
     </div>
   </div>
