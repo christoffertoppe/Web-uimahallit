@@ -114,32 +114,7 @@
 </script>
 
 <style>
-  #admin {
-    font-family: 'Avenir', Helvetica, Arial, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    color: #2c3e50;
-  }
-  #mainContainer{
-    display: flex;
-    flex-direction: row;
-  }
-  #showAllView{
-    width: 50%;
-    padding: 30px;
-    background-color: darkgrey;
-  }
-  #updateView{
-    width: 50%;
-    padding: 30px;
-    background-color: burlywood;
-  }
 
-  #addView{
-    width: 100%;
-    padding: 30px;
-    background-color: deepskyblue;
-  }
 
     @import "../assets/admin.module.css";
 </style>
