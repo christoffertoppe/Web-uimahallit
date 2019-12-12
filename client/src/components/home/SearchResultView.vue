@@ -57,9 +57,12 @@
         name: "SearchResultView",
         /**
          * searchResult - Contains information on the swimming pools. Receives the grouped object emitted from searchView by searchResult
+         * latestSearchType - The most recent type of search, emitted from SearchView
          */
         props:{
+            // searchResult - Contains information on the swimming pools. Receives the grouped object emitted from searchView by searchResult
             searchResult: Object,
+            // latestSearchType - The most recent type of search, emitted from SearchView
             latestSearchType: String
         },
         /**
@@ -69,14 +72,13 @@
          * currentPool - The current pool that is clicked in the swimming pool array, used to display corresponding comments
          * userComment - User comment string
          * showComments - Flag for indicating whether comment section for a swimming pool should be displayed
+         * watchedSearchResult - an object variable in which searchResult prop is put
          */
         data: function(){
             return{
                 weekdays: ["Ma", "Ti", "Ke", "To", "Pe", "La", "Su"],
-
                 poolIndex: -1,
                 currentCity: "",
-
                 currentPool: {},
                 userComment: "",
                 showComments: false,
@@ -85,10 +87,11 @@
         },
         methods:{
             /**
+             * @vuese
              * Updates the index of swimming pool array the user clicks.
              * The pool information and comments are hidden if user clicks the same index twice
              *
-             * @param{number} index - list item index the user clicked
+             * @arg index - list item index the user clicked
              */
             updatePoolIndex: function(index){
                 if(this.poolIndex === index){
@@ -100,28 +103,31 @@
                 }
             },
             /**
+             * @vuese
              * Updates the current city based on the location where the pool that user has clicked.
              * Prevents displaying pool information from other cities with the same pool index.
              *
-             * @param{String} name - name of the city
+             * @arg name - name of the city
              */
             updateCurrentCity: function(name){
               this.currentCity = name;
             },
             /**
+             * @vuese
              * Updates the pool that user has clicked, used to show corresponding comments
-             * @param{Object} pool - pool that user has clicked
+             * @arg pool - pool that user has clicked
              */
             updateCurrentPool: function(pool){
                 this.currentPool = pool;
             },
             /**
+             * @vuese
              * Helper function that fires when user clicks a pool in the displayed pool array.
              * Contains functions tha
              *
-             * @param{Object} pool - pool object from the pool list user has clicked
-             * @param{number} index - index from the pool list user has clicked
-             * @param{string} name - city name
+             * @arg pool - pool object from the pool list user has clicked
+             * @arg index - index from the pool list user has clicked
+             * @arg name - city name
              */
             helper:function(pool, index, name){
                 this.updateCurrentPool(pool);
@@ -129,8 +135,9 @@
                 this.updateCurrentCity(name);
             },
             /**
+             * @vuese
              * Fires when user clicks the corresponding button. Sends user comment string to api using http post request.
-             * Respond contains set of pool objects with updates comments
+             * Respond contains set of pool objects with updated comments
              */
             sendComment: function () {
                 console.log(this.userComment);
@@ -166,6 +173,11 @@
             }
         },
         watch:{
+            /**
+             * @vuese
+             * Fires when searchResult prop is changed. Sets comment section visibility to false,
+             * and resets current user clicked pool to empty. Sets searchResult prop to variable so it can be mutated.
+             */
             searchResult: function(){
                 this.poolIndex = -1;
                 this.showComments = false;

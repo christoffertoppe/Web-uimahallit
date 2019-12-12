@@ -74,6 +74,7 @@
 
     methods: {
       /**
+       * @vuese
        * Adds a new swimming hall when form is submitted. Sends the new swimmming hall data to api using a http post request.
        * After the sending the method empties the form.
        */

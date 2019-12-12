@@ -36,6 +36,7 @@
          * locationName - user input keyword used to search for pools
          * searchResult - An array of JavaScript objects, each object contains information on a specific pool
          * searchResultGrouped - JavaScript object that groups pools by their city, lodash library used for grouping
+         * latestSearchType - the most recent type of search used, search by city, keyword, all
          */
         data: function (){
             return{
@@ -47,6 +48,7 @@
         },
         methods:{
             /**
+             * @vuese
              * Function for searching every swimming pool in the database.
              */
             searchAll: function(){
@@ -60,8 +62,9 @@
                 });
             },
             /**
+             * @vuese
              * Function for searching swimming pools in the database by city name.
-             * @param event - event object from clicking a DOM element
+             * @arg event - event object from clicking a DOM element
              */
             searchByCity: function(event) {
                 let city = event.target.getAttribute("value");
@@ -77,6 +80,7 @@
 
             },
             /**
+             * @vuese
              * Function for searching swimming pools in the database by keyword.
              */
             searchByName: function(){
@@ -97,6 +101,7 @@
         },
         watch:{
             /**
+             * @vuese
              * Function that handles grouping of search result when searchResult-data changes.
              * lodash library used for grouping.
              * Emits searchResultGrouped to Home component that conveys it to be used in SearchResultView
@@ -105,6 +110,11 @@
                 this.searchResultGrouped = groupBy(this.searchResult, "kaupunki");
                 console.log("hakutyyppi: " + this.latestSearchType)
                 console.log(this.searchResultGrouped);
+                /**
+                 * emits event searchResultFromFetch
+                 * @arg this.searchResultGrouped - and object containing information on swimming pools and grouped by their city
+                 * @arg this.latestSearchType - latest type of search, by city, keyword, all
+                 */
                 this.$emit("searchResultFromFetch", this.searchResultGrouped, this.latestSearchType);
             }
         }

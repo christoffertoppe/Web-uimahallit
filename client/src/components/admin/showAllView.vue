@@ -35,10 +35,12 @@
   export default {
     name: "showAllView",
     props: {
+      // swimhalls - An array of swimhall objects containing their infomation, fetched in Admin component
       swimhalls: Array,
     },
     methods: {
       /**
+       * @vuese
        * Offers the data of selected swimming hall for the updateView form by emitting the data of the chosen swimming hall
        * to Admin component. Admin component conveys the data to updateView for showing it in the update form with hall Object.
        */
@@ -46,6 +48,7 @@
         this.$emit("editHall", this.swimhalls[index]);
       },
       /**
+       * @vuese
        * Deletes the chosen swimming hall. Sends the index of the removable hall to the api using
        * http delete request.
        */

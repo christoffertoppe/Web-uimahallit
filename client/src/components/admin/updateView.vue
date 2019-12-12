@@ -111,6 +111,7 @@
     },
     methods: {
       /**
+       * @vuese
        * Takes the form data when form is submitted. Sends this update data to api using a http put request.
        * After the send method empties the form.
        */
@@ -171,9 +172,9 @@
        * Deletes the chosen comment of the swimming hall that was being updated. Sends the id, commentId and name to api using a http delete request.
        * Retrieves the swimming hall info from the database without the deleted comment back to the update form.
        *
-       * @param {int} id - The id of the swimming hall in the database for the to-be-deleted comment = swimming hall number
-       * @param {int} commentId - The index number of the kommentit array for the to-be-deleted comment = index of the kommentit array
-       * @param {String} name - The name of the swimming hall for the to-be-deleted comments
+       * @arg id - The id of the swimming hall in the database for the to-be-deleted comment = swimming hall number
+       * @arg commentId - The index number of the kommentit array for the to-be-deleted comment = index of the kommentit array
+       * @arg name - The name of the swimming hall for the to-be-deleted comments
        */
       deleteComment(id, commentId, name) {
         if (confirm('Haluatko poistaa ' + name + 'sta kommentin numero ' + (commentId + 1) + '?')) {
@@ -220,11 +221,12 @@
         }
       },
     },
+    watch: {
     /**
+     * @vuese
      * Watcher brings information of the selected swimming hall to the update form when hall object from Admin changes
      * i.e. when user selects another swimming hall to update in showAllView.
      */
-    watch: {
       hall: function() {
         this.id = this.hall._id;
         this.nimi = this.hall.nimi;

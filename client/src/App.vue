@@ -29,6 +29,7 @@
     },
     methods:{
       /**
+       * @vuese
        * Fires when user clicks corresponding button. Authenticates user by sending http post request to api
        * that compares user input to credentials(environment variables) given in local .env file
        * User is authenticated if api responds with "ACCEPTED", and vue router renders Admin component(s)
@@ -105,11 +106,10 @@
         this.$bvToast.hide();
       },
       /**
+       * @vuese
        * Sets user authentication flag to false when moving from admin page
        */
       setAuthToFalse: function () {
-        //this.$router.replace({path: "/"});
-
         if(this.$route.path !== "/") {
           this.$router.replace({path: "/"});
         }

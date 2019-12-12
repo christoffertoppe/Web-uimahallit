@@ -42,6 +42,7 @@
       }
     },
     /**
+     * @vuese
      * If user not authenticated, page is redirected to home page "/"
      * Loads the database data right away to fill the table in showAllView
      */
@@ -54,6 +55,7 @@
 
     methods: {
       /**
+       * @vuese
        * Retrieves all the data from the swimming hall database and inserts it into swimhalls array to be shown in the showAllView table.
        */
       async getSwimHalls() {
@@ -66,38 +68,43 @@
         }
       },
       /**
+       * @vuese
        * Sets the swimming hall to be updated from the list of showAllView to the update form of the updateView.
        * Also notifies the watcher when another hall from the list has been selected.
-       * @param {object} hall - swimming hall object that was chosen with showAllView's update button
+       * @arg hall - swimming hall object that was chosen with showAllView's update button
        */
       transferHall(hall) {
         this.hall = hall;
         this.edited = true;
       },
       /**
+       * @vuese
        * Notifies the watcher when new swimming hall has been added in addView.
        */
       addHall() {
         this.edited = true;
       },
       /**
+       * @vuese
        * Notifies the watcher when swimming hall has been deleted in showAllView.
        */
       deleteHall() {
         this.edited = true;
       },
       /**
+       * @vuese
        * Notifies the watcher when swimming hall has been edited in updateView.
        */
       updateHall() {
         this.edited = true;
       },
     },
-    /**
-     * Watcher updates the list of the swimming halls in showAllView with getSwimhalls function
-     * and thus keeping the view updated for the user.
-     */
     watch: {
+      /**
+       * @vuese
+       * Watcher updates the list of the swimming halls in showAllView with getSwimhalls function
+       * and thus keeping the view updated for the user.
+       */
       edited: function() {
         this.getSwimHalls();
         this.edited = false;
