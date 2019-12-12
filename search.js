@@ -9,8 +9,7 @@ class Search {
   /**
    * search database for swimhalls with same name as the keyword.
    * @param keyword search word
-   *
-   * @returns {Promise<*>}
+   * @returns Array
    */
   async search(keyword) {
     keyword = keyword.replace(/%C3%A4/g, 'ä');
@@ -43,7 +42,7 @@ class Search {
   /**
    *  searchCity will search for swimminghalls with specific city name.
    * @param city city to search for
-   * @returns {Promise<*>}
+   * @returns Array
    */
   async searchCity(city) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
@@ -72,6 +71,7 @@ class Search {
 
   /**
    * searchAll will return all the data stored on the database.
+   * no parameters needed
    */
   async searchAll() {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +

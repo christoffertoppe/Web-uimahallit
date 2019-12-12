@@ -11,7 +11,7 @@ class Add {
    * add user comment for swimhall id and the comment
    * @param id
    * @param comment
-   * @returns {Promise<string>}
+   * @returns Integer
    */
   async addComment(id, comment) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
@@ -52,7 +52,7 @@ class Add {
   /**
    * add new swimhall with json element including all info
    * @param hallInfo
-   * @returns {Promise<void>}
+   * @returns Integer
    */
   async addNewHall(hallInfo) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
@@ -80,8 +80,8 @@ class Add {
   }
 
   /**
-   * method to get the last index used my swimhalls
-   * @returns {Promise<void>}
+   * method to get the last index used by swimhalls
+   * @returns Integer
    */
   async getCount() {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +

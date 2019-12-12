@@ -73,8 +73,24 @@ nimi:[String],
 adds comment to the swimhall with the same id as included in JSON file
 ### received JSON:
 {id:[Integer],
-comment:[String]
-}
+comment:[String],
+type:[String]
+
+### returns JSON with all the data that was last seen on the screen on frontend with the changes.
+
+{_id:[Integer],
+nimi:[String],
+ ratapituus:[Integer],
+ ratamäärä:[Integer],
+ puhelin:[String],
+ aika:[Array[String]],
+ hinta:[Double],
+ alehinta:[Double],
+ osoite:[String],
+ kaupunki:[String],
+ kommentit:[Array[String]],
+ url:[String]}
+
 
 ## POST /api/add
 
@@ -94,6 +110,20 @@ Information is added to the end of list in database as a new swimhall.
  kommentit:[Array[String]],
  url:[String]}
 adds it to the database
+
+### returns the updated version of the whole database as JSON:  
+{_id:[Integer],
+ nimi:[String],
+ ratapituus:[Integer],
+ ratamäärä:[Integer],
+ puhelin:[String],
+ aika:[Array[String]],
+ hinta:[Double],
+ alehinta:[Double],
+ osoite:[String],
+ kaupunki:[String],
+ kommentit:[Array[String]],
+ url:[String]}...
 
 ## PUT /api/update
 
@@ -118,6 +148,19 @@ nimi:[String],
  kommentit:[Array[String]],
  url:[String]}
   
+### returns the updated version of the whole database as JSON:  
+  {_id:[Integer],
+   nimi:[String],
+   ratapituus:[Integer],
+   ratamäärä:[Integer],
+   puhelin:[String],
+   aika:[Array[String]],
+   hinta:[Double],
+   alehinta:[Double],
+   osoite:[String],
+   kaupunki:[String],
+   kommentit:[Array[String]],
+   url:[String]}...
 ## DELETE /api/comment
 
 Deletes a comment with a specific value id of swimhall and comment number
@@ -130,3 +173,17 @@ comment:[Integer]}
 Removes swimhall with the specific id number
 ### received JSON:
 {_id:[Integer]}
+
+### returns the updated version of the whole database as JSON:   
+{_id:[Integer],
+ nimi:[String],
+ ratapituus:[Integer],
+ ratamäärä:[Integer],
+ puhelin:[String],
+ aika:[Array[String]],
+ hinta:[Double],
+ alehinta:[Double],
+ osoite:[String],
+ kaupunki:[String],
+ kommentit:[Array[String]],
+ url:[String]}...

@@ -10,7 +10,7 @@ class Update{
    * lets you update the price of the swimhalls ticket.
    * @param id
    * @param updateInfo
-   * @returns {Promise<void>}
+   * @returns Integer
    */
   async update(id, updateInfo) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
@@ -42,7 +42,7 @@ class Update{
    * lets you update the whole swimhalls info
    * @param id
    * @param updateInfo
-   * @returns {Promise<void>}
+   * @returns Integer
    */
   async updateAll(id, updateInfo) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +

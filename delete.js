@@ -10,7 +10,7 @@ class Delete {
    * delete comment from specific swimhall with same id, and the comment with same id as commentid.
    * @param id
    * @param comment
-   * @returns {Promise<string>}
+   * @returns String
    */
   async deleteComment(id, commentid) {
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
@@ -40,7 +40,7 @@ class Delete {
   /**
    * deletes the swimhall with same id as parameter id.
    * @param id
-   * @returns {Promise<string>}
+   * @returns String
    */
   async deleteSwimHall(id){
     const uri = 'mongodb+srv://' + process.env.DB_USER + ':' +
